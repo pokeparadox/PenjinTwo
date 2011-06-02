@@ -72,11 +72,26 @@ namespace Penjin
             /** \brief Clear any and all stored images and clip areas. */
             void clear();
 
+
+            Vector2d<int> getDimensions();
             /** \brief Get the dimensions of a subImage from the ImageSheet.
              * \param subImage : The index of the Image that we require the dimensions.
              * \return Vector2d<int> containing the relevent dimensions.
              */
             Vector2d<int> getDimensions(CRuint subImage);
+
+            /** \brief Get the Colour of the pixel of a subImage from the ImageSheet.
+             * \param pos : The location in the required subImage.
+             * \param frame : The subImage of the ImageSheet to inspect.
+             * \return Colour of the requested pixel.
+             */
+            Colour getPixelInFrame(Vector2d<int> pos, CRint frame) const
+            {
+                if (sheetMode)
+                    return GFX::getInstance()->getPixel(surface, Vector2d<int> (pos.x + clipAreas[frame].x, pos.y + clipAreas[frame].y) );
+
+                return GFX::getInstance()->getPixel(surfaces.at(frame), Vector2d<int> (pos.x, pos.y ) );
+            }
 
              /** \brief set the image to display in the render function.
              * \param a : The active image.

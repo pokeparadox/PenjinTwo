@@ -17,23 +17,62 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Sprite.h"
+#include "CollisionRegion.h"
 using Penjin::Sprite;
+using Penjin::CollisionRegion;
 
-Sprite::Sprite()
+Sprite::Sprite() : transparent(MAGENTA), region(NULL)
 {
-
+    region = new CollisionRegion;
 }
 
 Sprite::~Sprite()
 {
+    delete region;
+}
 
+Penjin::ERRORS Sprite::load(const string& file)
+{
+    return ImageSheet::load(file);
+}
+
+Penjin::ERRORS Sprite::load(SDL_Surface* s)
+{
+    return ImageSheet::load(s);
+}
+
+Penjin::ERRORS Sprite::load(const string& file, CRuint xTiles, CRuint yTiles)
+{
+    Penjin::ERRORS e = ImageSheet::load(file,xTiles,yTiles);
+    setTransparentColour(transparent);
+    return e;
+}
+
+Penjin::ERRORS Sprite::load(SDL_Surface* s, CRuint xTiles, CRuint yTiles)
+{
+    Penjin::ERRORS e = ImageSheet::load(s,xTiles,yTiles);
+    setTransparentColour(transparent);
+    return e;
 }
 
 Penjin::ERRORS Sprite::setTransparentColour(const Colour& c)
 {
-    // We only have one image to set a transparent colour
-    if(SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surface->format,c.r,c.g,c.b)) == -1)
-        return PENJIN_SDL_INVALID_COLORKEY;
+    if(sheetMode)
+    {
+        // We only have one image to set a transparent colour
+        if(SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surface->format,c.r,c.g,c.b)) == -1)
+            return PENJIN_SDL_INVALID_COLORKEY;
+    }
+    else
+    {
+        // we need to run through all individual images and set transparent colour
+        for(uint i = surfaces.size()-1; i >=0; --i)
+        {
+            if(SDL_SetColorKey(surfaces.at(i), SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surfaces.at(i)->format,c.r,c.g,c.b)) == -1)
+                return PENJIN_SDL_INVALID_COLORKEY;
+        }
+    }
+    transparent = c;
     return PENJIN_OK;
 }
 
@@ -44,59 +83,177 @@ Penjin::ERRORS Sprite::setTransparentColour(const Vector2d<int>& v)
 
 void Sprite::disableTransparentColour()
 {
-    SDL_SetColorKey(surface, 0, surface->format->colorkey);
+    if(sheetMode)
+    {
+        SDL_SetColorKey(surface, 0, surface->format->colorkey);
+    }
+    else
+    {
+        // we need to run through all individual images and disable transparent colour
+        for(uint i = surfaces.size()-1; i >=0; --i)
+        {
+            SDL_SetColorKey(surfaces.at(i), 0, surfaces.at(i)->format->colorkey);
+        }
+    }
+    transparent.a = 0;
 }
 
 /*
-Sprite::Sprite()
-{
-
-    position.x = 0;
-    position.y = 0;
-    #ifdef PENJIN_3D
-        position.z = 0.0f;
-    #endif
-    #ifdef PENJIN_SDL
+#ifdef PENJIN_SDL
+    AnimatedSprite::AnimatedSprite(CRint x,CRint y)
+    {
+        currentFrame = 0;
+        animationTimer.setMode(THIRTY_FRAMES);
+        numLoops = firstLoops = -1;
+        animationTimer.start();
+        hasFinishedVal = false;
+        reachedEnd = false;
+        mode = pmNormal;
         screen = GFX::getInstance()->getSDLVideoSurface();
+    }
+#else
+    AnimatedSprite::AnimatedSprite(CRfloat x,CRfloat y)
+    {
+        currentFrame = 0;
+        animationTimer.setMode(THIRTY_FRAMES);
+        numLoops = -1;
+        animationTimer.start();
+        position.x = x;
+        position.y = y;
+        #ifdef PENJIN_3D
+            position.z = 0.0f;
+        #endif
+        hasFinishedVal = false;
+        reachedEnd = false;
+        mode = pmNormal;
+    }
+    #ifdef PENJIN_3D
+    AnimatedSprite::AnimatedSprite(CRfloat x,CRfloat y,CRfloat z)
+    {
+        currentFrame = 0;
+        animationTimer.setMode(THIRTY_FRAMES);
+        numLoops = -1;
+        animationTimer.start();
+        position.x = x;
+        position.y = y;
+        position.z = z;
+        hasFinishedVal = false;
+        reachedEnd = false;
+        mode = pmNormal;
+    }
+    #endif
+#endif
+
+Penjin::ERRORS AnimatedSprite::loadFrame(SDL_Surface* s)
+{
+    #ifdef PENJIN_SDL
+        image.loadImage(s);
+        return PENJIN_OK;
+    #elif PENJIN_ES
+        return PENJIN_FUNCTION_IS_STUB;
+    #else
+        return PENJIN_FUNCTION_IS_STUB;
     #endif
 }
-#ifndef PENJIN_3D
-    Sprite::Sprite(CRint x,CRint y)
-    {
-        setPosition(x,y);
-        #ifdef PENJIN_SDL
-            screen = GFX::getInstance()->getSDLVideoSurface();
-        #endif
-    }
-#else
-    Sprite::Sprite(CRfloat x,CRfloat y)
-    {
-        setPosition(x,y);
-    }
-    Sprite::Sprite(CRfloat x,CRfloat y,CRfloat z)
-    {
-        setPosition(x,y,z);
-    }
-    Sprite::Sprite(const Vector3df& position)
-    {
-        setPosition(position);
-    }
-    Sprite::Sprite(const Vector2df& position)
-    {
-        setPosition(position);
-    }
-#endif
 
-Penjin::ERRORS Sprite::loadSprite(CRstring fileName){return image.loadImage(fileName);}
+Penjin::ERRORS AnimatedSprite::loadFrame(CRstring fileName){return image.loadImage(fileName);}
 
-#ifdef PENJIN_SDL
-    void Sprite::render(SDL_Surface* screen){image.renderImage(screen,position);}
-#else
-    void Sprite::render(){image.renderImage(position);}
-#endif
+Penjin::ERRORS AnimatedSprite::loadFrames(CRstring fileName,CRuint xTiles,CRuint yTiles){image.clear(); return image.loadImageSheet(fileName, xTiles, yTiles);}
 
-#ifdef PENJIN_SDL
+Penjin::ERRORS AnimatedSprite::loadFrames(SDL_Surface* s,CRuint xTiles,CRuint yTiles,CRuint skipTiles,CRuint numTiles,CRbool transparent)
+{
+    image.clear();
+    if (transparent)
+        return image.loadImageSheet(s, xTiles, yTiles, skipTiles, numTiles);
+    else
+        return image.loadImageSheetNoKey(s, xTiles, yTiles, skipTiles, numTiles);
 }
-#endif
-*/
 
+#ifdef PENJIN_SDL
+    void AnimatedSprite::render(SDL_Surface *screen){image.renderImage(currentFrame,screen,position);}
+#else
+    void AnimatedSprite::render(){image.renderImage(currentFrame, position);}
+#endif
+
+void AnimatedSprite::update()
+{
+    if (not hasFinishedVal && animationTimer.getScaledTicks() >= 1) // has the next frame been reached?
+    {
+        animationTimer.start();
+        switch (mode)
+        {
+            case pmNormal:
+            {
+                ++currentFrame;
+                if (currentFrame > image.size()-1)
+                {
+                    if (numLoops != 0) // looping
+                    {
+                        currentFrame = 0;
+                        if (numLoops > 0) // don't loop forever
+                            --numLoops;
+                    }
+                    else
+                    {
+                        currentFrame = image.size()-1;
+                        hasFinishedVal = true;
+                    }
+                }
+                break;
+            }
+            case pmReverse:
+            {
+                --currentFrame;
+                if (currentFrame < 0)
+                {
+                    if (numLoops != 0) // looping
+                    {
+                        currentFrame = image.size()-1;
+                        if (numLoops > 0)
+                            --numLoops;
+                    }
+                    else
+                    {
+                        currentFrame = 0;
+                        hasFinishedVal = true;
+                    }
+                }
+                break;
+            }
+            case pmPulse:
+            {
+                if (reachedEnd) // play backwards (phase 2)
+                {
+                    --currentFrame;
+                    if (currentFrame < 0)
+                    {
+                        if (numLoops != 0)
+                        {
+                            reachedEnd = false;
+                            currentFrame = min((size_t)1,image.size()-1); // set to second frame so we don't play the first frame two times in a row
+                            if (numLoops > 0)
+                                --numLoops;
+                        }
+                        else
+                        {
+                            currentFrame = 0;
+                            hasFinishedVal = true;
+                            reachedEnd = false;
+                        }
+                    }
+                }
+                else // play forwards (phase 1)
+                {
+                    ++currentFrame;
+                    if (currentFrame > image.size()-1)
+                    {
+                        currentFrame = max((int)image.size()-2,0); // set to penultimate frame so we don't play the last one two times in a row
+                        reachedEnd = true;
+                    }
+                }
+                break;
+            }
+        }
+    }
+}
+*/

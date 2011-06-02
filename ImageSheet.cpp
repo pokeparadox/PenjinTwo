@@ -170,6 +170,11 @@ void ImageSheet::clear()
     clipAreas.clear();
 }
 
+Vector2d<int> ImageSheet::getDimensions()
+{
+    return getDimensions(0);
+}
+
 Vector2d<int> ImageSheet::getDimensions(CRuint subImage)
 {
     // SheetMode means only one image

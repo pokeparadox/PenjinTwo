@@ -66,6 +66,10 @@ namespace Penjin
             template <class S>
             Vector2d<T> operator+(const Vector2d<S> & v)const{return Vector2d<T> (this->x + v.x, y + v.y);}
 
+            Vector2d<T> operator+=(const Vector2d<T> & v){return Vector2d<T> (this->x += v.x, y += v.y);}
+            template <class S>
+            Vector2d<T> operator+=(const Vector2d<S> & v){return Vector2d<T> (this->x += v.x, y += v.y);}
+
             Vector2d<T> operator-(const Vector2d<T> & v)const{return Vector2d<T> (this->x - v.x, y - v.y);}
             bool operator>(const Vector2d<T> & v)const{return (this->x > v.x) && (this->y > v.x);}
             bool operator<(const Vector2d<T> & v)const{return (this->x < v.x) && (this->y < v.x);}
