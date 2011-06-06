@@ -46,7 +46,7 @@ class Encryption
     private:
         int wrapValue(int val,CRint limit){return (NumberUtility::wrapValue(val,limit));}	//	Brings value with a certain range.
         char key;		//This is the random number seed value
-        RandomClass rand;
+        Penjin::RandomClass rand;
 };
 
 #endif	//	ENCRYPTION_H
