@@ -25,6 +25,8 @@ Also provides some quick init functions
 */
 
 #include "ErrorHandler.h"
+#include "PenjinTypes.h"
+#include "PenjinErrors.h"
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -31,29 +31,16 @@
 #include "PenjinTypes.h"
 #include "Rectangle.h"
 #include "Vector2d.h"
+#include "SimpleDirection.h"
 
 
 namespace Penjin
 {
-    enum Directions
-    {
-        diNONE=0,
-        diLEFT,
-        diRIGHT,
-        diTOP,
-        diBOTTOM,
-        diTOPLEFT,
-        diTOPRIGHT,
-        diBOTTOMLEFT,
-        diBOTTOMRIGHT,
-        diMIDDLE
-    };
-
     struct CollisionInfo
     {
         Vector2d<int> contactPoint;
         bool hasCollided;
-        Directions direction;
+        SimpleDirection direction;
         Colour type;
     };
 
@@ -272,32 +259,9 @@ namespace Penjin
         // performs a hitTest first and a (rectangular) check for direction afterwards
         // returns the result of that check (only 4 base directions, no corners, viewed from this object)
         // might fail on extreme shapes (e.g. very tall and very thin)
-        Directions directionTest(const CollisionRegion* const tester, CRbool fullShape=false) const;
+        SimpleDirection directionTest(const CollisionRegion* const tester, CRbool fullShape=false) const;
         // use external positioning
-        Directions directionTest(const CollisionRegion* const tester, const Vector2d<float>& posObj, const Vector2d<float>& posTester, CRbool fullShape=false) const;
-
-        // takes a direction and returns the opposite
-        static Directions getOppositeDirection(const Directions& dir)
-        {
-            if (dir == diLEFT)
-                return diRIGHT;
-            else if (dir == diRIGHT)
-                return diLEFT;
-            else if (dir == diTOP)
-                return diBOTTOM;
-            else if (dir == diBOTTOM)
-                return diTOP;
-            else if (dir == diTOPLEFT)
-                return diBOTTOMRIGHT;
-            else if (dir == diTOPRIGHT)
-                return diBOTTOMLEFT;
-            else if (dir == diBOTTOMLEFT)
-                return diTOPRIGHT;
-            else if (dir == diBOTTOMRIGHT)
-                return diTOPLEFT;
-            else
-                return diNONE;
-        }
+        SimpleDirection directionTest(const CollisionRegion* const tester, const Vector2d<float>& posObj, const Vector2d<float>& posTester, CRbool fullShape=false) const;
 
     private:
         void createMap()
