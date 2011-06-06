@@ -24,7 +24,7 @@
 Encryption::Encryption()
 {
 	//	Get and assign the encryption key.
-	key = wrapValue(Random::randSeed(),LIMIT);
+	key = wrapValue(Penjin::Random::randSeed(),LIMIT);
 
 	//	Set the seed to this key to make sure.
 	rand.setSeed(key);

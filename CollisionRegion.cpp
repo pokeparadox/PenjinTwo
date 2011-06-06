@@ -22,6 +22,8 @@
 #include "NumberUtility.h"
 using Penjin::CollisionRegion;
 using Penjin::Colour;
+using Penjin::SimpleDirection;
+
 CollisionRegion::CollisionRegion()
 {
     //ctor
@@ -221,12 +223,12 @@ bool CollisionRegion::hitTest(const CollisionRegion* const tester, const Vector2
     }
 }
 
-Penjin::Directions CollisionRegion::directionTest(const CollisionRegion* const tester, CRbool fullShape) const
+Penjin::SimpleDirection CollisionRegion::directionTest(const CollisionRegion* const tester, CRbool fullShape) const
 {
     // check for collision first
     if (not hitTest(tester,fullShape))
     {
-        return diNONE;
+        return SimpleDirection(diNONE);
     }
     // now check collision direction, by a simple check of the overlaping area
     else
@@ -240,27 +242,27 @@ Penjin::Directions CollisionRegion::directionTest(const CollisionRegion* const t
         {
             // more X -> top/bottom collision
             if ((this->getY() + this->getHeight()/2) > (tester->getY() + tester->getHeight()/2))
-                return diTOP;
+                return SimpleDirection(diTOP);
             else
-                return diBOTTOM;
+                return SimpleDirection(diBOTTOM);
         }
         else
         {
             // more Y -> left/right collision
             if ((this->getX() + this->getWidth()/2) > (tester->getX() + tester->getWidth()/2))
-                return diLEFT;
+                return SimpleDirection(diLEFT);
             else
-                return diRIGHT;
+                return SimpleDirection(diRIGHT);
         }
     }
 }
 
-Penjin::Directions CollisionRegion::directionTest(const CollisionRegion* const tester, const Vector2d<float>& posObj, const Vector2d<float>& posTester, CRbool fullShape) const
+Penjin::SimpleDirection CollisionRegion::directionTest(const CollisionRegion* const tester, const Vector2d<float>& posObj, const Vector2d<float>& posTester, CRbool fullShape) const
 {
     // check for collision first
     if (not hitTest(tester,posObj,posTester,fullShape))
     {
-        return diNONE;
+        return SimpleDirection(diNONE);
     }
     // now check collision direction, by a simple check of the overlaping area
     else
@@ -279,17 +281,17 @@ Penjin::Directions CollisionRegion::directionTest(const CollisionRegion* const t
         {
             // more X -> top/bottom collision
             if ((objPosY + this->getHeight()/2) > (testerPosY + tester->getHeight()/2))
-                return diTOP;
+                return SimpleDirection(diTOP);
             else
-                return diBOTTOM;
+                return SimpleDirection(diBOTTOM);
         }
         else
         {
             // more Y -> left/right collision
             if ((objPosX + this->getWidth()/2) > (testerPosX + tester->getWidth()/2))
-                return diLEFT;
+                return SimpleDirection(diLEFT);
             else
-                return diRIGHT;
+                return SimpleDirection(diRIGHT);
         }
     }
 }
