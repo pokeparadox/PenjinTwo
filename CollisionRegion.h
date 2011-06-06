@@ -49,12 +49,30 @@ namespace Penjin
         diMIDDLE
     };
 
+    struct CollisionInfo
+    {
+        Vector2d<int> contactPoint;
+        bool hasCollided;
+        Directions direction;
+        Colour type;
+    };
+
     class CollisionRegion
     {
     public:
         CollisionRegion();
         virtual ~CollisionRegion();
 
+        Penjin::ERRORS loadSharedImage(ImageSheet* share)
+        {
+            // if their is no shared ImageSheet then we must delete it
+            if(!shared)
+                freeImage();
+            // Assign the shared ImageSheet
+            map = share;
+            // Set the shared variable to show deleting is not our respinsiblity
+            shared = true;
+        }
 
         Penjin::ERRORS loadImage(CRstring image)
         {
@@ -216,6 +234,23 @@ namespace Penjin
 
         // debug render function, draws the loaded image (if any) and the outline of the region
         void render();
+
+        // Returns if the ImageSheet is shared or not
+        bool isShared();
+
+        /** \brief Function to test for collision with this CollisionRegion, providing CollisionInfo
+         * \param tester : The CollisionRegion to test against.
+         * \param fullShape : If true, the image data is tested pixel by pixel, otherwise Rectangles are used. Default to false.
+         * \return CollisionInfo containing position, type and direction of collision and if indeed a collision took place.
+         */
+        CollisionInfo hitTest(const CollisionRegion* const tester, CRbool fullShape=false);
+
+        /** \brief Function to test for collision with the provided point, providing CollisionInfo
+         * \param testPoint : The point to test against.
+         * \param fullShape : If true, the image data is tested pixel by pixel, otherwise Rectangles are used. Default to false.
+         * \return CollisionInfo containing position, type and direction of collision and if indeed a collision took place.
+         */
+        CollisionInfo hitTest(const Vector2d<int>& testPoint, CRbool fullShape=false);
 
         // returns the colour of the collision image at position x,y or checks against the region if no image has been loaded
         // absulute = true - the passed point is relative to the logic zero-point (for example the top-left corner of the screen)

@@ -34,11 +34,13 @@ ImageSheet::ImageSheet() : sheetMode(true), activeImage(0)
 ImageSheet::~ImageSheet()
 {
     //dtor
+    clear();
 }
 
 
 Penjin::ERRORS ImageSheet::load(SDL_Surface* s)
 {
+    sheetMode = false;
     Penjin::ERRORS e = Image::load(s);
     if(surface)
         surfaces.push_back(surface);
@@ -48,6 +50,7 @@ Penjin::ERRORS ImageSheet::load(SDL_Surface* s)
 
 Penjin::ERRORS ImageSheet::load(const string& file)
 {
+    sheetMode = false;
     Penjin::ERRORS e = Image::load(file);
     if(surface)
         surfaces.push_back(surface);

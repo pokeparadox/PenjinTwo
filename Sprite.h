@@ -20,11 +20,10 @@
 #define ANIMATEDSPRITE_H
 
 #include "Animation.h"
+#include "CollisionRegion.h"
 
 namespace Penjin
 {
-    class CollisionRegion;
-
     class Sprite : public Animation
     {
         public:
@@ -51,7 +50,23 @@ namespace Penjin
              */
             virtual Penjin::ERRORS load(SDL_Surface* surface, CRuint xTiles, CRuint yTiles);
 
-            void setCollisionRegion(const CollisionRegion& region);
+
+            /** \brief Function to test for collision with this Sprite, providing CollisionInfo
+             * \param tester : The Sprite to test against.
+             * \param fullShape : If true, the image data is tested pixel by pixel, otherwise Rectangles are used. Default to false.
+             * \return CollisionInfo containing position, type and direction of collision and if indeed a collision took place.
+             */
+            Penjin::CollisionInfo hitTest(Sprite* tester, CRbool fullShape=false);
+
+            /** \brief Function to test for collision with the provided point, providing CollisionInfo
+             * \param testPoint : The point to test against.
+             * \param fullShape : If true, the image data is tested pixel by pixel, otherwise Rectangles are used. Default to false.
+             * \return CollisionInfo containing position, type and direction of collision and if indeed a collision took place.
+             */
+            Penjin::CollisionInfo hitTest(const Vector2d<int>& testPoint, CRbool fullShape=false);
+
+            CollisionRegion* getCollisionRegion();
+            //void setCollisionRegion(const CollisionRegion& region);
 
             Penjin::ERRORS setTransparentColour(const Colour& c);
             Penjin::ERRORS setTransparentColour(const Vector2d<int>& v);

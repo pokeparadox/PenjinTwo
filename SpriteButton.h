@@ -20,7 +20,8 @@
 /**
   * \file SpriteButton is a class to create a button with an image centred on button face.
   * \author Kevin Winfield-Pantoja
-*/#ifndef SPRITEBUTTON_H
+*/
+#ifndef SPRITEBUTTON_H
 #define SPRITEBUTTON_H
 
 #include "Button.h"

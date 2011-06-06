@@ -33,18 +33,25 @@ Sprite::~Sprite()
 
 Penjin::ERRORS Sprite::load(const string& file)
 {
-    return ImageSheet::load(file);
+    Penjin::ERRORS e = ImageSheet::load(file);
+    setTransparentColour(transparent);
+    region->loadSharedImage((ImageSheet*)this);
+    return e;
 }
 
 Penjin::ERRORS Sprite::load(SDL_Surface* s)
 {
-    return ImageSheet::load(s);
+    Penjin::ERRORS e = ImageSheet::load(s);
+    setTransparentColour(transparent);
+    region->loadSharedImage((ImageSheet*)this);
+    return e;
 }
 
 Penjin::ERRORS Sprite::load(const string& file, CRuint xTiles, CRuint yTiles)
 {
     Penjin::ERRORS e = ImageSheet::load(file,xTiles,yTiles);
     setTransparentColour(transparent);
+    region->loadSharedImage((ImageSheet*)this);
     return e;
 }
 
@@ -52,6 +59,7 @@ Penjin::ERRORS Sprite::load(SDL_Surface* s, CRuint xTiles, CRuint yTiles)
 {
     Penjin::ERRORS e = ImageSheet::load(s,xTiles,yTiles);
     setTransparentColour(transparent);
+    region->loadSharedImage((ImageSheet*)this);
     return e;
 }
 
@@ -73,6 +81,7 @@ Penjin::ERRORS Sprite::setTransparentColour(const Colour& c)
         }
     }
     transparent = c;
+    region->setNoCollisionColour(transparent);
     return PENJIN_OK;
 }
 
@@ -96,6 +105,16 @@ void Sprite::disableTransparentColour()
         }
     }
     transparent.a = 0;
+}
+
+CollisionRegion* Sprite::getCollisionRegion()
+{
+    return region;
+}
+
+Penjin::CollisionInfo Sprite::hitTest(Sprite* tester, CRbool fullShape)
+{
+    return region->hitTest(tester->getCollisionRegion(), fullShape);
 }
 
 /*

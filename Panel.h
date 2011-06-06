@@ -58,6 +58,7 @@ namespace Penjin
             bool isHidden();
             void toggleHidden();
             void setShouldHide(const bool& hide);
+            void clear();
 
         protected:
             bool shouldHide;    //  retract the panel or not

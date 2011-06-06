@@ -33,11 +33,13 @@ CollisionRegion::CollisionRegion()
     region.w = 0;
     region.h = 0;
     pos = Vector2d<int>(0,0);
+    shared = false;
 }
 
 CollisionRegion::~CollisionRegion()
 {
-    delete map;
+    if(!shared)
+        delete map;
     delete showRect;
 }
 
@@ -69,6 +71,54 @@ void CollisionRegion::generateHitRegion()
     region.y = t;
     region.w = r-l+1;
     region.h = b-t+1;
+}
+
+Penjin::CollisionInfo CollisionRegion::hitTest(const CollisionRegion* const tester, CRbool fullShape)
+{
+    // TODO get collision point of contact
+    Penjin::CollisionInfo i;
+    i.hasCollided=false;
+    i.direction=Penjin::diNONE;
+    if (fullShape)
+    {
+        // determine overlaping area
+        float xPos = max(getX(), tester->getX());
+        float yPos = max(this->getY(), tester->getY());
+        float xPosMax = min(this->getX() + this->getWidth(), tester->getX() + tester->getWidth());
+        float yPosMax = min(this->getY() + this->getHeight(), tester->getY() + tester->getHeight());
+
+        // check for collision
+        for (float I = xPos; I <= xPosMax; ++I)
+        {
+            for (float K = yPos; K < yPosMax; ++K)
+            {
+                // if both have a collision-pixel at the same spot, we have a collision
+                if (this->hitTest(I,K,true) && tester->hitTest(I,K,true))
+                {
+                    i.hasCollided=true;
+                    i.type = this->getCollisionType(I,K,true);
+                    i.direction = this->directionTest(tester,fullShape);
+                    return i;
+                }
+            }
+        }
+    }
+    else
+    {
+        // check rectangular bounds only
+        if (((tester->getX() - this->getX()) < this->getWidth() && (this->getX() - tester->getX()) < tester->getWidth()) &&
+            ((tester->getY() - this->getY()) < this->getHeight() && (this->getY() - tester->getY()) < tester->getHeight()))
+        {
+            i.hasCollided = true;
+            i.direction = this->directionTest(tester,fullShape);
+        }
+    }
+    return i;
+}
+
+Penjin::CollisionInfo CollisionRegion::hitTest(const Vector2d<int>& testPoint, CRbool fullShape)
+{
+
 }
 
 Colour CollisionRegion::getCollisionType(float x, float y, CRbool absolute) const
@@ -142,8 +192,6 @@ bool CollisionRegion::hitTest(const CollisionRegion* const tester, const Vector2
     float testerPosY = posTester.y + tester->getRegionOffsetY();
     if (fullShape)
     {
-        /// TODO Optimise by testing rectangular collision first (if possible)
-        /// We only do more expensive per-pixel test if indeed a rectangle collision has happened.
         // determine overlaping area
         float xPos = max(objPosX, testerPosX);
         float yPos = max(objPosY, testerPosY);

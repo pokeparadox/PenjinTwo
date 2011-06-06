@@ -44,9 +44,15 @@ Panel::Panel() : shouldHide(false), hidden(false), selection(-1)//, hideOffset(0
 Panel::~Panel()
 {
     //dtor
+    clear();
+}
+
+void Panel::clear()
+{
     for(int i = widgets.size()-1; i>=0; --i)
     {
         delete widgets.at(i);
+        widgets.at(i) = NULL;
     }
     widgets.clear();
 }
