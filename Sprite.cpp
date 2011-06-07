@@ -74,7 +74,7 @@ Penjin::ERRORS Sprite::setTransparentColour(const Colour& c)
     else
     {
         // we need to run through all individual images and set transparent colour
-        for(uint i = surfaces.size()-1; i >=0; --i)
+        for(int i = surfaces.size()-1; i >=0; --i)
         {
             if(SDL_SetColorKey(surfaces.at(i), SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surfaces.at(i)->format,c.r,c.g,c.b)) == -1)
                 return PENJIN_SDL_INVALID_COLORKEY;

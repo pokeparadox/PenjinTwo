@@ -61,7 +61,6 @@ Penjin::ERRORS ImageSheet::load(const string& file)
 
 Penjin::ERRORS ImageSheet::load(SDL_Surface* s, CRuint xTiles, CRuint yTiles)
 {
-    sheetMode = true;
     // We load the raw image to surface rather than surfaces
     Penjin::ERRORS e = Image::load(s);
 
@@ -74,7 +73,6 @@ Penjin::ERRORS ImageSheet::load(SDL_Surface* s, CRuint xTiles, CRuint yTiles)
 
 Penjin::ERRORS ImageSheet::load(CRstring file, CRuint xTiles, CRuint yTiles)
 {
-    sheetMode = true;
     // We load the image file to surface rather than surfaces
     Penjin::ERRORS e = Image::load(file);
 
@@ -121,6 +119,7 @@ Penjin::ERRORS ImageSheet::assignClipAreas(CRuint xTiles,CRuint yTiles,CRuint sk
             ++currTile;
         }
     }
+    sheetMode = true;
     return PENJIN_OK;
 }
 
@@ -144,10 +143,10 @@ void ImageSheet::render()
         SDL_SetAlpha(surfaces.at(activeImage), SDL_SRCALPHA, a);
         // Set up blitting area
         SDL_Rect src, dst;
-        src.x = surface->clip_rect.x;
-        src.y = surface->clip_rect.y;
-        src.w = surface->w;
-        src.h = surface->h;
+        src.x = surfaces.at(activeImage)->clip_rect.x;
+        src.y = surfaces.at(activeImage)->clip_rect.y;
+        src.w = surfaces.at(activeImage)->w;
+        src.h = surfaces.at(activeImage)->h;
 
         dst.x = position.x;
         dst.y = position.y;
