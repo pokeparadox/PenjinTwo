@@ -19,7 +19,7 @@
 #ifndef TEXTDOC_H
 #define TEXTDOC_H
 
-#include "PenjinFileObject.h"
+#include "FileObject.h"
 
 #include <string>
 #include <vector>
@@ -31,32 +31,33 @@
 #include <iostream>
 using namespace std;
 
-//#include "ErrorHandler.h"
-#include "PenjinErrors.h"
+#include "Errors.h"
 #include "PenjinTypes.h"
-using namespace PenjinErrors;
-
-class TextFile : public PenjinFileObject
+namespace Penjin
 {
-    public:
-        TextFile()
-        {
-            clear();
-        }
-        virtual ~TextFile(){clear();}
-        uint size(){return docData.size();}
-        virtual PENJIN_ERRORS load(CRstring file);					//	Load a plain text file
-        PENJIN_ERRORS load(const vector<string>& lines);           //  Load a doc from raw lines
-        virtual PENJIN_ERRORS save(CRstring file);					//	Save a plain text file
-        void search(CRstring target);				//	Search for a string in the doc
-        void editLine(CRint line, CRstring newData);//	replace a line of data with new data
-        string getLine(CRint line);				//	get the string data of the line
-        void viewDoc();							//	View an outline of the doc
-        void clear();							//	Clear data out of doc.
-        void append(CRstring data);				//	adds a string to the document
-    private:
-        int findLine(CRstring target);
-        vector <string> docData;
-};
+    class TextFile : public FileObject
+    {
+        public:
+            TextFile()
+            {
+                clear();
+            }
+            virtual ~TextFile(){clear();}
+            size_t size(){return docData.size();}
+            virtual Penjin::ERRORS load(CRstring file);					//	Load a plain text file
+            Penjin::ERRORS load(const vector<string>& lines);           //  Load a doc from raw lines
+            virtual Penjin::ERRORS save(CRstring file);					//	Save a plain text file
+            void search(CRstring target);				//	Search for a string in the doc
+            void editLine(CRint line, CRstring newData);//	replace a line of data with new data
+            string getLine(CRint line);				//	get the string data of the line
+            void viewDoc();							//	View an outline of the doc
+            void clear();							//	Clear data out of doc.
+            void append(CRstring data);				//	adds a string to the document
+        private:
+            int findLine(CRstring target);
+            vector <string> docData;
+    };
+}
+
 
 #endif	//	TEXTDOC_H

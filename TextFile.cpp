@@ -18,6 +18,8 @@
 */
 #include "TextFile.h"
 #include "ErrorHandler.h"
+using Penjin::TextFile;
+using Penjin::ErrorHandler;
 
 void TextFile::append(CRstring data)
 {
@@ -33,7 +35,8 @@ int TextFile::findLine(CRstring target)
 {
 	for(int i = docData.size()-1; i >= 0; --i)
 	{
-		if(strstr(docData[i].c_str(),target.c_str()))
+		//if(strstr(docData[i].c_str(),target.c_str()))
+		if(docData.at(i).find(target) != string::npos)
 		{
 			return i;
 		}
@@ -47,13 +50,13 @@ void TextFile::clear()
 }
 
 
-PENJIN_ERRORS TextFile::load(const vector<string>& lines)
+Penjin::ERRORS TextFile::load(const vector<string>& lines)
 {
     docData = lines;
     return PENJIN_OK;
 }
 
-PENJIN_ERRORS TextFile::load(CRstring file)
+Penjin::ERRORS TextFile::load(CRstring file)
 {
     #if defined (PLATFORM_WII)
         FILE *f = fopen ((Penjin::getWorkingDirectory() + file).c_str(), "rb");
@@ -108,7 +111,7 @@ PENJIN_ERRORS TextFile::load(CRstring file)
     #endif
 }
 
-PENJIN_ERRORS TextFile::save(CRstring file)
+Penjin::ERRORS TextFile::save(CRstring file)
 {
     #if defined(PLATFORM_WII)
         FILE *f = fopen ((Penjin::getWorkingDirectory() + file).c_str(), "wb");
@@ -157,7 +160,7 @@ string TextFile::getLine(CRint line)
 {
 	if(line<(int)docData.size())
 		return docData[line];
-	return ErrorHandler().getErrorString(PENJIN_INVALID_INDEX);
+	return ErrorHandler().getErrorText("PENJIN_INVALID_INDEX");
 }
 
 void TextFile::search(CRstring target)

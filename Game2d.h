@@ -43,9 +43,6 @@ namespace Penjin
              * \return The error in trying to load the config file
              */
             Penjin::ERRORS loadConfig();
-
-            /**< creates a default configuration*/
-            void defaultConfig();
     };
 }
 #endif // GAME2D_H

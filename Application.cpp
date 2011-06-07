@@ -31,13 +31,9 @@ Application::Application() : state(NULL)
     Penjin::ConfigFile conf;
     ERRORS error = conf.load(Penjin::CONFIG_FILE);
 
-    //  If settings.ini not found create a default
-    if(error == PENJIN_FILE_NOT_FOUND)
-        createDefaultSettings();
-
     // Find out the current language
-    Penjin::LocaleMan::getInstance()->setLanguageFolder(conf.getValue("Locale","LanguageFolder"));
-    Penjin::LocaleMan::getInstance()->setLanguage(conf.getValue("Locale","Language"));
+    Penjin::LocaleMan::getInstance()->setLanguageFolder(conf.getValue("Locale","LanguageFolder","strings"));
+    Penjin::LocaleMan::getInstance()->setLanguage(conf.getValue("Locale","Language","en_GB"));
     error = Penjin::LocaleMan::getInstance()->load();
     if(error == PENJIN_FILE_NOT_FOUND)
     {
@@ -45,7 +41,11 @@ Application::Application() : state(NULL)
         cout << "Error loading Locale file!" << endl;
     }
     //  Set localised title
-    this->setTitle( (string)Penjin::LocaleMan::getInstance()->getValue("Application","Title") );
+    this->setTitle( (string)Penjin::LocaleMan::getInstance()->getValue("Application","Title","PenjinTwo Application") );
+
+    // We save any changes to the config
+    if(conf.hasChanged())
+        conf.save(Penjin::CONFIG_FILE);
 }
 
 Application::~Application()
