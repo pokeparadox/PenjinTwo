@@ -49,10 +49,15 @@ Image::Image() : surface(NULL)
 
 Image::~Image()
 {
-	if(surface)
-        SDL_FreeSurface(surface);
+	clear();
 }
 
+void Image::clear()
+{
+    if(surface)
+        SDL_FreeSurface(surface);
+    surface = NULL;
+}
 
 void Image::render()
 {

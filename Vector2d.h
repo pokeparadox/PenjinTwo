@@ -58,25 +58,36 @@ namespace Penjin
             virtual bool equals(const Vector2d<T>& v)   {return ((this->x == v.x) && (y == v.y));}
 
             /// Operators
+            // Assignment
             Vector2d<T> operator=(const Vector2d<T>& v){this->x = v.x;y=v.y;return *this;}
             template <class S>
             Vector2d<T> operator=(const Vector2d<S>& v){this->x = v.x;y=v.y;return *this;}
-
+            // Addition
             Vector2d<T> operator+(const Vector2d<T> & v)const{return Vector2d<T> (this->x + v.x, y + v.y);}
             template <class S>
             Vector2d<T> operator+(const Vector2d<S> & v)const{return Vector2d<T> (this->x + v.x, y + v.y);}
-
+            // add and assign
             Vector2d<T> operator+=(const Vector2d<T> & v){return Vector2d<T> (this->x += v.x, y += v.y);}
             template <class S>
             Vector2d<T> operator+=(const Vector2d<S> & v){return Vector2d<T> (this->x += v.x, y += v.y);}
-
+            // subtract and assign
+            Vector2d<T> operator-=(const Vector2d<T> & v){return Vector2d<T> (this->x -= v.x, y -= v.y);}
+            template <class S>
+            Vector2d<T> operator-=(const Vector2d<S> & v){return Vector2d<T> (this->x -= v.x, y -= v.y);}
+            // Subtraction
             Vector2d<T> operator-(const Vector2d<T> & v)const{return Vector2d<T> (this->x - v.x, y - v.y);}
+            // Greater
             bool operator>(const Vector2d<T> & v)const{return (this->x > v.x) && (this->y > v.x);}
+            // Less
             bool operator<(const Vector2d<T> & v)const{return (this->x < v.x) && (this->y < v.x);}
+            // Multiplication
             Vector2d<T> operator*(const Vector2d<T> & v)const{return Vector2d<T>(this->x * v.x, y * v.y);}
             Vector2d<T> operator*(const T& v)const{return Vector2d<T>(this->x * v, y * v);}
-
-
+            // Multiplay and assign
+            Vector2d<T> operator*=(const Vector2d<T> & v){return Vector2d<T> (this->x *= v.x, y *= v.y);}
+            template <class S>
+            Vector2d<T> operator*=(const Vector2d<S> & v){return Vector2d<T> (this->x *= v.x, y *= v.y);}
+            Vector2d<T> operator*=(const T& v){return Vector2d<T>(this->x *= v, y *= v);}
         T y;
     };
 

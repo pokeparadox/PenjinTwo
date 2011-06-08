@@ -51,6 +51,9 @@ namespace Penjin
             /** \brief Render image to the screen */
             virtual void render();
 
+            /** \brief clear any loaded image*/
+            virtual void clear();
+
         protected:
             SDL_Surface* surface;
 /*
