@@ -40,35 +40,18 @@ SpriteButton::~SpriteButton()
 
 Penjin::ERRORS SpriteButton::loadImage(const string& f)
 {
-    Penjin::ERRORS e;
-    e = sprite->load(f);
-    if(e == PENJIN_OK)
-    {
-        sprite->setTransparentColour(Vector2d<int>(0,0));
-        Vector2d<int> a = getDimensions();
-        Vector2d<int> b = sprite->getDimensions();
-        if(a < b)
-        {
-            setDimensions(b);
-        }
-        a = a - b;
-        a = a * 0.5f;
-        b = sprite->getPosition() + Vector2d<float>(a.x,a.y);
-        sprite->setPosition(b);
-    }
-    return e;
+    return sprite->load(f);
 }
 
 void SpriteButton::render()
 {
     Button::render();
-    Vector2d<int> a = getDimensions();
-    Vector2d<int> b = sprite->getDimensions();
+    Vector2d<float> a = getDimensions();
+    Vector2d<float> b = sprite->getDimensions();
+    // The difference of the dimensions of both objects
     a = a - b;
-    b.x = position.x + a.x;
-    b.y = position.y + a.y;
-    a = sprite->getDimensions() *0.5f;
-    b = b - a;
+    a = a * 0.5f;
+    b = a + position;
     sprite->setPosition(b);
     sprite->render();
 }

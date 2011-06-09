@@ -17,7 +17,7 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ColourHSV.h"
-
+using Penjin::ColourHSV;
 ColourHSV::ColourHSV()
 {
     //ctor

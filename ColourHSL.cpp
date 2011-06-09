@@ -17,6 +17,7 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ColourHSL.h"
+using Penjin::ColourHSL;
 
 ColourHSL::ColourHSL()
 {
