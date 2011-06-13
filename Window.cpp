@@ -38,12 +38,28 @@ void Window::setTitle(const string& t)
 
 void Window::render()
 {
-
+    if(hidden)
+        return;
 }
 
 void Window::onClick()
 {
-    layer = 0;
+    // bring window to front
+    focus();
 }
 
+void Window::focus()
+{
+    layer = 0;
+    hidden = false;
+}
 
+void Window::minimise()
+{
+    hidden = true;
+}
+
+void Window::update()
+{
+
+}

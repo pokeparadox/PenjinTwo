@@ -62,7 +62,7 @@ namespace Penjin
             Colour(const uchar& r,const uchar& g,const uchar& b,const uchar& a){setColour(r,g,b,a);}
             // the following two are necessary, because gcc does not know whether to convert int to uchar or float
             Colour(CRint r,CRint g,CRint b){setColour(r,g,b);}
-            Colour(CRint r,CRint g,CRint b,CRint a){setColour(r,g,b,a);}
+            //Colour(CRint r,CRint g,CRint b,CRint a){setColour(r,g,b,a);}
             Colour(const COLOURS& colour){setColour(colour);}
             Colour(const Colour& colour)                    // Create a colour using another colour
             {

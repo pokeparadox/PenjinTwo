@@ -65,6 +65,8 @@ namespace Penjin
             Penjin::ERRORS load(CRstring fontName,CRuint fontSize);		//	Loads a TTF
             Penjin::ERRORS load(CRstring fontName);  // Load a TTF without changing size
 
+            virtual Penjin::ERRORS save(CRstring fontName);
+
             void unload();      // Unload the font
 
             Penjin::ERRORS setFontSize(CRuint s);
@@ -89,6 +91,7 @@ namespace Penjin
             Vector2d<int> getDimensions(CRstring str);
 
             Vector2d<int> getCursorPosition()const{return cursorPos;}
+            void setCursorPosition(const Vector2d<int> p){cursorPos = p;}
 
 
 

@@ -47,18 +47,18 @@ void ColourHSL::setColour(const ColourHSL& c)
 void ColourHSL::setColour(const Colour& c)
 {
     //  if RGB components are equal then it is a greyscale Colour
-    if((c.red == c.green) && (c.green == c.blue))
+    if((c.r == c.g) && (c.g == c.b))
     {
-        // grey has no hur or saturation.
+        // grey has no hue or saturation.
         hue = 0;
         saturation = 0;
-        lightness = c.red; // all equal so doesn't matter which component is copied.
+        lightness = c.r; // all equal so doesn't matter which component is copied.
     }
     else
     {
         #ifdef PENJIN_SDL
-            uchar maxC = max(c.red, max(c.green, c.blue));
-            uchar minC = min(c.red, min(c.green, c.blue));
+            uchar maxC = max(c.r, max(c.g, c.b));
+            uchar minC = min(c.r, min(c.g, c.b));
             lightness = (minC + maxC) *0.5f;
 
             if(lightness < 127)
@@ -66,12 +66,12 @@ void ColourHSL::setColour(const Colour& c)
             else
                 saturation = (maxC - minC) / float(511 - maxC - minC);
 
-            if(c.red == maxC)
-                hue = (c.green - c.blue) / float(maxC - minC);
-            else if(c.green == maxC)
-                hue = 511 + (c.blue - c.red) / float(maxC - minC);
+            if(c.r == maxC)
+                hue = (c.g - c.b) / float(maxC - minC);
+            else if(c.g == maxC)
+                hue = 511 + (c.b - c.r) / float(maxC - minC);
             else
-                hue = 1023 + (c.red - c.green) / float(maxC - minC);
+                hue = 1023 + (c.r - c.g) / float(maxC - minC);
 
             hue *= 0.666f;   //  Bring the hue within colour range
             if(hue < 0)
@@ -133,7 +133,7 @@ void ColourHSL::setColour(CRfloat h, CRfloat s, CRfloat l, CRfloat a)
     #endif
 }
 
-Colour ColourHSL::getColourRGBA()
+Penjin::Colour ColourHSL::getColourRGBA()
 {
     //  Sat of zero means grey so all RGB components are set to lightness
     if(saturation == 0)

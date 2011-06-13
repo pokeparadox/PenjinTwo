@@ -31,6 +31,7 @@ namespace Penjin
             Vector2d(const T& x, const T& y) : y(y) {this->x = x;}
             Vector2d(const Vector1d<T> & v) : y(0) {this->x = v.x;}
             Vector2d(const Vector2d<T> & v) : y(v.y) {this->x = v.x;}
+            // Set a different type to this type.
             template <class S>
             Vector2d(const Vector2d<S> & v) : y(v.y) {this->x = v.x;}
 
@@ -85,7 +86,8 @@ namespace Penjin
             // Multiplication
             Vector2d<T> operator*(const Vector2d<T> & v)const{return Vector2d<T>(this->x * v.x, y * v.y);}
             Vector2d<T> operator*(const T& v)const{return Vector2d<T>(this->x * v, y * v);}
-            //Vector2d<int> operator*(const float& v)const{return Vector2d<int>((this->x * v)+0.5f, (y * v)+0.5f);}
+            template <class S>
+            Vector2d<T> operator*(const S& v)const{return Vector2d<T>((this->x * v)+0.5f, (y * v)+0.5f);}
             // Multiplay and assign
             Vector2d<T> operator*=(const Vector2d<T> & v){return Vector2d<T> (this->x *= v.x, y *= v.y);}
             template <class S>

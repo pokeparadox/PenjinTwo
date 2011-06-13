@@ -159,6 +159,11 @@ Penjin::ERRORS Text::load(CRstring name)
     return load(name,fontSize);
 }
 
+Penjin::ERRORS Text::save(CRstring fontName)
+{
+    return PENJIN_FUNCTION_IS_STUB;
+}
+
 Penjin::ERRORS Text::setFontSize(CRuint s)
 {
     return load(fontName, s);
@@ -175,6 +180,11 @@ void Text::setRenderMode(const GlyphClass::RENDER_MODES& mode)
     }
     else
         cout << "No Glyphs - Can't set RenderMode" << mode << endl;
+}
+
+void Text::print(CRint num)
+{
+    print( GFX::getInstance()->getSDLVideoSurface() , intToString(num));
 }
 
 void Text::print(SDL_Surface* screen, CRstring text)

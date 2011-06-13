@@ -25,11 +25,12 @@
 
 #include <string>
 #include "LayerObject.h"
+#include "UpdateObject.h"
 using std::string;
 
 namespace Penjin
 {
-    class Window : public LayerObject
+    class Window : public LayerObject, public UpdateObject
     {
         public:
             /** Default constructor */
@@ -39,11 +40,22 @@ namespace Penjin
 
             /** \brief Renders this Window element */
             virtual void render();
+
+            virtual void update();
+
             /** \brief When window is clicked, this function is called */
             virtual void onClick();
+
             /** \brief Brings window to foregrand, i.e. sets to layer 0 */
             void focus();
-            /** \brief Refreshes the window display */
+
+            /** \brief Maximise the Window to fill the parent view */
+            void maximise();
+
+            /** \brief Minimise the Window out of view */
+            void minimise();
+
+            /** \brief Refreshes the Window display */
             void refresh();
 
             /** \brief Sets this window to take up the full screen area.
@@ -68,6 +80,7 @@ namespace Penjin
 
         protected:
             bool fullscreen;    //  Does it takeup fullscreen
+            bool hidden;
             string title;
     };
 }

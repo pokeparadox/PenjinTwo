@@ -68,7 +68,8 @@ SimpleJoy::SimpleJoy()
         ifstream ifile("/etc/pointercal");//load infile
         if(!ifile.is_open())
         {
-            ErrorHandler().killApp(PENJIN_FILE_NOT_FOUND);
+            //ErrorHandler().killApp(PENJIN_FILE_NOT_FOUND);
+            // (PENJIN_FILE_NOT_FOUND);
         }
         //  extract values
         for(uint i = 0; i<7; ++i)

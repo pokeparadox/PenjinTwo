@@ -41,7 +41,7 @@ namespace Penjin
             void setColour(const ColourHSL& c);
             void setColour(const uchar& h,const uchar& s,const uchar& l,const uchar& a);
             void setColour(const uchar& h,const uchar& s,const uchar& l){setColour(h,s,l,255);}
-            void setColour(const PENJIN_COLOURS& c){setColour(Colour(c));}//	Set the colour using predefines
+            void setColour(const Penjin::COLOURS& c){setColour(Colour(c));}//	Set the colour using predefines
 
             // Convert to RGBA Colour object
             Colour getColourRGBA();
