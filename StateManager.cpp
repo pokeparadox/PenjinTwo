@@ -27,7 +27,7 @@
 using Penjin::StateManager;
 using Penjin::ApplicationState;
 
-StateManager::StateManager() : state(NULL), next(STATE_EXAMPLE), current(STATE_NULL)
+StateManager::StateManager() : state(NULL), next(STATE_NULL), current(STATE_NULL), states()
 {
     //ctor
 }
@@ -38,40 +38,25 @@ StateManager::~StateManager()
     clearState();
 }
 
-void StateManager::setNextState(const STATES& s)
+void StateManager::addState(StateId id, ApplicationState* state)
+{
+    states[id] = state;
+}
+void StateManager::setNextState(const StateId& s)
 {
     next = s;
 }
 
 void StateManager::stateManagement()
 {
-    if(next != current)
+    if(next != current && states.find(next) != states.end())
     {
-        delete state;
-        switch(next)
-        {
-            case STATE_EXAMPLE:
-            {
-                state = new StateExample;
-                break;
-            }
-            /*  Add code as STATE_EXAMPLE for your customs states in file below
-            */
-            #include "MyStateChangeCode.h"
-            /*  Generally speaking do not edit below.
-            */
-            default:
-            {
-                //  The example State also doubles as an error state
-                state = new StateExample;
-                break;
-            }
-        }
-        current= next;
+	state = states[next];
+	current = next;
     }
 }
 
-Penjin::STATES StateManager::getCurrentState()
+StateManager::StateId StateManager::getCurrentState()
 {
     return current;
 }
@@ -84,6 +69,6 @@ ApplicationState* StateManager::getState()
 
 void StateManager::clearState()
 {
-    delete state;
-    state=NULL;
+    current = STATE_NULL;
+    state = NULL;
 }
