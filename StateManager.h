@@ -38,7 +38,7 @@ namespace Penjin
         public:
 	    typedef int StateId;
 	    static const StateId STATE_NULL = -1;
-	    
+
             /** Default constructor */
             StateManager();
 
@@ -49,7 +49,7 @@ namespace Penjin
                 return instanceSM;
             }
 
-	    void addState(StateId id, ApplicationState* state);
+            void addState(StateId id, ApplicationState* state);
             void setNextState(const StateId& next);
             StateId getCurrentState();
             void clearState();
@@ -68,7 +68,7 @@ namespace Penjin
             StateId next;                /**< The ID of the next state to load.*/
             StateId current;             /**< The ID of the currently loaded state. */
 
-	    std::map<StateId, ApplicationState*> states;
+            std::map<StateId, ApplicationState*> states;
     };
     typedef Singleton<StateManager> StateMan;
 }

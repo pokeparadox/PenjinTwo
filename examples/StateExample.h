@@ -1,6 +1,3 @@
-#ifndef MYSTATEINCLUDES_H_INCLUDED
-#define MYSTATEINCLUDES_H_INCLUDED
-
 /**
 	\section LICENSE
 	Penjin is Copyright (c)2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Winfield-Pantoja
@@ -21,11 +18,31 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 /***************************************************************************************************
-*   \file MyStateIncludes is a simple list of the state headers required for this specific project.
+*   \file StateExample is the ErrorState of Penjin shown if there is a mistake with your state code.
 *   \author Kevin Winfield-Pantoja
 */
 
-// List all state headers below
-#include "StateTitle.h"
+#ifndef STATEEXAMPLE_H
+#define STATEEXAMPLE_H
 
-#endif // MYSTATEINCLUDES_H_INCLUDED
+#include "ApplicationState.h"
+
+namespace Penjin
+{
+    class StateExample : public ApplicationState
+    {
+        public:
+            /** Default constructor */
+            StateExample();
+            /** Default destructor */
+            virtual ~StateExample();
+
+            virtual void init();
+            virtual void render();
+            virtual void update();
+            virtual void input();
+            virtual void clear();
+
+    };
+}
+#endif // STATEEXAMPLE_H

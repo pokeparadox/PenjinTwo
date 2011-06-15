@@ -34,7 +34,3 @@ bool ApplicationState::getShouldQuit()const
     return shouldQuit;
 }
 
-void ApplicationState::input()
-{
-
-}

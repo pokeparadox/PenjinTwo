@@ -38,8 +38,13 @@ namespace Penjin
             /** Default destructor */
             virtual ~ApplicationState();
 
+            /**< \brief Setup the state, called by the StateManager. */
+            virtual void init()=0;
+            /**< \brief Shutdown state on state switch, called by StateManager. */
+            virtual void clear()=0;
+
             /**< \brief Handle user input. */
-            virtual void input();
+            virtual void input()=0;
             /**< \brief Update this state. */
             virtual void update()=0;
             /**<    \brief Check if the state requests to quit or not.

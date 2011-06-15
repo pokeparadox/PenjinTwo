@@ -1,6 +1,3 @@
-#ifndef MYSTATECHANGECODE_H_INCLUDED
-#define MYSTATECHANGECODE_H_INCLUDED
-
 /**
 	\section LICENSE
 	Penjin is Copyright (c)2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Winfield-Pantoja
@@ -21,15 +18,49 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 /***************************************************************************************************
-*   \file MyStateChangeCode is your custom code to handle state changes within the StateManager
+*   \file CLASS_NAME is INSERT DESCRIPTION
 *   \author Kevin Winfield-Pantoja
 */
+#include "GFX.h"
+#include "StateExample.h"
+using Penjin::StateExample;
 
-case STATE_TITLE:
+StateExample::StateExample()
 {
-    state = new StateTitle;
-    break;
+    //ctor
 }
 
+void StateExample::init()
+{
+    Penjin::GFX::getInstance()->setClearColour(BLUE);
+    Penjin::GFX::getInstance()->setDrawColour(RED);
+}
 
-#endif // MYSTATECHANGECODE_H_INCLUDED
+void StateExample::clear()
+{
+    // we have nothing to tidy up!
+}
+
+StateExample::~StateExample()
+{
+    //dtor
+    clear();
+}
+
+void StateExample::render()
+{
+    Penjin::GFX::getInstance()->clear();
+    Vector2d<int> t = Penjin::GFX::getInstance()->getDimensions();
+    Penjin::GFX::getInstance()->drawLine(   Vector2d<float> (0,0), Vector2d<float> (t.x,t.y));
+    Penjin::GFX::getInstance()->drawLine(   Vector2d<float> (0,t.y), Vector2d<float> (t.x, 0));
+}
+
+void StateExample::update()
+{
+
+}
+
+void StateExample::input()
+{
+
+}

@@ -24,6 +24,9 @@
 *   \file MyStateList is a list of states used by this program with their numericial ID
 *   \author Kevin Winfield-Pantoja
 */
-    STATE_TITLE = 1
-
+    enum STATE_LIST
+    {
+        STATE_TITLE = 1,
+        STATE_LEVEL
+    };
 #endif // MYSTATELIST_H_INCLUDED

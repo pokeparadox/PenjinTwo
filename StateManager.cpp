@@ -51,8 +51,14 @@ void StateManager::stateManagement()
 {
     if(next != current && states.find(next) != states.end())
     {
-	state = states[next];
-	current = next;
+        // Clear out current state (if exists)
+        if(state)
+            state->clear();
+        // Swap state
+        state = states[next];
+        // Setup State
+        state->init();
+        current = next;
     }
 }
 
