@@ -109,11 +109,13 @@ void Sprite::disableTransparentColour()
 
 CollisionRegion* Sprite::getCollisionRegion()
 {
+    region->setPosition(position);
     return region;
 }
 
 Penjin::CollisionInfo Sprite::hitTest(Sprite* tester, CRbool fullShape)
 {
+    region->setPosition(position);
     return region->hitTest(tester->getCollisionRegion(), fullShape);
 }
 

@@ -46,6 +46,7 @@ namespace Penjin
             /** \brief Update the relevent Window instances.*/
             virtual void update();
 
+
             /** \brief Add the pointer to a Window to nthe manager.
              * \param  win : The Window* to add.
              */

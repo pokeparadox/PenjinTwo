@@ -42,7 +42,6 @@ Application::Application() : state(NULL)
     }
     //  Set localised title
     this->setTitle( (string)Penjin::LocaleMan::getInstance()->getValue("Application","Title","PenjinTwo Application") );
-
     // We save any changes to the config
     if(conf.hasChanged())
         conf.save(Penjin::CONFIG_FILE);

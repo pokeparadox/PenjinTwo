@@ -59,6 +59,9 @@ Game2d::Game2d()
 
     if(flags)
         Penjin::GFX::getInstance()->applyVideoSettings();
+
+    // Set the title to the main window(localised).
+    SDL_WM_SetCaption(title.c_str(), NULL);
 }
 
 Penjin::ERRORS Game2d::loadConfig()

@@ -77,6 +77,23 @@ void RendererSDL_2d::clear()
 
 void RendererSDL_2d::blit()
 {
+    #ifdef PLATFORM_GP2X
+        //  We do MMUHack BEFORE video flip!
+        if(useHack)
+            MMUHack::flushCache(screen->pixels, (char*)screen->pixels  + (screen->w * screen->h));
+    #elif PLATFORM_PANDORA
+        //  vertical sync to prevent tearing
+        int fd = open( "/dev/fb0" , O_RDONLY );
+		if( 0 < fd )
+		{
+			int ret = 0;
+			ret = ioctl(fd, FBIO_WAITFORVSYNC, &ret );
+			/*if ( ret != 0 )
+                VSYNC failed
+			*/
+		}
+		close(fd);
+    #endif
     SDL_Flip(screen);
 }
 

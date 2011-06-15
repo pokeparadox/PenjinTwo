@@ -50,7 +50,6 @@ namespace Penjin
              */
             virtual Penjin::ERRORS load(SDL_Surface* surface, CRuint xTiles, CRuint yTiles);
 
-
             /** \brief Function to test for collision with this Sprite, providing CollisionInfo
              * \param tester : The Sprite to test against.
              * \param fullShape : If true, the image data is tested pixel by pixel, otherwise Rectangles are used. Default to false.
