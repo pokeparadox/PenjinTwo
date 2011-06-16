@@ -57,7 +57,7 @@ namespace Penjin
             ApplicationState* getState();
 
             void stateManagement();
-
+            void clear();
         private:
             StateManager(const StateManager& bling){;}
             StateManager& operator=(StateManager const&){return *this;}

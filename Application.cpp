@@ -45,12 +45,14 @@ Application::Application() : state(NULL)
     // We save any changes to the config
     if(conf.hasChanged())
         conf.save(Penjin::CONFIG_FILE);
+    if(Penjin::LocaleMan::getInstance()->hasChanged())
+        Penjin::LocaleMan::getInstance()->save();
 }
 
 Application::~Application()
 {
     //dtor
-    StateMan::getInstance()->clearState();
+    StateMan::getInstance()->clear();
 }
 
 

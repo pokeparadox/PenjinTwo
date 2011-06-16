@@ -119,6 +119,12 @@ Penjin::CollisionInfo Sprite::hitTest(Sprite* tester, CRbool fullShape)
     return region->hitTest(tester->getCollisionRegion(), fullShape);
 }
 
+Penjin::CollisionInfo Sprite::hitTest(const Vector2d<int>& testPoint, CRbool fullShape)
+{
+    region->setPosition(position);
+    return region->hitTest(testPoint, fullShape);
+}
+
 /*
 #ifdef PENJIN_SDL
     AnimatedSprite::AnimatedSprite(CRint x,CRint y)

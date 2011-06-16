@@ -27,6 +27,8 @@ LocalisedStringManager::LocalisedStringManager() : languageFolder("strings"), la
 LocalisedStringManager::~LocalisedStringManager()
 {
     //dtor
+    if(hasChanged())
+        save();
 }
 
 void LocalisedStringManager::setLanguage(const string& l)
@@ -47,6 +49,7 @@ Penjin::ERRORS LocalisedStringManager::load()
 
 Penjin::ERRORS LocalisedStringManager::save()
 {
-    return Penjin::PENJIN_FUNCTION_IS_STUB;
+    fileName = "./"+languageFolder+"/"+language+".lng";
+    return this->ConfigFile::save(fileName);
 }
 

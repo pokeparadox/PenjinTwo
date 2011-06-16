@@ -36,6 +36,7 @@ StateManager::~StateManager()
 {
     //dtor
     clearState();
+    clear();
 }
 
 void StateManager::addState(StateId id, ApplicationState* state)
@@ -77,4 +78,12 @@ void StateManager::clearState()
 {
     current = STATE_NULL;
     state = NULL;
+}
+
+void StateManager::clear()
+{
+    for(uint i = 0; i < states.size(); ++i)
+    {
+        delete states[i];
+    }
 }
