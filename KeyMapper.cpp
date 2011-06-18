@@ -24,7 +24,17 @@ using Penjin::KeyMapper;
 KeyMapper::KeyMapper()
 {
     //ctor
-    setFileName("config/input/default.ini");
+    #ifdef PLATFORM_PC
+        setFileName("config/input/pc.ini");
+    #elif PLATFORM_PANDORA
+        setFileName("config/input/pandora.ini");
+    #elif PLATFORM_DINGOO
+        setFileName("config/input/dingoo.ini");
+    #elif PLATFORM_GP2X
+        setFileName("config/input/gp2x.ini");
+    #else
+        setFileName("config/input/default.ini");
+    #endif
     this->load(fileName);
 }
 
@@ -152,6 +162,7 @@ EvilDragon: DPad works, that's Cursor Up, Down, Left, Right.
 */
     device="Keyboard";
     ID="0";
+    setValue(device,"Player", player);
     setValue(device,"DeviceNumber",ID);
         setValue(device, "A",       "Home");
         setValue(device, "B",       "End");
@@ -234,7 +245,9 @@ Penjin::ERRORS KeyMapper::mapKey(CRuchar id)
     {
         KeyMapKey* t = NULL;
         t = new KeyMapKey(keyList.at(i), getValue(device,keyList.at(i)), id);
-        if(t->isMapValid())
+        if(t == NULL)
+            result = PENJIN_ERROR;
+        else if(t->isMapValid())
         {
            keys.push_back(t);
         }
@@ -263,7 +276,9 @@ Penjin::ERRORS KeyMapper::mapMouse(CRuchar id)
         {
             t = new KeyMapMouseAxis(Penjin::StringUtility::stringToInt(getValue(device,keyList.at(i))), keyList.at(i), id);
         }
-        if(t->isMapValid())
+        if(t == NULL)
+            result = PENJIN_ERROR;
+        else if(t->isMapValid())
         {
            keys.push_back(t);
         }
@@ -303,7 +318,9 @@ Penjin::ERRORS KeyMapper::mapJoy(CRuchar id)
         {
             t = new KeyMapJoyAxis(Penjin::StringUtility::stringToInt(getValue(device,keyList.at(i))), keyList.at(i), id);
         }
-        if(t->isMapValid())
+        if(t == NULL)
+            result = PENJIN_ERROR;
+        else if(t->isMapValid())
         {
            keys.push_back(t);
         }

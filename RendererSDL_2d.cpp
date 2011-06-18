@@ -24,6 +24,17 @@
 #include <SDL/SDL_gfxPrimitives.h>
 #include "RendererSDL_2d.h"
 #include "Errors.h"
+
+#ifdef PLATFORM_GP2X
+    #include "MMUHack.h"
+#elif PLATFORM_PANDORA
+    #include <linux/fb.h>
+    #include <sys/ioctl.h>
+    #include <fcntl.h>
+    #ifndef FBIO_WAITFORVSYNC
+        #define FBIO_WAITFORVSYNC _IOW('F', 0x20, __u32)
+    #endif
+#endif
 using Penjin::RendererSDL_2d;
 using Penjin::ERRORS;
 

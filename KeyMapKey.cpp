@@ -56,7 +56,7 @@ bool KeyMapKey::isMapValid()
 {
     #if defined(PLATFORM_PANDORA) && !defined(PENJIN_SDL_INPUT)
         return (target != SJ_UNMAPPED && key != KEY_UNKNOWN && player != 0);
-    #elif defined(PENJIN_SDL_INPUT) || defined(PENJIN_SDL)
+    #else
         return (target != SJ_UNMAPPED && key != SDLK_UNKNOWN && player != 0);
     #endif
 }
