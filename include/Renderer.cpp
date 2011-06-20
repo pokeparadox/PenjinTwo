@@ -23,7 +23,8 @@ using Penjin::Renderer;
 using Penjin::Timer;
 using Penjin::RenderObject;
 
-Renderer::Renderer() :  bpp(0), fps(60), fullScreen(false),clearColour(BLACK), drawColour(WHITE), drawWidth(1), timer(NULL)
+Renderer::Renderer() :  bpp(0), fps(60), fullScreen(false),clearColour(BLACK), drawColour(WHITE), drawWidth(1), timer(NULL),
+scaleMode(smNONE)
 {
     //ctor
     timer = new Timer;
@@ -65,6 +66,24 @@ void Renderer::setFrameRate(const uint& fps)
 {
     timer->setFramesPerSecond(fps);
     this->fps = fps;
+}
+
+void Renderer::setBaseResolution(const Vector2d<int>& r)
+{
+    baseResolution = r;
+    pixelScale.x = dimensions.x / r.x;
+    pixelScale.y = dimensions.y / r.y;
+    scaleMode = smPRESCALE;
+}
+
+void Renderer::setScaleMode(const SCALE_MODES& m)
+{
+    scaleMode = m;
+}
+
+Vector2d<float> Renderer::getPixelScale()
+{
+    return pixelScale;
 }
 
 void Renderer::frameLimiter()

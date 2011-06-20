@@ -30,6 +30,13 @@ namespace Penjin
     class Timer;
     class RenderObject;
 
+    enum SCALE_MODES
+    {
+        smNONE=0,       //  No scaling applied
+        smSCALE2x,      //  Scale2X filter applied before final blit
+        smPRESCALE      //  Objects resized on load. Positions and dimensions scaled.
+    };
+
     class Renderer : public DimensionObject
     {
         public:
@@ -68,6 +75,10 @@ namespace Penjin
             //virtual Surface cropSurface(Surface in, Rectangle cropArea)=0;
 
             virtual void showVideoInfo()=0;
+            // Scaling options
+            void setScaleMode(const SCALE_MODES& m);            //  Sets the scaling mode
+            void setBaseResolution(const Vector2d<int>& res);   //  Sets the intended resolution
+            Vector2d<float> getPixelScale();                    //  Gets the scale Vector of a single pixel.
 
         protected:
             int bpp;
@@ -78,6 +89,10 @@ namespace Penjin
             int drawWidth;
             Timer* timer;
             vector <RenderObject*> rendObjs;
+            // Scaling options
+            SCALE_MODES scaleMode;
+            Vector2d<int> baseResolution;
+            Vector2d<float> pixelScale;
     };
 }
 #endif // RENDERER_H

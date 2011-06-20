@@ -85,13 +85,8 @@ namespace Penjin
              * \param frame : The subImage of the ImageSheet to inspect.
              * \return Colour of the requested pixel.
              */
-            Colour getPixelInFrame(Vector2d<int> pos, CRint frame) const
-            {
-                if (sheetMode)
-                    return GFX::getInstance()->getPixel(surface, Vector2d<int> (pos.x + clipAreas[frame].x, pos.y + clipAreas[frame].y) );
+            Colour getPixelInFrame(Vector2d<int> pos, CRint frame) const;
 
-                return GFX::getInstance()->getPixel(surfaces.at(frame), Vector2d<int> (pos.x, pos.y ) );
-            }
 
              /** \brief set the image to display in the render function.
              * \param a : The active image.

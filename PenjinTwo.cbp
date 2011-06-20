@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PenjinTwo" />
+		<Option pch_mode="2" />
+		<Option compiler="linux" />
+		<Build>
+			<Target title="Lin Debug">
+				<Option output="lib/Linux/libPenjinTwoD" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Linux/Debug/" />
+				<Option type="3" />
+				<Option compiler="linux" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LINUX" />
+					<Add option="-DPLATFORM_PC" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="SDL_gfx" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+				</Linker>
+			</Target>
+			<Target title="Lin Release">
+				<Option output="lib/Linux/libPenjinTwo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Linux/Release/" />
+				<Option type="3" />
+				<Option compiler="linux" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-D_LINUX" />
+					<Add option="-DPLATFORM_PC" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-DPENJIN_SDL" />
+		</Compiler>
+		<Unit filename="include/Animation.cpp" />
+		<Unit filename="include/Animation.h" />
+		<Unit filename="include/Application.cpp" />
+		<Unit filename="include/Application.h" />
+		<Unit filename="include/ApplicationState.cpp" />
+		<Unit filename="include/ApplicationState.h" />
+		<Unit filename="include/Button.cpp" />
+		<Unit filename="include/Button.h" />
+		<Unit filename="include/CollisionRegion.cpp" />
+		<Unit filename="include/CollisionRegion.h" />
+		<Unit filename="include/Colour.cpp" />
+		<Unit filename="include/Colour.h" />
+		<Unit filename="include/ColourHSL.cpp" />
+		<Unit filename="include/ColourHSL.h" />
+		<Unit filename="include/ColourHSV.cpp" />
+		<Unit filename="include/ColourHSV.h" />
+		<Unit filename="include/ConfigFile.cpp" />
+		<Unit filename="include/ConfigFile.h" />
+		<Unit filename="include/ConsoleApplication.cpp" />
+		<Unit filename="include/ConsoleApplication.h" />
+		<Unit filename="include/DimensionObject.cpp" />
+		<Unit filename="include/DimensionObject.h" />
+		<Unit filename="include/DoubleVector.h" />
+		<Unit filename="include/Encryption.cpp" />
+		<Unit filename="include/Encryption.h" />
+		<Unit filename="include/EnumParser.cpp" />
+		<Unit filename="include/EnumParser.h" />
+		<Unit filename="include/ErrorHandler.cpp" />
+		<Unit filename="include/ErrorHandler.h" />
+		<Unit filename="include/Errors.h" />
+		<Unit filename="include/FileObject.cpp" />
+		<Unit filename="include/FileObject.h" />
+		<Unit filename="include/GFX.h" />
+		<Unit filename="include/Game2d.cpp" />
+		<Unit filename="include/Game2d.h" />
+		<Unit filename="include/Glyph.cpp" />
+		<Unit filename="include/Glyph.h" />
+		<Unit filename="include/Image.cpp" />
+		<Unit filename="include/Image.h" />
+		<Unit filename="include/ImageSheet.cpp" />
+		<Unit filename="include/ImageSheet.h" />
+		<Unit filename="include/KeyMap.cpp" />
+		<Unit filename="include/KeyMap.h" />
+		<Unit filename="include/KeyMapDigitalJoyAxis.cpp" />
+		<Unit filename="include/KeyMapDigitalJoyAxis.h" />
+		<Unit filename="include/KeyMapHat.cpp" />
+		<Unit filename="include/KeyMapHat.h" />
+		<Unit filename="include/KeyMapJoyAxis.cpp" />
+		<Unit filename="include/KeyMapJoyAxis.h" />
+		<Unit filename="include/KeyMapJoyButton.cpp" />
+		<Unit filename="include/KeyMapJoyButton.h" />
+		<Unit filename="include/KeyMapKey.cpp" />
+		<Unit filename="include/KeyMapKey.h" />
+		<Unit filename="include/KeyMapMouseAxis.cpp" />
+		<Unit filename="include/KeyMapMouseAxis.h" />
+		<Unit filename="include/KeyMapMouseButton.cpp" />
+		<Unit filename="include/KeyMapMouseButton.h" />
+		<Unit filename="include/KeyMapper.cpp" />
+		<Unit filename="include/KeyMapper.h" />
+		<Unit filename="include/LUT.cpp" />
+		<Unit filename="include/LUT.h" />
+		<Unit filename="include/LayerObject.cpp" />
+		<Unit filename="include/LayerObject.h" />
+		<Unit filename="include/Line.cpp" />
+		<Unit filename="include/Line.h" />
+		<Unit filename="include/LocalisedStringManager.cpp" />
+		<Unit filename="include/LocalisedStringManager.h" />
+		<Unit filename="include/MMUHack.cpp" />
+		<Unit filename="include/MMUHack.h" />
+		<Unit filename="include/NumberUtility.cpp" />
+		<Unit filename="include/NumberUtility.h" />
+		<Unit filename="include/Object.cpp" />
+		<Unit filename="include/Object.h" />
+		<Unit filename="include/Panel.cpp" />
+		<Unit filename="include/Panel.h" />
+		<Unit filename="include/PenjinErrors.h" />
+		<Unit filename="include/PenjinFixedFunc.cpp" />
+		<Unit filename="include/PenjinFixedFunc.h" />
+		<Unit filename="include/PenjinStates.h" />
+		<Unit filename="include/PenjinTypes.h" />
+		<Unit filename="include/PositionObject.cpp" />
+		<Unit filename="include/PositionObject.h" />
+		<Unit filename="include/Primitive.cpp" />
+		<Unit filename="include/Primitive.h" />
+		<Unit filename="include/RadialObject.cpp" />
+		<Unit filename="include/RadialObject.h" />
+		<Unit filename="include/Random.cpp" />
+		<Unit filename="include/Random.h" />
+		<Unit filename="include/Rectangle.cpp" />
+		<Unit filename="include/Rectangle.h" />
+		<Unit filename="include/RenderObject.cpp" />
+		<Unit filename="include/RenderObject.h" />
+		<Unit filename="include/Renderer.cpp" />
+		<Unit filename="include/Renderer.h" />
+		<Unit filename="include/RendererSDL_2d.cpp" />
+		<Unit filename="include/RendererSDL_2d.h" />
+		<Unit filename="include/SimpleDirection.cpp" />
+		<Unit filename="include/SimpleDirection.h" />
+		<Unit filename="include/SimpleJoy.cpp" />
+		<Unit filename="include/SimpleJoy.h" />
+		<Unit filename="include/Singleton.h" />
+		<Unit filename="include/Sprite.cpp" />
+		<Unit filename="include/Sprite.h" />
+		<Unit filename="include/SpriteButton.cpp" />
+		<Unit filename="include/SpriteButton.h" />
+		<Unit filename="include/SpritePanel.cpp" />
+		<Unit filename="include/SpritePanel.h" />
+		<Unit filename="include/StateExample.cpp" />
+		<Unit filename="include/StateExample.h" />
+		<Unit filename="include/StateList.h" />
+		<Unit filename="include/StateManager.cpp" />
+		<Unit filename="include/StateManager.h" />
+		<Unit filename="include/StringUtility.cpp" />
+		<Unit filename="include/StringUtility.h" />
+		<Unit filename="include/Surface.cpp" />
+		<Unit filename="include/Surface.h" />
+		<Unit filename="include/Text.cpp" />
+		<Unit filename="include/Text.h" />
+		<Unit filename="include/TextFile.cpp" />
+		<Unit filename="include/TextFile.h" />
+		<Unit filename="include/Timer.cpp" />
+		<Unit filename="include/Timer.h" />
+		<Unit filename="include/UpdateObject.cpp" />
+		<Unit filename="include/UpdateObject.h" />
+		<Unit filename="include/Vector1d.h" />
+		<Unit filename="include/Vector2d.h" />
+		<Unit filename="include/Vector3d.h" />
+		<Unit filename="include/Widget.cpp" />
+		<Unit filename="include/Widget.h" />
+		<Unit filename="include/Window.cpp" />
+		<Unit filename="include/Window.h" />
+		<Unit filename="include/WindowManager.cpp" />
+		<Unit filename="include/WindowManager.h" />
+		<Unit filename="include/objloader/model_obj.cpp" />
+		<Unit filename="include/objloader/model_obj.h" />
+		<Unit filename="include/simpleini/ConvertUTF.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="include/simpleini/ConvertUTF.h" />
+		<Unit filename="include/simpleini/SimpleIni.h" />
+		<Unit filename="include/trenki/fixed_class.h" />
+		<Unit filename="include/trenki/fixed_func.cpp" />
+		<Unit filename="include/trenki/fixed_func.h" />
+		<Unit filename="include/trenki/fixsintab.h" />
+		<Unit filename="include/trenki/renderer/duffsdevice.h" />
+		<Unit filename="include/trenki/renderer/fixed_func.h" />
+		<Unit filename="include/trenki/renderer/geometry_processor.cpp" />
+		<Unit filename="include/trenki/renderer/geometry_processor.h" />
+		<Unit filename="include/trenki/renderer/irasterizer.h" />
+		<Unit filename="include/trenki/renderer/mystdint.h" />
+		<Unit filename="include/trenki/renderer/rasterizer_subdivaffine.h" />
+		<Unit filename="include/trenki/renderer/rasterizer_tsbase.h" />
+		<Unit filename="include/trenki/renderer/span.h" />
+		<Unit filename="include/trenki/renderer/stepmacros.h" />
+		<Unit filename="include/trenki/renderer/stepmacros_undef.h" />
+		<Unit filename="include/trenki/renderer/util.h" />
+		<Unit filename="include/trenki/renderer/vertex_processor.h" />
+		<Unit filename="include/trenki/vector_math.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

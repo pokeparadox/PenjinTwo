@@ -222,3 +222,11 @@ size_t ImageSheet::size()
         return surfaces.size();
     }
 }
+
+Penjin::Colour ImageSheet::getPixelInFrame(Vector2d<int> pos, CRint frame) const
+{
+    if (sheetMode)
+        return Penjin::GFX::getInstance()->getPixel(surface, Vector2d<int> (pos.x + clipAreas[frame].x, pos.y + clipAreas[frame].y) );
+
+    return Penjin::GFX::getInstance()->getPixel(surfaces.at(frame), Vector2d<int> (pos.x, pos.y ) );
+}
