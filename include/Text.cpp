@@ -61,10 +61,8 @@ Text::Text()
 	cursorPos.x = 0;
 	cursorPos.y = 0;
 
-    #ifdef PENJIN_SDL
-    // set the dimensions to the screenwidth
-    dimensions = GFX::getInstance()->getDimensions();
-    #endif
+    dimensions = GFX::getInstance()->getResolution();
+
     alignment = LEFT_JUSTIFIED;
     bgColour = BLACK;
     relativePos = false;

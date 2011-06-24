@@ -32,15 +32,21 @@ namespace Penjin
             virtual ~PositionObject();
 
             template <class T>
-            void setPosition(const T& pos){position.x=pos.x;position.y=pos.y;}
+            void setPosition(const T& pos){position.x=pos.x;position.y=pos.y;rescale();}
 
             template <class T>
-            void setPosition(const T& x, const T& y){position.x=x;position.y=y;}
+            void setPosition(const T& x, const T& y){position.x=x;position.y=y;rescale();}
+
+            void setX(const float& x);
+            void setY(const float& y);
 
             Vector2d<float> getPosition()const;
 
+            Vector2d<float> getScaledPosition();
         protected:
+            void rescale();
             Vector2d<float> position;
+            Vector2d<float> scaled;
     };
 }
 #endif // POSITIONOBJECT_H

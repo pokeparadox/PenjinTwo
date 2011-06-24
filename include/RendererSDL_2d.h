@@ -88,6 +88,7 @@ namespace Penjin
             Colour getPixel(SDL_Surface* s, Vector2d<int> pos);
             SDL_Surface* getSDLVideoSurface();
             SDL_Surface* cropSurface(SDL_Surface* in, SDL_Rect* cropArea);
+
             void lockSurface(SDL_Surface* s);
             void unlockSurface(SDL_Surface* s);
 

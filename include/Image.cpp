@@ -18,6 +18,7 @@
 */
 
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_rotozoom.h>
 
 #include "Image.h"
 #include "GFX.h"
@@ -71,9 +72,19 @@ void Image::render()
         src.y = surface->clip_rect.y;
         src.w = surface->w;
         src.h = surface->h;
+        Renderer* gfx = GFX::getInstance();
+        if(gfx->getScaleMode() != smPRESCALE)
+        {
+            dst.x = position.x;
+            dst.y = position.y;
+        }
+        else
+        {
+            dst.x = getScaledPosition().x;
+            dst.y = getScaledPosition().y;
+        }
 
-        dst.x = position.x;
-        dst.y = position.y;
+
         SDL_BlitSurface(surface, &src, GFX::getInstance()->getSDLVideoSurface(), &dst);
         #ifdef _DEBUG
             Rectangle::render();
@@ -94,6 +105,35 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
     if(surface && (surface!=s))
         SDL_FreeSurface(surface);
     surface = s;
+
+    // PRESCALE if needed.
+    Renderer* gfx = GFX::getInstance();
+    if(gfx->getScaleMode() == smPRESCALE)
+    {
+        SDL_Surface* orig = surface;
+        surface = NULL;
+        Vector2d<float> sc = gfx->getPixelScale();
+        surface = zoomSurface(orig, sc.x, sc.y, SMOOTHING_OFF);
+        SDL_FreeSurface(orig);
+
+        ///////////////
+        // This code fixes colour keying in 32 bpp mode (otherwise the colour key colour shows)
+        // It also caused the rotated images to disappear in 16 bpp mode, so only run for 32 bpp
+        /*if(surface->format->BitsPerPixel == 32)
+        {
+            SDL_Surface* another = SDL_CreateRGBSurface(surface->flags,surface->w, surface->h,surface->format->BitsPerPixel,
+                                                        surface->format->Rmask, surface->format->Gmask, surface->format->Bmask, surface->format->Amask);
+            // default to magenta
+            SDL_FillRect(another, NULL, SDL_MapRGB(another->format,0,0,0));
+            SDL_SetColorKey(surface, NULL, surface->format->colorkey);
+            //SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, NULL);//SDL_MapRGB(surface->format,0,0,0));
+            SDL_BlitSurface(surface,NULL, another, NULL);
+            //SDL_SetColorKey(another, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(another->format,255,0,255));
+            SDL_SetColorKey(another, NULL, another->format->colorkey);
+            SDL_FreeSurface(surface);
+            surface = another;
+        }*/
+    }
 
     // Setup correct display format depending on if image contains alpha or not
     SDL_Surface* oldSurface = surface;

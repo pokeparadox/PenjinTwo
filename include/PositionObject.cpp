@@ -17,7 +17,7 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "PositionObject.h"
-
+#include "GFX.h"
 using Penjin::PositionObject;
 
 PositionObject::PositionObject()
@@ -33,4 +33,37 @@ PositionObject::~PositionObject()
 Vector2d<float> PositionObject::getPosition()const
 {
     return position;
+}
+
+void PositionObject::setX(const float& x)
+{
+    position.x = x;
+    Renderer* gfx = GFX::getInstance();
+    if(gfx->getScaleMode() != smPRESCALE)
+        return;
+
+    scaled.x = position.x * gfx->getPixelScale().x;
+}
+
+void PositionObject::setY(const float& y)
+{
+    position.y = y;
+    Renderer* gfx = GFX::getInstance();
+    if(gfx->getScaleMode() != smPRESCALE)
+        return;
+    scaled.y = position.y * gfx->getPixelScale().y;
+}
+
+void PositionObject::rescale()
+{
+    Renderer* gfx = GFX::getInstance();
+    if(gfx->getScaleMode() != smPRESCALE)
+        return;
+
+    scaled = position * gfx->getPixelScale();
+}
+
+Vector2d<float> PositionObject::getScaledPosition()
+{
+    return scaled;
 }

@@ -44,31 +44,34 @@ namespace Penjin
              * \param dims : the dimensions to set which must have x and y components.
              */
             template <class T>
-            void setDimensions(const T& dims){dimensions.x=dims.x;dimensions.y=dims.y;}
+            void setDimensions(const T& dims){dimensions.x=dims.x;dimensions.y=dims.y;rescale();}
             /** \brief Set the width and height of an object.
              * \param x : the width.
              * \param y : the height.
              */
             template <class T>
-            void setDimensions(const T& x, const T& y){dimensions.x=x;dimensions.y=y;}
+            void setDimensions(const T& x, const T& y){dimensions.x=x;dimensions.y=y;rescale();}
+
             /** \brief Set the width of an object.
              * \param w : the width to set, which must be numerical.
              */
-            template <class T>
-            void setWidth(const T& w){dimensions.x=w;}
+            void setWidth(const int& w);
+
             /** \brief Set the height of an object.
              * \param h : the height to set, which must be numerical.
              */
-            template <class T>
-            void setHeight(const T& h){dimensions.y=h;}
+            void setHeight(const int& h);
 
             // Getting methods
             virtual Vector2d<int> getDimensions()const;
             virtual int getWidth()const;
             virtual int getHeight()const;
+            Vector2d<int> getScaledDimensions();
 
         protected:
             Vector2d<int> dimensions;
+            Vector2d<int> scaled;
+            void rescale();
     };
 }
 #endif // DIMENSIONOBJECT_H

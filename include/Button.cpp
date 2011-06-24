@@ -30,7 +30,7 @@ Button::Button() : selection(NULL)
     setColour(LIGHT_GREY);
     this->setHighLightColour(WHITE);
     this->setLowLightColour(DARK_GREY);
-    Vector2d<int> t = Penjin::GFX::getInstance()->getDimensions();
+    Vector2d<int> t = Penjin::GFX::getInstance()->getResolution();
     t.x = t.x * 0.1f;
     t.y = t.x;
     setDimensions(t);

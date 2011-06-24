@@ -68,17 +68,61 @@ void Renderer::setFrameRate(const uint& fps)
     this->fps = fps;
 }
 
+void Renderer::setWidth(const int& w){resolution.x=w;}
+void Renderer::setHeight(const int& h){resolution.y=h;}
+void Renderer::setResolution(const Vector2d<int>& r){resolution=r;}
+
+int Renderer::getWidth()
+{
+    return resolution.x;
+}
+
+int Renderer::getHeight()
+{
+    return resolution.y;
+}
+
+Vector2d<int> Renderer::getResolution()
+{
+    return resolution;
+}
+
 void Renderer::setBaseResolution(const Vector2d<int>& r)
 {
+    if(r.x == 0 || r.y == 0)
+        return;
     baseResolution = r;
-    pixelScale.x = dimensions.x / r.x;
-    pixelScale.y = dimensions.y / r.y;
+    pixelScale.x = (float)resolution.x / (float)r.x;
+    pixelScale.y = (float)resolution.y / (float)r.y;
+    scaleMode = smPRESCALE;
+}
+
+void Renderer::setBaseWidth(const int& w)
+{
+    if(w == 0)
+        return;
+    baseResolution.x = w;
+    pixelScale.x = (float)resolution.x / (float)w;
+    scaleMode = smPRESCALE;
+}
+
+void Renderer::setBaseHeight(const int& h)
+{
+    if(h == 0)
+        return;
+    baseResolution.y = h;
+    pixelScale.y = (float)resolution.y / (float)h;
     scaleMode = smPRESCALE;
 }
 
 void Renderer::setScaleMode(const SCALE_MODES& m)
 {
     scaleMode = m;
+}
+
+Penjin::SCALE_MODES Renderer::getScaleMode()
+{
+    return scaleMode;
 }
 
 Vector2d<float> Renderer::getPixelScale()

@@ -29,7 +29,18 @@ Rectangle::Rectangle()
 
 void Rectangle::render()
 {
-    Penjin::GFX::getInstance()->setDrawColour(*this);
-    Penjin::GFX::getInstance()->setDrawWidth(drawWidth);
-    Penjin::GFX::getInstance()->drawRectangle(position, dimensions);
+    Renderer* gfx = Penjin::GFX::getInstance();
+    gfx->setDrawColour(*this);
+
+    if(gfx->getScaleMode()!=smPRESCALE)
+    {
+        gfx->setDrawWidth(drawWidth);
+        gfx->drawRectangle(position, dimensions);
+    }
+    else
+    {
+        gfx->setDrawWidth(drawWidth * gfx->getPixelScale().y);
+        gfx->drawRectangle(getScaledPosition(), getScaledDimensions());
+    }
+
 }

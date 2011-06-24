@@ -57,6 +57,8 @@ Game2d::Game2d()
     if(e == PENJIN_OK)
         e = loadConfig();
 
+    /// TODO: Do something with the error code!
+
     if(flags)
         Penjin::GFX::getInstance()->applyVideoSettings();
 
@@ -87,6 +89,18 @@ Penjin::ERRORS Game2d::loadConfig()
     if(value != "")
     {
         Penjin::GFX::getInstance()->setHeight(Penjin::StringUtility::stringToInt(value));
+        value = "";
+    }
+    value = cfg.getValue("Video","BaseWidth","0");
+    if(value != "")
+    {
+        Penjin::GFX::getInstance()->setBaseWidth(Penjin::StringUtility::stringToInt(value));
+        value = "";
+    }
+    value = cfg.getValue("Video","BaseHeight","0");
+    if(value != "")
+    {
+        Penjin::GFX::getInstance()->setBaseHeight(Penjin::StringUtility::stringToInt(value));
         value = "";
     }
     value = cfg.getValue("Video","BitsPerPixel","0");

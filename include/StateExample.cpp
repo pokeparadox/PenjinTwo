@@ -41,7 +41,7 @@ StateExample::~StateExample()
 void StateExample::render()
 {
     Penjin::GFX::getInstance()->clear();
-    Vector2d<int> t = Penjin::GFX::getInstance()->getDimensions();
+    Vector2d<int> t = Penjin::GFX::getInstance()->getResolution();
     Penjin::GFX::getInstance()->drawLine(   Vector2d<float> (0,0), Vector2d<float> (t.x,t.y));
     Penjin::GFX::getInstance()->drawLine(   Vector2d<float> (0,t.y), Vector2d<float> (t.x, 0));
 }

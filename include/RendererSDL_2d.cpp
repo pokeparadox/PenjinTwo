@@ -22,6 +22,7 @@
 */
 #include <SDL/SDL.h>
 #include <SDL/SDL_gfxPrimitives.h>
+#include <SDL/SDL_rotozoom.h>
 #include "RendererSDL_2d.h"
 #include "Errors.h"
 
@@ -65,7 +66,7 @@ void RendererSDL_2d::applyVideoSettings()
     info = SDL_GetVideoInfo();
     if(!info)
 	{
-	    //need to handle error here
+	    /// TODO: need to handle error here
 		//PENJIN_SDL_VIDEO_QUERY_FAILED;
     }
     flags = SDL_SWSURFACE | SDL_DOUBLEBUF;
@@ -76,7 +77,7 @@ void RendererSDL_2d::applyVideoSettings()
     if(bpp == 0 || !(bpp == 8 || bpp == 16 || bpp == 32))
         bpp = info->vfmt->BitsPerPixel;
 
-        screen = SDL_SetVideoMode(dimensions.x, dimensions.y, bpp, flags);
+        screen = SDL_SetVideoMode(resolution.x, resolution.y, bpp, flags);
     if(screen  == NULL )
         PENJIN_SDL_SETVIDEOMODE_FAILED;
 }
@@ -147,6 +148,7 @@ void RendererSDL_2d::drawLine(const Vector2d<float> & p1, const Vector2d<float> 
 
 void RendererSDL_2d::drawRectangle(const Vector2d<float> & pos, const Vector2d<int> & dims)
 {
+    // Filled Rectangle
     if(drawWidth<=0)
         boxRGBA(screen, pos.x, pos.y, pos.x+ dims.x, pos.y+ dims.y, drawColour.r, drawColour.g, drawColour.b, drawColour.a);
     else

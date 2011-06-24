@@ -17,6 +17,7 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "DimensionObject.h"
+#include "GFX.h"
 using Penjin::DimensionObject;
 
 DimensionObject::DimensionObject()
@@ -43,4 +44,38 @@ int DimensionObject::getWidth()const
 int DimensionObject::getHeight()const
 {
     return dimensions.y;
+}
+
+void DimensionObject::setWidth(const int& w)
+{
+    dimensions.x = w;
+    Renderer* gfx = GFX::getInstance();
+    if(gfx->getScaleMode() != smPRESCALE)
+        return;
+
+    scaled.x =  (float)(dimensions.x * gfx->getPixelScale().x) + 0.5f;
+}
+
+void DimensionObject::setHeight(const int& h)
+{
+    dimensions.y = h;
+    Renderer* gfx = GFX::getInstance();
+    if(gfx->getScaleMode() != smPRESCALE)
+        return;
+
+    scaled.y = (float)(dimensions.y * gfx->getPixelScale().y) + 0.5f;
+}
+
+void DimensionObject::rescale()
+{
+    Renderer* gfx = GFX::getInstance();
+    if(gfx->getScaleMode() != smPRESCALE)
+        return;
+
+    scaled = dimensions * gfx->getPixelScale();
+}
+
+Vector2d<int> DimensionObject::getScaledDimensions()
+{
+    return scaled;
 }

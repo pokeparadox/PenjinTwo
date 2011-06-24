@@ -37,7 +37,7 @@ namespace Penjin
         smPRESCALE      //  Objects resized on load. Positions and dimensions scaled.
     };
 
-    class Renderer : public DimensionObject
+    class Renderer
     {
         public:
             /** Default constructor */
@@ -75,9 +75,19 @@ namespace Penjin
             //virtual Surface cropSurface(Surface in, Rectangle cropArea)=0;
 
             virtual void showVideoInfo()=0;
+
+            void setWidth(const int& w);
+            void setHeight(const int& h);
+            void setResolution(const Vector2d<int>& r);
+            Vector2d<int> getResolution();
+            int getWidth();
+            int getHeight();
             // Scaling options
             void setScaleMode(const SCALE_MODES& m);            //  Sets the scaling mode
+            SCALE_MODES getScaleMode();
             void setBaseResolution(const Vector2d<int>& res);   //  Sets the intended resolution
+            void setBaseWidth(const int& w);
+            void setBaseHeight(const int& h);
             Vector2d<float> getPixelScale();                    //  Gets the scale Vector of a single pixel.
 
         protected:
@@ -89,6 +99,7 @@ namespace Penjin
             int drawWidth;
             Timer* timer;
             vector <RenderObject*> rendObjs;
+            Vector2d<int> resolution;
             // Scaling options
             SCALE_MODES scaleMode;
             Vector2d<int> baseResolution;

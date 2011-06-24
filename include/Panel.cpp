@@ -31,8 +31,8 @@ Panel::Panel() : shouldHide(false), hidden(false), selection(-1)//, hideOffset(0
 {
     //ctor
     //setColour(DARK_GREY);
-    Vector2d<int> t = Penjin::GFX::getInstance()->getDimensions();
-    t.y = t.y * 0.18f;
+    Vector2d<int> t = Penjin::GFX::getInstance()->getResolution();
+    t.y = 32;//t.y * 0.18f;
     t.x = t.x -1;
     setDimensions(t);
     lowLight->setColour(BLACK);
@@ -76,7 +76,7 @@ void Panel::render()
 void Panel::update()
 {
     // first we find out if the panel is near top or bottom of screen
-    int centre = Penjin::GFX::getInstance()->getDimensions().y * 0.5f;
+    int centre = Penjin::GFX::getInstance()->getHeight() * 0.5f;
     int boxCentre = ( startPosition.y + dimensions.y) * 0.5f;
 
     // nearer top of screen
