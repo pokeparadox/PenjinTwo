@@ -94,6 +94,8 @@
 		<Unit filename="include/Application.h" />
 		<Unit filename="include/ApplicationState.cpp" />
 		<Unit filename="include/ApplicationState.h" />
+		<Unit filename="include/BackBuffer.cpp" />
+		<Unit filename="include/BackBuffer.h" />
 		<Unit filename="include/Button.cpp" />
 		<Unit filename="include/Button.h" />
 		<Unit filename="include/CollisionRegion.cpp" />
