@@ -20,6 +20,7 @@
 #include "Button.h"
 #include "Widget.h"
 #include "Rectangle.h"
+
 using Penjin::Button;
 using Penjin::Widget;
 using Penjin::Rectangle;
@@ -30,9 +31,7 @@ Button::Button() : selection(NULL)
     setColour(LIGHT_GREY);
     this->setHighLightColour(WHITE);
     this->setLowLightColour(DARK_GREY);
-    Vector2d<int> t = Penjin::GFX::getInstance()->getResolution();
-    t.x = t.x * 0.1f;
-    t.y = t.x;
+    Vector2d<int> t(24,24);
     setDimensions(t);
     drawWidth = -1;
     selection = new Rectangle();

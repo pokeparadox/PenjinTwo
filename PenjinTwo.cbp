@@ -82,6 +82,47 @@
 					<Add directory="$(#mingw.lib)" />
 				</Linker>
 			</Target>
+			<Target title="Pandora Debug">
+				<Option output="lib/Pandora/libPenjinTwoD" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Pandora/Debug/" />
+				<Option type="3" />
+				<Option compiler="pandora" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPLATFORM_PANDORA" />
+					<Add option="-DPENJIN_SDL_INPUT" />
+					<Add directory="$(#pandora_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="SDL_gfx" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+					<Add directory="$(#pandora_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Pandora Release">
+				<Option output="lib/Pandora/libPenjinTwo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Pandora/Release/" />
+				<Option type="3" />
+				<Option compiler="pandora" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_PANDORA" />
+					<Add option="-DPENJIN_SDL_INPUT" />
+					<Add directory="$(#pandora_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="$(#pandora_sdk.lib)" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -212,6 +253,8 @@
 		<Unit filename="include/TextFile.h" />
 		<Unit filename="include/Timer.cpp" />
 		<Unit filename="include/Timer.h" />
+		<Unit filename="include/ToolTip.cpp" />
+		<Unit filename="include/ToolTip.h" />
 		<Unit filename="include/UpdateObject.cpp" />
 		<Unit filename="include/UpdateObject.h" />
 		<Unit filename="include/Vector1d.h" />

@@ -31,9 +31,9 @@ Panel::Panel() : shouldHide(false), hidden(false), selection(-1)//, hideOffset(0
 {
     //ctor
     //setColour(DARK_GREY);
-    Vector2d<int> t = Penjin::GFX::getInstance()->getResolution();
-    t.y = 32;//t.y * 0.18f;
-    t.x = t.x -1;
+    Vector2d<int> t;
+    t.y = 32;
+    t.x = GFX::getInstance()->getWidth() -1;
     setDimensions(t);
     lowLight->setColour(BLACK);
     highLight->setColour(LIGHT_GREY);
@@ -77,22 +77,26 @@ void Panel::update()
 {
     // first we find out if the panel is near top or bottom of screen
     int centre = Penjin::GFX::getInstance()->getHeight() * 0.5f;
-    int boxCentre = ( startPosition.y + dimensions.y) * 0.5f;
+    Vector2d<int> dim = getScaledDimensions();
+    Vector2d<int> pos = getScaledPosition();
+    Vector2d<int> startPos = startPosition.getScaledPosition();
+
+    int boxCentre = ( startPos.y + dim.y) * 0.5f;
 
     // nearer top of screen
     if(boxCentre<centre)
     {
         if(shouldHide)
         {
-            if(Rectangle::position.y >= startPosition.y - dimensions.y)
-                --Rectangle::position.y;
+            if(pos.y >= startPos.y - dim.y)
+                Rectangle::setPosition(Vector2d<float>(position.x,position.y-1));//pos.y-=GFX::getInstance()->getPixelScale().y;
             else
                 hidden = true;
         }
         else
         {
-            if(Rectangle::position.y  < startPosition.y)
-                ++Rectangle::position.y;
+            if(pos.y  < startPos.y)
+                Rectangle::setPosition(Vector2d<float>(position.x,position.y+1));//
             else
                 hidden = false;
         }
@@ -104,19 +108,23 @@ void Panel::update()
 
 
     // Now position the widgets
-    Vector2d<float> t = Rectangle::position;
+    Vector2d<float> t = Rectangle::getScaledPosition();
     for(unsigned int i = 0; i < widgets.size(); ++i)
     {
-        // resize panel if a wdiget is too big
+        // resize panel if a widget is too big
         if(widgets.at(i)->getDimensions() > getDimensions())
-            setDimensions(widgets.at(i)->getDimensions());
-
-        int wCentre = widgets.at(i)->getDimensions().y*0.5f;
-        int offset = (boxCentre -wCentre) +1;
+        {
+            setHeight(widgets.at(i)->getHeight());
+            setWidth(GFX::getInstance()->getWidth());
+        }
+        int wCentre = widgets.at(i)->getScaledDimensions().y*0.5f;
+        Vector2d<float> pixScale = GFX::getInstance()->getPixelScale();
+        int offset = (boxCentre -wCentre) + pixScale.x;
         t.x += offset;
-        t.y = offset + position.y;
-        widgets.at(i)->setPosition(t.x,t.y);
-        t.x += widgets.at(i)->getDimensions().x;
+        t.y = offset + getScaledPosition().y;
+
+        widgets.at(i)->setPosition(t.x/pixScale.x,t.y/pixScale.y);
+        t.x += widgets.at(i)->getScaledDimensions().x;
         widgets.at(i)->setSelected(false);
         widgets.at(i)->setActive(false);
     }

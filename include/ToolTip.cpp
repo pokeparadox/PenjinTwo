@@ -18,46 +18,35 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 **********************************************************************************************/
 /**
-  * \file SpriteButton is a class to create a button with an image centred on button face.
+  * \file ToolTip Text Box
   * \author Kevin Winfield-Pantoja
 */
-#include "SpriteButton.h"
-#include "Sprite.h"
-using Penjin::SpriteButton;
-using Penjin::Sprite;
+#include "ToolTip.h"
+#include "Text.h"
+using Penjin::ToolTip;
 
-SpriteButton::SpriteButton() : sprite(NULL)
+ToolTip::ToolTip()
 {
     //ctor
-    sprite = new Sprite;
 }
 
-SpriteButton::~SpriteButton()
+ToolTip::~ToolTip()
 {
     //dtor
-    delete sprite;
 }
 
-Penjin::ERRORS SpriteButton::loadImage(const string& f)
+void ToolTip::render()
 {
-    return sprite->load(f);
+
 }
 
-void SpriteButton::render()
+void ToolTip::update()
 {
-    Button::render();
-    Vector2d<float> a = getScaledDimensions();
-    Vector2d<float> b = sprite->getDimensions();
-    // The difference of the dimensions of both objects
-    a = a - b;
-    a = a * 0.5f;
-    b = a + getScaledPosition();
-    sprite->setPosition(b);
-    sprite->render();
+
 }
 
 
-void SpriteButton::update()
+void ToolTip::setText(const string& t)
 {
-
+    text=t;
 }

@@ -119,20 +119,20 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
         ///////////////
         // This code fixes colour keying in 32 bpp mode (otherwise the colour key colour shows)
         // It also caused the rotated images to disappear in 16 bpp mode, so only run for 32 bpp
-        /*if(surface->format->BitsPerPixel == 32)
+        if(surface->format->BitsPerPixel == 32)
         {
             SDL_Surface* another = SDL_CreateRGBSurface(surface->flags,surface->w, surface->h,surface->format->BitsPerPixel,
                                                         surface->format->Rmask, surface->format->Gmask, surface->format->Bmask, surface->format->Amask);
             // default to magenta
-            SDL_FillRect(another, NULL, SDL_MapRGB(another->format,0,0,0));
-            SDL_SetColorKey(surface, NULL, surface->format->colorkey);
-            //SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, NULL);//SDL_MapRGB(surface->format,0,0,0));
+            SDL_FillRect(another, NULL, SDL_MapRGB(another->format,255,0,255));
+            //SDL_SetColorKey(surface, NULL, surface->format->colorkey);
+            SDL_SetColorKey(surface, SDL_SRCCOLORKEY | SDL_RLEACCEL, NULL);//SDL_MapRGB(surface->format,0,0,0));
             SDL_BlitSurface(surface,NULL, another, NULL);
-            //SDL_SetColorKey(another, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(another->format,255,0,255));
-            SDL_SetColorKey(another, NULL, another->format->colorkey);
+            SDL_SetColorKey(another, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(another->format,255,0,255));
+            //SDL_SetColorKey(another, NULL, another->format->colorkey);
             SDL_FreeSurface(surface);
             surface = another;
-        }*/
+        }
     }
 
     // Setup correct display format depending on if image contains alpha or not

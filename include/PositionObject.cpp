@@ -39,28 +39,31 @@ void PositionObject::setX(const float& x)
 {
     position.x = x;
     Renderer* gfx = GFX::getInstance();
+    // If we are not scaling, then the scaled size is the same
     if(gfx->getScaleMode() != smPRESCALE)
-        return;
-
-    scaled.x = position.x * gfx->getPixelScale().x;
+        scaled.x = x;
+    else
+        scaled.x =  (float)(position.x * gfx->getPixelScale().x) + 0.5f;
 }
 
 void PositionObject::setY(const float& y)
 {
     position.y = y;
     Renderer* gfx = GFX::getInstance();
+     // If we are not scaling, then the scaled size is the same
     if(gfx->getScaleMode() != smPRESCALE)
-        return;
-    scaled.y = position.y * gfx->getPixelScale().y;
+        scaled.y = y;
+    else
+        scaled.y =  (float)(position.y * gfx->getPixelScale().y) + 0.5f;
 }
 
 void PositionObject::rescale()
 {
     Renderer* gfx = GFX::getInstance();
     if(gfx->getScaleMode() != smPRESCALE)
-        return;
-
-    scaled = position * gfx->getPixelScale();
+        scaled = position;
+    else
+        scaled = position * gfx->getPixelScale();
 }
 
 Vector2d<float> PositionObject::getScaledPosition()

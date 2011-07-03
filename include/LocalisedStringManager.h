@@ -30,11 +30,12 @@ namespace Penjin
         public:
             LocalisedStringManager();
             /** get a Singleton instance of this class! */
-            static LocalisedStringManager& getInstance()
+            // Not needed since we are using Singleton template!
+            /*static LocalisedStringManager& getInstance()
             {
                 static LocalisedStringManager instanceLSM;   // Instantiated when this function is called
                 return instanceLSM;
-            }
+            }*/
             //virtual Penjin::Errors load(const string & file);
             /** \brief loads the locale strings
              * \return the Penjin:ERRORS, error code.

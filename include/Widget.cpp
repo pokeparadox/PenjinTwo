@@ -46,16 +46,17 @@ void Widget::render()
     Vector2d<int> t;
 
     // left highlight
-    highLight->setPosition(Rectangle::position);
-    t.x = Rectangle::position.x;
-    t.y = Rectangle::position.y + dimensions.y;
+    Vector2d<int> pos = getScaledPosition();
+    highLight->setPosition(pos);
+    t.x = pos.x;
+    t.y = pos.y + getScaledDimensions().y;
     highLight->setEndPosition(t);
     if(showHighLight)
         highLight->render();
 
     // bottom low light
     lowLight->setPosition(t);
-    t.x = Rectangle::position.x + dimensions.x;
+    t.x = pos.x + getScaledDimensions().x;
     lowLight->setEndPosition(t);
     if(showLowLight)
         lowLight->render();
@@ -64,7 +65,7 @@ void Widget::render()
 
     // right low light
     lowLight->setPosition(t);
-    t.y = Rectangle::position.y;
+    t.y = pos.y;
     lowLight->setEndPosition(t);
     if(showLowLight)
         lowLight->render();
@@ -103,10 +104,13 @@ bool Widget::isActive()
 bool Widget::isMouseSelected()
 {
     Vector2d<int> m = Joy::getInstance()->getMouse();
-    if( m.x > position.x &&
-        m.x < position.x + dimensions.x &&
-        m.y > position.y &&
-        m.y < position.y + dimensions.y
+    Vector2d<int> pos = getScaledPosition();
+    Vector2d<int> dim = getScaledDimensions();
+
+    if( m.x > pos.x &&
+        m.x < pos.x + dim.x &&
+        m.y > pos.y &&
+        m.y < pos.y + dim.y
     )
         return true;
     return false;

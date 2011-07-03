@@ -29,6 +29,7 @@ scaleMode(smNONE)
     //ctor
     timer = new Timer;
     setFrameRate(fps);
+    pixelScale.x = pixelScale.y = 1;
 }
 
 Renderer::~Renderer()
@@ -89,7 +90,7 @@ Vector2d<int> Renderer::getResolution()
 
 void Renderer::setBaseResolution(const Vector2d<int>& r)
 {
-    if(r.x == 0 || r.y == 0)
+    if(r.x == 0 || r.y == 0 || r.x == resolution.x || r.y == resolution.y)
         return;
     baseResolution = r;
     pixelScale.x = (float)resolution.x / (float)r.x;
@@ -99,7 +100,7 @@ void Renderer::setBaseResolution(const Vector2d<int>& r)
 
 void Renderer::setBaseWidth(const int& w)
 {
-    if(w == 0)
+    if(w == 0 || w == resolution.x)
         return;
     baseResolution.x = w;
     pixelScale.x = (float)resolution.x / (float)w;
@@ -108,7 +109,7 @@ void Renderer::setBaseWidth(const int& w)
 
 void Renderer::setBaseHeight(const int& h)
 {
-    if(h == 0)
+    if(h == 0 || h == resolution.y)
         return;
     baseResolution.y = h;
     pixelScale.y = (float)resolution.y / (float)h;

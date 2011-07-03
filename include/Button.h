@@ -15,7 +15,8 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef BUTTON_H
+*/
+#ifndef BUTTON_H
 #define BUTTON_H
 #include "Widget.h"
 #include "UpdateObject.h"
@@ -34,10 +35,7 @@ namespace Penjin
             virtual void update();
 
         protected:
-            string text;        /** short action word of button*/
-            string description; /** Long description of what the button does */
             Rectangle* selection;
-        private:
     };
 }
 #endif // BUTTON_H

@@ -23,6 +23,7 @@
 #include "GFX.h"
 #include "StringUtility.h"
 #include "SimpleJoy.h"
+#include "Text.h"
 using Penjin::Game2d;
 using Penjin::ApplicationState;
 
@@ -59,9 +60,6 @@ Game2d::Game2d()
 
     /// TODO: Do something with the error code!
 
-    if(flags)
-        Penjin::GFX::getInstance()->applyVideoSettings();
-
     // Set the title to the main window(localised).
     SDL_WM_SetCaption(title.c_str(), NULL);
 }
@@ -71,55 +69,70 @@ Penjin::ERRORS Game2d::loadConfig()
     Penjin::ConfigFile cfg;
     Penjin::ERRORS e = cfg.load(Penjin::CONFIG_FILE);
     string value;
+    Penjin::Renderer* gfx = Penjin::GFX::getInstance();
 
     value = cfg.getValue("Video","FrameRate","60");
     if(value != "")
     {
-        Penjin::GFX::getInstance()->setFrameRate(Penjin::StringUtility::stringToInt(value));
+        gfx->setFrameRate(Penjin::StringUtility::stringToInt(value));
         value = "";
     }
     // NOTE: Value of "0" for Width Height and BitsPerPixel is automatic selection
     value = cfg.getValue("Video","Width","0");
     if(value != "")
     {
-        Penjin::GFX::getInstance()->setWidth(Penjin::StringUtility::stringToInt(value));
+        gfx->setWidth(Penjin::StringUtility::stringToInt(value));
         value = "";
     }
     value = cfg.getValue("Video","Height","0");
     if(value != "")
     {
-        Penjin::GFX::getInstance()->setHeight(Penjin::StringUtility::stringToInt(value));
+        gfx->setHeight(Penjin::StringUtility::stringToInt(value));
         value = "";
     }
     value = cfg.getValue("Video","BaseWidth","0");
     if(value != "")
     {
-        Penjin::GFX::getInstance()->setBaseWidth(Penjin::StringUtility::stringToInt(value));
+        gfx->setBaseWidth(Penjin::StringUtility::stringToInt(value));
         value = "";
     }
     value = cfg.getValue("Video","BaseHeight","0");
     if(value != "")
     {
-        Penjin::GFX::getInstance()->setBaseHeight(Penjin::StringUtility::stringToInt(value));
+        gfx->setBaseHeight(Penjin::StringUtility::stringToInt(value));
         value = "";
     }
     value = cfg.getValue("Video","BitsPerPixel","0");
     if(value != "")
     {
-        Penjin::GFX::getInstance()->setBitsPerPixel(Penjin::StringUtility::stringToInt(value));
+        gfx->setBitsPerPixel(Penjin::StringUtility::stringToInt(value));
         value = "";
     }
     value = cfg.getValue("Video","Fullscreen","False");
     if(value != "")
     {
-        Penjin::GFX::getInstance()->setFullscreen(Penjin::StringUtility::stringToBool(value));
+        gfx->setFullscreen(Penjin::StringUtility::stringToBool(value));
+        value = "";
+    }
+
+    Penjin::GFX::getInstance()->applyVideoSettings();
+    //////////////////////////////////////////////////////////////
+    value = cfg.getValue("System","Font","fonts/unispace.ttf");
+    if(value != "")
+    {
+        string font = value;
+        value = "";
+        value = cfg.getValue("System","FontSize","10");
+        if(value != "")
+        {
+            Penjin::TextMan::getInstance()->load(font,Penjin::StringUtility::stringToInt(value));
+        }
         value = "";
     }
 
     // Save any changes
     if(cfg.hasChanged())
         cfg.save(Penjin::CONFIG_FILE);
-
     return e;
 }
 
@@ -132,12 +145,13 @@ Game2d::~Game2d()
 void Game2d::loop()
 {
     //  We have to get the state pointer to begin with
-    state = Penjin::StateMan::getInstance()->getState();
+    Penjin::StateManager* sm = Penjin::StateMan::getInstance();
+    state = sm->getState();
     while(!state->getShouldQuit())
     {
         //  Then we check states each update loop
-        Penjin::StateMan::getInstance()->stateManagement();
-        state = Penjin::StateMan::getInstance()->getState();
+        sm->stateManagement();
+        state = sm->getState();
 
         // update joysticks etc
         Penjin::Joy::getInstance()->update();

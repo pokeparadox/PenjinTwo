@@ -31,7 +31,7 @@ using namespace std;
 #include "PenjinTypes.h"
 #include "Colour.h"
 #include "Errors.h"
-
+#include "Singleton.h"
 ///Text will wrap after 58 characters, inc spaces and punctuation. (at size 12 pt) (on a GP2X screen, 320x240)
 ///The text below shows how many characters can be used before the text will wrap.
 ////////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +131,8 @@ namespace Penjin
 
             Colour bgColour;
     };
+
+    typedef Singleton<Text> TextMan;
 }
 
 #endif	//	TEXT_H

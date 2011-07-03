@@ -47,8 +47,7 @@ namespace Penjin
             void setPosition(const T& pos)
             {
                 Rectangle::setPosition(pos);
-                startPosition.x = pos.x;
-                startPosition.y = pos.y;
+                startPosition.setPosition(pos);
             }
 
             // return -1 if no Widget is active
@@ -66,7 +65,7 @@ namespace Penjin
 
             int selection;  // ID of the selected widget
             //int hideOffset;
-            Vector2d<float> startPosition;
+            PositionObject startPosition;
 
             /** We store all our widget pointers here**/
             vector<Widget*> widgets;
