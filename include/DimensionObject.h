@@ -66,7 +66,7 @@ namespace Penjin
             virtual Vector2d<int> getDimensions()const;
             virtual int getWidth()const;
             virtual int getHeight()const;
-            Vector2d<int> getScaledDimensions();
+            virtual Vector2d<int> getScaledDimensions();
 
         protected:
             Vector2d<int> dimensions;

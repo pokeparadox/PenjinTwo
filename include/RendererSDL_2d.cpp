@@ -204,9 +204,9 @@ Penjin::Colour RendererSDL_2d::getPixel(SDL_Surface* s, Vector2d<int> pos)
     return c;
 }
 
-Penjin::Colour RendererSDL_2d::getPixel(Surface s, Vector2d<int> pos)
+Penjin::Colour RendererSDL_2d::getPixel(Surface* s, Vector2d<int> pos)
 {
-    return getPixel(s.surface, pos);
+    return getPixel(s->getSDL_Surface(), pos);
 }
 
 void RendererSDL_2d::showVideoInfo()

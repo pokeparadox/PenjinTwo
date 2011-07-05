@@ -137,6 +137,8 @@
 		<Unit filename="include/ApplicationState.h" />
 		<Unit filename="include/BackBuffer.cpp" />
 		<Unit filename="include/BackBuffer.h" />
+		<Unit filename="include/Brad.cpp" />
+		<Unit filename="include/Brad.h" />
 		<Unit filename="include/Button.cpp" />
 		<Unit filename="include/Button.h" />
 		<Unit filename="include/CollisionRegion.cpp" />

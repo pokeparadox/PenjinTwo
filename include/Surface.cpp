@@ -24,7 +24,8 @@
 
 #include "Surface.h"
 using Penjin::Surface;
-Surface::Surface()
+
+Surface::Surface() : surface(NULL)
 {
     //ctor
 }
@@ -33,6 +34,8 @@ Surface::~Surface()
 {
     //dtor
 }
+
+
 
 Surface::Surface(const Surface& other)
 {
@@ -44,4 +47,50 @@ Surface& Surface::operator=(const Surface& rhs)
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
+}
+
+SDL_Surface* Surface::getSDL_Surface()
+{
+    return surface;
+}
+
+void Surface::render(Surface* s)
+{
+    if(s == NULL)
+        return;
+
+    if(surface)
+    {
+        //SDL_SetAlpha(surface, SDL_SRCALPHA, a);
+        // Set up blitting area
+        SDL_Rect src, dst;
+        src.x = surface->clip_rect.x;
+        src.y = surface->clip_rect.y;
+        src.w = surface->w;
+        src.h = surface->h;
+
+        dst.x = position.x;
+        dst.y = position.y;
+
+        SDL_BlitSurface(surface, &src, s->getSDL_Surface(), &dst);
+    }
+}
+
+void Surface::render()
+{
+    if(surface)
+    {
+        //SDL_SetAlpha(surface, SDL_SRCALPHA, a);
+        // Set up blitting area
+        SDL_Rect src, dst;
+        src.x = surface->clip_rect.x;
+        src.y = surface->clip_rect.y;
+        src.w = surface->w;
+        src.h = surface->h;
+
+        dst.x = position.x;
+        dst.y = position.y;
+
+        SDL_BlitSurface(surface, &src, SDL_GetVideoSurface(), &dst);
+    }
 }

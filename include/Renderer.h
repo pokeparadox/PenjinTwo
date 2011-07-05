@@ -70,7 +70,7 @@ namespace Penjin
             virtual void drawEllipse(const Vector2d<float> & centre, const float& rx, const float& ry)=0;
 
             virtual Colour getPixel(Vector2d<int> pos)=0;
-            virtual Colour getPixel(Surface s, Vector2d<int> pos)=0;
+            virtual Colour getPixel(Surface* s, Vector2d<int> pos)=0;
 
             //virtual Surface cropSurface(Surface in, Rectangle cropArea)=0;
 

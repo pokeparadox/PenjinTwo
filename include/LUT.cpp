@@ -17,7 +17,11 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "LUT.h"
+#include <cmath>
 
+#ifndef PI
+    #define PI 3.141592654f
+#endif
 namespace LUT
 {
     /// Variables
@@ -59,33 +63,34 @@ void LUT::deInit()
     }
 }
 
-float LUT::Lsin(uchar angle)
+float LUT::Lsin(Brad angle)
 {
     //  Wrapping should be done automatically for us due to storage limits of uchar
-    if(angle > 128)
+    if(angle > (unsigned char)128)
     {
-        angle-=128;
-        return -(sinCos[angle]);    //  Values are mirrored just negative so we just nagate
+        angle-=(unsigned char)128;
+        return -(sinCos[angle.getAngle()]);    //  Values are mirrored just negative so we just nagate
     }
-    return sinCos[angle];
+    return sinCos[angle.getAngle()];
 }
 
-float LUT::Lcos(CRuchar angle){return Lsin(angle+64);}
+float LUT::Lcos(Brad angle){return Lsin(angle+64u);}
 
-float LUT::Ltan(uchar angle)
+float LUT::Ltan(Brad angle)
 {
-    if(angle > 128)
+    if(angle > (unsigned char)128)
     {
-        angle-=128;
-        return -(tanTable[angle]);
+        angle-=(unsigned char)128;
+        return -(tanTable[angle.getAngle()]);
     }
-    return tanTable[angle];
+    return tanTable[angle.getAngle()];
 }
 
 /// Interpolated Trig functions
 //  CAUTION will not be accurate...
 float LUT::LIsin(float angle)
 {
+    angle = NumberUtility::wrapValue(angle,255.0f);
     float x1 = floor(angle*1000*ONE_OVER_PI);
     float y1 = Lsin(x1);
     float y2 = Lsin(x1+1);
@@ -94,6 +99,7 @@ float LUT::LIsin(float angle)
 
 float LUT::LIcos(float angle)
 {
+    angle = NumberUtility::wrapValue(angle,255.0f);
     float x1 = floor(angle*1000*ONE_OVER_PI);
     float y1 = Lcos(x1);
     float y2 = Lcos(x1+1);
@@ -102,6 +108,7 @@ float LUT::LIcos(float angle)
 
 float LUT::LItan(float angle)
 {
+    angle = NumberUtility::wrapValue(angle,255.0f);
     float x1 = floor(angle*1000*ONE_OVER_PI);
     float y1 = Ltan(x1);
     float y2 = Ltan(x1+1);

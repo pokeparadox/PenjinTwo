@@ -29,6 +29,8 @@
 
 namespace Penjin
 {
+    class Surface;
+
     class RendererSDL_2d : public Renderer
     {
         public:
@@ -78,7 +80,7 @@ namespace Penjin
 
 
             virtual Colour getPixel(Vector2d<int> pos);
-            virtual Colour getPixel(Surface s, Vector2d<int> pos);
+            virtual Colour getPixel(Surface* s, Vector2d<int> pos);
 
 
 

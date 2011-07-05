@@ -35,7 +35,23 @@ BackBuffer::~BackBuffer()
 
     void BackBuffer::render()
     {
-        SDL_BlitSurface(buffer, NULL, SDL_GetVideoSurface(), NULL);
+        SDL_Rect src, dst;
+        src.x = buffer->clip_rect.x;
+        src.y = buffer->clip_rect.y;
+        src.w = buffer->w;
+        src.h = buffer->h;
+        Renderer* gfx = GFX::getInstance();
+        if(gfx->getScaleMode() != smPRESCALE)
+        {
+            dst.x = position.x;
+            dst.y = position.y;
+        }
+        else
+        {
+            dst.x = getScaledPosition().x;
+            dst.y = getScaledPosition().y;
+        }
+        SDL_BlitSurface(buffer, &src, GFX::getInstance()->getSDLVideoSurface(), &dst);
     }
 
     void BackBuffer::update()

@@ -27,16 +27,39 @@
 #define SURFACE_H
 
 #include "SDL/SDL.h"
-
+#include "RenderObject.h"
+#include "DimensionObject.h"
+#include "Brad.h"
+#include "Errors.h"
 namespace Penjin
 {
-    class Surface
+    class Surface : public RenderObject, public DimensionObject
     {
         public:
             /** Default constructor */
             Surface();
             /** Default destructor */
             virtual ~Surface();
+
+            Penjin::ERRORS setSurface(SDL_Surface* s);
+            Penjin::ERRORS setSurface(Surface* s);
+
+            /** Render to screen*/
+            void render();
+
+            /** Render to another Surface*/
+            void render(Surface* s);
+
+            void rotate(const float& degrees);
+            void rotate(const Brad& brads);
+
+            SDL_Surface* getSDL_Surface();
+
+            /** Free the Surface */
+            void clear();
+
+        protected:
+        private:
             /** Copy constructor
              *  \param other Object to copy from
              */
@@ -47,9 +70,13 @@ namespace Penjin
              */
             Surface& operator=(const Surface& other);
 
+            // The RAW SDL_Surface* that we are abstracting from.
             SDL_Surface* surface;
-        protected:
-        private:
+
+            // We do no scaling to the RAW surface itself.
+            virtual Vector2d<int> getScaledPosition(){;}
+            virtual Vector2d<int> getScaledDimensions(){;}
+
     };
 }
 #endif // SURFACE_H

@@ -27,11 +27,8 @@ Written by Kevin Winfield-Pantoja
 */
 #include "PenjinTypes.h"
 #include "NumberUtility.h"
-#include <cmath>
-
-#ifndef PI
-    #define PI 3.141592654f
-#endif
+#include "Brad.h"
+using Penjin::Brad;
 
 namespace LUT
 {
@@ -39,9 +36,9 @@ namespace LUT
     void init();
     void deInit();
     /// Trig functions
-    float Lsin(uchar angle);
-    float Lcos(CRuchar angle);
-    float Ltan(uchar angle);
+    float Lsin(Brad angle);
+    float Lcos(Brad angle);
+    float Ltan(Brad angle);
     // Trig functions with interpolation between values
     // Caution, will not be accurate.
     float LIsin(float angle);
