@@ -579,10 +579,8 @@ void SimpleJoy::resetKeys()
 	clearEventQueue();
 
     players[player].Start=players[player].Select=players[player].Up=players[player].Down=players[player].Left=players[player].Right
-    =players[player].A=players[player].B=players[player].X=players[player].Y=players[player].L=players[player].R=sjRELEASED;
-    #ifdef PLATFORM_PC
-        players[player].Quit = sjRELEASED;
-    #endif
+    =players[player].A=players[player].B=players[player].X=players[player].Y=players[player].L=players[player].R=players[player].Quit = sjRELEASED;
+
     #if defined(PLATFORM_GP2X) || defined(PLATFORM_PC)
         players[player].VolumeUp=players[player].VolumeDown=players[player].Click=players[player].UpLeft=players[player].UpRight
         =players[player].DownLeft=players[player].DownRight=sjRELEASED;

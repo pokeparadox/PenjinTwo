@@ -113,7 +113,13 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-msoft-float" />
-					<Add option="-O2" />
+					<Add option="-O3" />
+					<Add option="-mcpu=cortex-a8" />
+					<Add option="-mfpu=neon" />
+					<Add option="-ftree-vectorize" />
+					<Add option="-mfloat-abi=softfp" />
+					<Add option="-ffast-math" />
+					<Add option="-fsingle-precision-constant" />
 					<Add option="-DPLATFORM_PANDORA" />
 					<Add option="-DPENJIN_SDL_INPUT" />
 					<Add directory="$(#pandora_sdk.include)" />
@@ -121,6 +127,162 @@
 				<Linker>
 					<Add option="-s" />
 					<Add directory="$(#pandora_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Dingoo Debug">
+				<Option output="lib/Dingoo/libPenjinTwoD" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Dingoo/Debug/" />
+				<Option type="3" />
+				<Option compiler="dingoo" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPLATFORM_DINGOO" />
+					<Add directory="$(#dingoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="SDL_gfx" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+					<Add directory="$(#dingoo_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Dingoo Release">
+				<Option output="lib/Dingoo/libPenjinTwo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Dingoo/Release/" />
+				<Option type="3" />
+				<Option compiler="dingoo" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_DINGOO" />
+					<Add directory="$(#dingoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="$(#dingoo_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Wiz Debug">
+				<Option output="lib/Wiz/libPenjinTwoD" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Wiz/Debug/" />
+				<Option type="3" />
+				<Option compiler="wiz" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPLATFORM_WIZ" />
+					<Add directory="$(#wiz_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="SDL_gfx" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+					<Add directory="$(#wiz_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Wiz Release">
+				<Option output="lib/Wiz/libPenjinTwo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Wiz/Release/" />
+				<Option type="3" />
+				<Option compiler="wiz" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_WIZ" />
+					<Add directory="$(#wiz_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="$(#wiz_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="GP2X Debug">
+				<Option output="lib/GP2X/libPenjinTwoD" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/GP2X/Debug/" />
+				<Option type="3" />
+				<Option compiler="gp2x" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add directory="$(#pandora_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="SDL_gfx" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+					<Add directory="$(#gp2x_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="GP2X Release">
+				<Option output="lib/GP2X/libPenjinTwo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/GP2X/Release/" />
+				<Option type="3" />
+				<Option compiler="gp2x" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add directory="$(#pandora_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="$(#gp2x_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Caanoo Debug">
+				<Option output="lib/Caanoo/libPenjinTwoD" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Caanoo/Debug/" />
+				<Option type="3" />
+				<Option compiler="caanoo" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPLATFORM_CAANOO" />
+					<Add directory="$(#caanoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL" />
+					<Add library="SDL_gfx" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+					<Add directory="$(#caanoo_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Caanoo Release">
+				<Option output="lib/Caanoo/libPenjinTwo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Caanoo/Release/" />
+				<Option type="3" />
+				<Option compiler="caanoo" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_CAANOO" />
+					<Add directory="$(#caanoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="$(#caanoo_sdk.lib)" />
 				</Linker>
 			</Target>
 		</Build>

@@ -222,7 +222,8 @@ void Text::print(SDL_Surface* screen, CRstring text)
         else if(c == ' ')
         {
             //  use dummy for spacing
-            cursorPos.x+=glyphs[fontSize-1][0]->getWidth();
+            Vector2d<float> pxScale = GFX::getInstance()->getPixelScale();
+            cursorPos.x+=glyphs[fontSize-1][0]->getWidth()/pxScale.x;
             // we get a substring that is from here to the end of the string.
             if(wrapText)
             {

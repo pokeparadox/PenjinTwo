@@ -80,6 +80,12 @@ void RendererSDL_2d::applyVideoSettings()
         screen = SDL_SetVideoMode(resolution.x, resolution.y, bpp, flags);
     if(screen  == NULL )
         PENJIN_SDL_SETVIDEOMODE_FAILED;
+
+    // We get the final resolution if  auto resolution has been set
+    if(resolution.x == 0)
+        resolution.x = screen->w;
+    if(resolution.y == 0)
+        resolution.y = screen->h;
 }
 
 void RendererSDL_2d::clear()
@@ -91,8 +97,8 @@ void RendererSDL_2d::blit()
 {
     #ifdef PLATFORM_GP2X
         //  We do MMUHack BEFORE video flip!
-        if(useHack)
-            MMUHack::flushCache(screen->pixels, (char*)screen->pixels  + (screen->w * screen->h));
+        //if(useHack)
+        MMUHack::flushCache(screen->pixels, (char*)screen->pixels  + (screen->w * screen->h));
     #elif PLATFORM_PANDORA
         //  vertical sync to prevent tearing
         int fd = open( "/dev/fb0" , O_RDONLY );

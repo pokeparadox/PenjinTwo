@@ -53,6 +53,10 @@ Application::~Application()
 {
     //dtor
     StateMan::getInstance()->clear();
+    // We save any changes to the config
+
+    if(Penjin::LocaleMan::getInstance()->hasChanged())
+        Penjin::LocaleMan::getInstance()->save();
 }
 
 

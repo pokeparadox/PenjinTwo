@@ -38,7 +38,7 @@ namespace Penjin
             void selectionNext();
             void selectionPrevious();
             // confirm the selection as active
-            void selectionConfirm();
+            int selectionConfirm();
 
             // add a configured widget to the Panel
             void addWidget(Widget* w);
@@ -64,6 +64,7 @@ namespace Penjin
             bool hidden;
 
             int selection;  // ID of the selected widget
+            int padSelection;
             //int hideOffset;
             PositionObject startPosition;
 

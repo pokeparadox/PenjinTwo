@@ -27,7 +27,7 @@ using Penjin::Panel;
 using Penjin::Vector2d;
 using Penjin::Widget;
 using Penjin::Line;
-Panel::Panel() : shouldHide(false), hidden(false), selection(-1)//, hideOffset(0)
+Panel::Panel() : shouldHide(false), hidden(false), selection(-1), padSelection(-1)//, hideOffset(0)
 {
     //ctor
     //setColour(DARK_GREY);
@@ -133,14 +133,24 @@ void Panel::update()
         widgets.at(selection)->setSelected(true);
     else
         selection = -1;
+
+    if(padSelection > -1 && padSelection < (int)widgets.size())
+        widgets.at(padSelection)->setSelected(true);
+    else
+        padSelection = -1;
 }
 
-void Panel::selectionConfirm()
+int Panel::selectionConfirm()
 {
-    if(selection > -1 && selection < (int)widgets.size())
-        widgets.at(selection)->setActive(true);
+    if(padSelection > -1 && padSelection < (int)widgets.size())
+    {
+        widgets.at(padSelection)->setSelected(true);
+        widgets.at(padSelection)->setActive(true);
+    }
     else
-        selection = -1;
+        padSelection = -1;
+
+    return padSelection;
 }
 
 int Panel::whichWidget()
@@ -184,10 +194,10 @@ void Panel::setShouldHide(const bool& hide)
 
 void Panel::selectionNext()
 {
-    ++selection;
+    ++padSelection;
 }
 
 void Panel::selectionPrevious()
 {
-    --selection;
+    --padSelection;
 }

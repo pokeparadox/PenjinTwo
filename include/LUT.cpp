@@ -66,12 +66,13 @@ void LUT::deInit()
 float LUT::Lsin(Brad angle)
 {
     //  Wrapping should be done automatically for us due to storage limits of uchar
-    if(angle > (unsigned char)128)
+    unsigned char t = angle.getAngle();
+    if(t > 128)
     {
-        angle-=(unsigned char)128;
-        return -(sinCos[angle.getAngle()]);    //  Values are mirrored just negative so we just nagate
+        t-=128;
+        return -(sinCos[t]);    //  Values are mirrored just negative so we just nagate
     }
-    return sinCos[angle.getAngle()];
+    return sinCos[t];
 }
 
 float LUT::Lcos(Brad angle){return Lsin(angle+64u);}

@@ -128,7 +128,7 @@ void Widget::setSelected(const bool& s)
 
 bool Widget::isSelected()
 {
-    return (isMouseSelected() || selected);
+    return (selected||isMouseSelected() );
 }
 
 void Widget::setShowHighLight(const bool& b)

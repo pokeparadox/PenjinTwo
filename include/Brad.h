@@ -63,7 +63,7 @@ namespace Penjin
             Brad operator+(const unsigned char & b)const{return Brad((unsigned char)(b + brad));}
             Brad operator+(const float & deg){return Brad((float)(deg + getAngleDegrees()));}
 
-            Brad operator++(){brad++;return *this;}
+            Brad operator++(){brad+=1;return *this;}
 
             Brad operator-(Brad b)const{return Brad((unsigned char)(b.getAngle() - brad));}
             Brad operator-(const unsigned char & b)const{return Brad((unsigned char)(b - brad));}

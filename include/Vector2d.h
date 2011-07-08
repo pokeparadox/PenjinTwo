@@ -90,6 +90,13 @@ namespace Penjin
             Vector2d<T> operator*(const T& v)const{return Vector2d<T>(this->x * v, y * v);}
             template <class S>
             Vector2d<T> operator*(const S& v)const{return Vector2d<T>((this->x * v)+0.5f, (y * v)+0.5f);}
+            // Division
+            Vector2d<T> operator/(const Vector2d<T> & v)const{return Vector2d<T>(this->x / v.x, y / v.y);}
+            template <class S>
+            Vector2d<T> operator/(const Vector2d<S> & v)const{return Vector2d<T>(this->x / v.x, y / v.y);}
+            Vector2d<T> operator/(const T& v)const{return Vector2d<T>(this->x / v, y / v);}
+            template <class S>
+            Vector2d<T> operator/(const S& v)const{return Vector2d<T>((this->x / v)+0.5f, (y / v)+0.5f);}
             // Multiplay and assign
             Vector2d<T> operator*=(const Vector2d<T> & v){return Vector2d<T> (this->x *= v.x, y *= v.y);}
             template <class S>

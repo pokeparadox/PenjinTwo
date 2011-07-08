@@ -112,21 +112,22 @@ void KeyMapper::defaultMap()
         setValue(device,"R",        "w");
         setValue(device,"Select",   "RightShift");
         setValue(device,"Start",    "Return");
-#elif PLATFORM_GP2X
+#elif defined(PLATFORM_GP2X) || defined(PLATFORM_WIZ)
+    // Wiz layout is same as gp2x.
     device = "Joystick";
     ID = "0";
     setValue(device,"DeviceNumber",ID);
     setValue(device,"Player", player);
         setValue(device,"Up",           "0");
         setValue(device,"UpLeft",       "1");
-        setValue(device,"Left",         "2")
+        setValue(device,"Left",         "2");
         setValue(device,"DownLeft",     "3");
         setValue(device,"Down",         "4");
         setValue(device,"DownRight",    "5");
         setValue(device,"Right",        "6");
         setValue(device,"UpRight",      "7");
         setValue(device,"Start",        "8");
-        setValue(device,"Select",       "9")
+        setValue(device,"Select",       "9");
         setValue(device,"L",            "10");
         setValue(device,"R",            "11");
         setValue(device,"A",            "12");
@@ -136,6 +137,27 @@ void KeyMapper::defaultMap()
         setValue(device,"VolumeUp",     "16");
         setValue(device,"VolumeDown",   "17");
         setValue(device,"Click",        "18");
+#elif PLATFORM_CAANOO
+    device = "Joystick";
+    ID = "0";
+    setValue(device,"DeviceNumber",ID);
+    setValue(device,"Player", player);
+        setValue(device,"A",            "0");
+        setValue(device,"X",            "1");
+        setValue(device,"B",            "2");
+        setValue(device,"Y",            "3");
+        setValue(device,"L",            "4");
+        setValue(device,"R",            "5");
+        //setValue(device,"Menu",            "6");
+        setValue(device,"Start",        "8");
+        setValue(device,"Select",       "9");
+        setValue(device,"Click",        "10");
+    device="Joystick";
+    ID="0";
+    setValue(device,"Player", player);
+    setValue(device,"DeviceNumber",ID);
+        setValue(device,"LeftStickAxisX",   "0");
+        setValue(device,"LeftStickAxisY",   "1");
 #elif PLATFORM_DINGOO
     device="Keyboard";
     ID="0";
