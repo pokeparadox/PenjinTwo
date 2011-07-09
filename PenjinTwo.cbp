@@ -160,6 +160,7 @@
 				<Compiler>
 					<Add option="-msoft-float" />
 					<Add option="-O2" />
+					<Add option="-fpermissive" />
 					<Add option="-DPLATFORM_DINGOO" />
 					<Add directory="$(#dingoo_sdk.include)" />
 				</Compiler>
@@ -218,7 +219,7 @@
 					<Add option="-g" />
 					<Add option="-D_DEBUG" />
 					<Add option="-DPLATFORM_GP2X" />
-					<Add directory="$(#pandora_sdk.include)" />
+					<Add directory="$(#gp2x_sdk.include)" />
 				</Compiler>
 				<Linker>
 					<Add library="SDL" />
@@ -239,7 +240,7 @@
 					<Add option="-msoft-float" />
 					<Add option="-O2" />
 					<Add option="-DPLATFORM_GP2X" />
-					<Add directory="$(#pandora_sdk.include)" />
+					<Add directory="$(#gp2x_sdk.include)" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -282,6 +283,11 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="SDL" />
+					<Add library="SDL_gfx" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+					<Add library="libc" />
 					<Add directory="$(#caanoo_sdk.lib)" />
 				</Linker>
 			</Target>
@@ -430,6 +436,10 @@
 		<Unit filename="include/Window.h" />
 		<Unit filename="include/WindowManager.cpp" />
 		<Unit filename="include/WindowManager.h" />
+		<Unit filename="include/mmuhack/flush_uppermem_cache.s">
+			<Option target="GP2X Debug" />
+			<Option target="GP2X Release" />
+		</Unit>
 		<Unit filename="include/objloader/model_obj.cpp" />
 		<Unit filename="include/objloader/model_obj.h" />
 		<Unit filename="include/simpleini/ConvertUTF.c">

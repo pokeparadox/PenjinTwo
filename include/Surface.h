@@ -74,8 +74,8 @@ namespace Penjin
             SDL_Surface* surface;
 
             // We do no scaling to the RAW surface itself.
-            virtual Vector2d<int> getScaledPosition(){;}
-            virtual Vector2d<int> getScaledDimensions(){;}
+            virtual Vector2d<int> getScaledPosition(){return getPosition();}
+            virtual Vector2d<int> getScaledDimensions(){return getDimensions();}
 
     };
 }
