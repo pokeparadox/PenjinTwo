@@ -65,7 +65,7 @@
 				</Linker>
 			</Target>
 			<Target title="W32 Release">
-				<Option output="lib/W32/libPenjinTwo.so" prefix_auto="1" extension_auto="0" />
+				<Option output="lib/W32/libPenjinTwo.dll" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/W32/Release/" />
 				<Option type="3" />
 				<Option compiler="mingw" />
@@ -79,6 +79,10 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="SDL" />
+					<Add library="SDL_image" />
+					<Add library="SDL_ttf" />
+					<Add library="SDL_gfx" />
 					<Add directory="$(#mingw.lib)" />
 				</Linker>
 			</Target>
@@ -295,6 +299,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="-static" />
 			<Add option="-DPENJIN_SDL" />
 		</Compiler>
 		<Unit filename="include/Animation.cpp" />

@@ -69,7 +69,7 @@ void RendererSDL_2d::applyVideoSettings()
 	    /// TODO: need to handle error here
 		//PENJIN_SDL_VIDEO_QUERY_FAILED;
     }
-    flags = SDL_SWSURFACE | SDL_DOUBLEBUF;
+    flags = SDL_SWSURFACE;// | SDL_DOUBLEBUF;
 
     if(fullScreen)
         flags= flags | SDL_FULLSCREEN;

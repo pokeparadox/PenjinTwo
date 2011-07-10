@@ -32,6 +32,10 @@ KeyMapper::KeyMapper()
         setFileName("config/input/dingoo.ini");
     #elif PLATFORM_GP2X
         setFileName("config/input/gp2x.ini");
+    #elif PLATFORM_CAANOO
+        setFileName("config/input/caanoo.ini");
+    #elif PLATFORM_WIZ
+        setFileName("config/input/wiz.ini");
     #else
         setFileName("config/input/default.ini");
     #endif
@@ -137,6 +141,12 @@ void KeyMapper::defaultMap()
         setValue(device,"VolumeUp",     "16");
         setValue(device,"VolumeDown",   "17");
         setValue(device,"Click",        "18");
+    device = "Mouse";
+    setValue(device,"DeviceNumber",ID);
+    setValue(device,"Player", player);
+        setValue(device,"LeftButton",   "0");
+        setValue(device,"MouseAxisX",        "0");
+        setValue(device,"MouseAxisY",        "1");
 #elif PLATFORM_CAANOO
     device = "Joystick";
     ID = "0";
@@ -158,6 +168,12 @@ void KeyMapper::defaultMap()
     setValue(device,"DeviceNumber",ID);
         setValue(device,"LeftStickAxisX",   "0");
         setValue(device,"LeftStickAxisY",   "1");
+    device = "Mouse";
+    setValue(device,"DeviceNumber",ID);
+    setValue(device,"Player", player);
+        setValue(device,"LeftButton",   "0");
+        setValue(device,"MouseAxisX",        "0");
+        setValue(device,"MouseAxisY",        "1");
 #elif PLATFORM_DINGOO
     device="Keyboard";
     ID="0";
