@@ -29,8 +29,13 @@ namespace Penjin
             BackBuffer();
             virtual ~BackBuffer();
 
-            void render();       // Render to the screen
-            void update();      // Update from screen contents
+            /** \brief Render the contents of the BackBuffer to the screen*/
+            void render();
+            /** \brief copy the screen into the BackBuffer*/
+            void update();
+
+            /** \brief copy the screen into the BackBuffer
+                \param alpha : The value used for transparency (0-255) where 0 is completely transparent.*/
             void setAlpha(CRuchar alpha){SDL_SetAlpha(buffer, SDL_SRCALPHA, alpha);}
 
         private:

@@ -106,6 +106,9 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
         SDL_FreeSurface(surface);
     surface = s;
 
+    //  Set dimensions BEFORE rescaling!
+    setDimensions(surface->w,surface->h);
+
     // PRESCALE if needed.
     Renderer* gfx = GFX::getInstance();
     if(gfx->getScaleMode() == smPRESCALE)
@@ -143,11 +146,6 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
         surface = SDL_DisplayFormat(surface);
 
     SDL_FreeSurface(oldSurface);
-
-    // update dimensions
-    dimensions.x = surface->w;
-    dimensions.y = surface->h;
-
     return PENJIN_OK;
 }
 

@@ -17,6 +17,7 @@
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Text.h"
+#include "Colour.h"
 #ifdef PENJIN_ASCII
     #ifdef _WIN32
         #include "Wincon.h"
@@ -27,6 +28,7 @@
 #include "StringUtility.h"
 #include "NumberUtility.h"
 using Penjin::Text;
+using Penjin::Colour;
 using namespace Penjin::StringUtility;
 Penjin::ERRORS Penjin::TextClass::init()
 {
@@ -52,19 +54,18 @@ void Penjin::TextClass::deInit()
         TTF_Quit();
 }
 
-Text::Text()
+Text::Text() : bgColour(NULL)
 {
     TextClass::init();// auto init font library if needed.
 	font = NULL;
 	fontName = "NULL";
 	fontSize = 12;  // default to 12 point font
-	cursorPos.x = 0;
-	cursorPos.y = 0;
 
-    dimensions = GFX::getInstance()->getResolution();
+    // Dimensions are the physicsal dimensions of the screen.
+    textBox.setDimensions(GFX::getInstance()->getResolution() / GFX::getInstance()->getPixelScale());
 
     alignment = LEFT_JUSTIFIED;
-    bgColour = BLACK;
+    bgColour = new Colour(BLACK);
     relativePos = false;
     wrapText = true;
 }
@@ -103,6 +104,7 @@ Text::~Text()
 	unload();
 	// clear Glyphs
 	clear();
+	delete bgColour;
 }
 
 Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
@@ -143,7 +145,7 @@ Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
         glyphs[fontSize-1][0]->setFontSize(fontSize);
         glyphs[fontSize-1][0]->setFont(font);
         glyphs[fontSize-1][0]->setCharacter('-');    // picked because a nice square char to give us a "standard surface width"
-        glyphs[fontSize-1][0]->setPosition(cursorPos);
+        glyphs[fontSize-1][0]->setPosition(cursorPos.getPosition());
         glyphs[fontSize-1][0]->refresh();
         fontName = name;
         this->fontSize = fontSize;
@@ -193,7 +195,7 @@ void Text::print(SDL_Surface* screen, CRstring text)
 
     // make text advance cursor position
     if(!relativePos)
-        cursorPos = position;
+        cursorPos.setPosition(position);
     //  Check if any of the string has had to be recreated
     bool isRefreshed = false;
     // make a guess to dimensions using the Dummy char
@@ -223,7 +225,7 @@ void Text::print(SDL_Surface* screen, CRstring text)
         {
             //  use dummy for spacing
             Vector2d<float> pxScale = GFX::getInstance()->getPixelScale();
-            cursorPos.x+=glyphs[fontSize-1][0]->getWidth()/pxScale.x;
+            cursorPos.setX(cursorPos.getX() + glyphs[fontSize-1][0]->getWidth());
             // we get a substring that is from here to the end of the string.
             if(wrapText)
             {
@@ -241,7 +243,7 @@ void Text::print(SDL_Surface* screen, CRstring text)
                     TTF_SizeText(font, subString.c_str(), &guess.x, &guess.y );
                 }
 
-                if(cursorPos.x + guess.x >= dimensions.x)
+                if(cursorPos.getX() + guess.x >= textBox.getWidth())
                     newLine();
                 continue;
             }
@@ -252,7 +254,7 @@ void Text::print(SDL_Surface* screen, CRstring text)
         else if(c == '\t')
         {
             //  use dummy for spacing
-            cursorPos.x+=glyphs[fontSize-1][0]->getWidth()*3;
+            cursorPos.setX(cursorPos.getX()+glyphs[fontSize-1][0]->getWidth()*3);
             continue;
         }
         // check for other unprintables
@@ -275,9 +277,9 @@ void Text::print(SDL_Surface* screen, CRstring text)
             glyphs[fontSize-1].at(c-19)->setColour(getColour());
             changed = true;
         }
-        if(glyphs[fontSize-1].at(c-19)->getBgColour() != bgColour)
+        if(glyphs[fontSize-1].at(c-19)->getBgColour() != *bgColour)
         {
-            glyphs[fontSize-1].at(c-19)->setBgColour(bgColour);
+            glyphs[fontSize-1].at(c-19)->setBgColour(*bgColour);
             changed = true;
         }
         if(glyphs[fontSize-1].at(c-19)->getFontSize() != fontSize)
@@ -297,7 +299,7 @@ void Text::print(SDL_Surface* screen, CRstring text)
         }
         //  set common glyph properties
         glyphs[fontSize-1].at(c-19)->setFont(font);
-        glyphs[fontSize-1].at(c-19)->setPosition(cursorPos);
+        glyphs[fontSize-1].at(c-19)->setPosition(cursorPos.getPosition());
         if(changed)
         {
             glyphs[fontSize-1].at(c-19)->refresh();
@@ -307,7 +309,7 @@ void Text::print(SDL_Surface* screen, CRstring text)
         //  if everything up to date we can render the glyph
         glyphs[fontSize-1].at(c-19)->render();
         //  Advance cursor
-        cursorPos.x += glyphs[fontSize-1].at(c-19)->getWidth();
+        cursorPos.setX(cursorPos.getX() + glyphs[fontSize-1].at(c-19)->getWidth());
     }
     if(isRefreshed)
         calcDimensions();
@@ -340,8 +342,8 @@ void Text::print(CRfloat number){print(floatToString(number));}
 
 void Text::newLine()
 {
-    cursorPos.x =  position.x;
-    cursorPos.y += TTF_FontLineSkip(font);
+    cursorPos.setX(position.x);
+    cursorPos.setY(cursorPos.getY()+ TTF_FontLineSkip(font));
 }
 
 void Text::align(const Vector2d<int>& guess)
@@ -349,21 +351,20 @@ void Text::align(const Vector2d<int>& guess)
     if(alignment == CENTRED)
     {
         Vector2d<float> b(dimensions.x,dimensions.y);
-        b-= (cursorPos + guess);
+        b-= (cursorPos.getPosition() + guess);
         b*=0.5f;
-        cursorPos.x += b.x;
+        cursorPos.setX(cursorPos.getX() + b.x);
     }
     else if(alignment == RIGHT_JUSTIFIED)
     {
-        cursorPos.x = dimensions.x - guess.x;
+        cursorPos.setX(dimensions.x - guess.x);
     }
     // Otherwise text is LEFT_JUSTIFIED so do nothing.
 }
 
 void Text::calcDimensions()
 {
-    dimensions.x = cursorPos.x - position.x + glyphs[fontSize-1][0]->getWidth();
-    dimensions.y = TTF_FontLineSkip(font);
+    setDimensions((int)(cursorPos.getX() - position.x + glyphs[fontSize-1][0]->getWidth()), TTF_FontLineSkip(font));
 }
 
 Vector2d<int> Text::getDimensions(CRstring str)

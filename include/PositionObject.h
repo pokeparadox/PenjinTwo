@@ -15,7 +15,8 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef POSITIONOBJECT_H
+*/
+#ifndef POSITIONOBJECT_H
 #define POSITIONOBJECT_H
 
 #include "Object.h"
@@ -39,6 +40,8 @@ namespace Penjin
 
             void setX(const float& x);
             void setY(const float& y);
+            float getX();
+            float getY();
 
             Vector2d<float> getPosition()const;
 

@@ -57,6 +57,16 @@ void PositionObject::setY(const float& y)
         scaled.y =  (float)(position.y * gfx->getPixelScale().y) + 0.5f;
 }
 
+float PositionObject::getX()
+{
+    return position.x;
+}
+
+float PositionObject::getY()
+{
+    return position.y;
+}
+
 void PositionObject::rescale()
 {
     Renderer* gfx = GFX::getInstance();

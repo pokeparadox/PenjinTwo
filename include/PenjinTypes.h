@@ -32,17 +32,24 @@ typedef unsigned char uchar;
 //  VECTORS - Have length() operations and such
 #include "trenki/vector_math.h"
 #include "trenki/fixed_class.h"
-/*#include "Vector2df.h"
-class Vector2dx;
-#include "Vector2di.h"
-#include "Vector3df.h"
-class Vector3dx;//#include "Vector3dx.h"
-#include "Vector3di.h"*/
+typedef fixedpoint::fixed_point<16> Fixed;                      //  Default fixed point
+#include "Vector2d.h"
+using Penjin::Vector2d;
+typedef Vector2d<int> Vector2di;
+typedef Vector2d<float> Vector2df;
+typedef Vector2d<Fixed> Vector2dx;
+
+#include "Vector3d.h"
+using Penjin::Vector3d;
+typedef Vector3d<int> Vector3di;
+typedef Vector3d<float> Vector3df;
+typedef Vector3d<Fixed> Vector3dx;
+
 typedef vmath::vec4<int> Vector4di;                             //  int 4d vector
 typedef vmath::vec4<float> Vector4df;                           //  float 4d vector
 typedef vmath::vec4<fixedpoint::fixed_point<16> > Vector4dx;    //  Fixed point 4d vector
 
-typedef fixedpoint::fixed_point<16> Fixed;                      //  Default fixed point
+
 
 //  POINTS - simple spatial points
 struct Point2df{float x;float y;};

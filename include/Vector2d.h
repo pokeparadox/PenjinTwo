@@ -48,7 +48,7 @@ namespace Penjin
 
             virtual Vector2d<T> unit()
             {
-                T len = length();
+                float len = length();
                 if(len == 0)
                     return Vector2d<T> (0,1);
 

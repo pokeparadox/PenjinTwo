@@ -89,14 +89,14 @@ void Panel::update()
         if(shouldHide)
         {
             if(pos.y >= startPos.y - dim.y)
-                Rectangle::setPosition(Vector2d<float>(position.x,position.y-1));//pos.y-=GFX::getInstance()->getPixelScale().y;
+                Rectangle::setPosition(Vector2d<float>(position.x,position.y-1));
             else
                 hidden = true;
         }
         else
         {
             if(pos.y  < startPos.y)
-                Rectangle::setPosition(Vector2d<float>(position.x,position.y+1));//
+                Rectangle::setPosition(Vector2d<float>(position.x,position.y+1));
             else
                 hidden = false;
         }

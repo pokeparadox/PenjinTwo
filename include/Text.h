@@ -29,7 +29,7 @@
 #endif
 using namespace std;
 #include "PenjinTypes.h"
-#include "Colour.h"
+//#include "Colour.h"
 #include "Errors.h"
 #include "Singleton.h"
 ///Text will wrap after 58 characters, inc spaces and punctuation. (at size 12 pt) (on a GP2X screen, 320x240)
@@ -55,6 +55,7 @@ namespace Penjin
     }
 
     using namespace TextClass;
+    class Colour;
 
     class Text : public Rectangle, public FileObject
     {
@@ -74,8 +75,8 @@ namespace Penjin
             //  Sets the starting position of the text
 
 
-            void setBgColour(const Colour& col){bgColour = col;setRenderMode(GlyphClass::BOXED);}
-            Colour getBgColour()const{return bgColour;}
+            void setBgColour(const Colour& col){*bgColour = col;setRenderMode(GlyphClass::BOXED);}
+            Colour getBgColour()const{return *bgColour;}
 
             void setWrapping(CRbool shouldWrap){wrapText = shouldWrap;}
             bool getWrapping()const{return wrapText;}
@@ -90,8 +91,8 @@ namespace Penjin
             /** \brief Get the dimensions of the str*/
             Vector2d<int> getDimensions(CRstring str);
 
-            Vector2d<int> getCursorPosition()const{return cursorPos;}
-            void setCursorPosition(const Vector2d<int> p){cursorPos = p;}
+            Vector2d<int> getCursorPosition()const{return cursorPos.getPosition();}
+            void setCursorPosition(const Vector2d<int> p){cursorPos.setPosition(p);}
 
 
 
@@ -117,7 +118,9 @@ namespace Penjin
             TTF_Font* font;
             string fontName;
             uint fontSize;
-            Vector2d<int> cursorPos;
+            PositionObject cursorPos;
+            // Printable area for text.
+            DimensionObject textBox;
 
 
             #ifdef PENJIN_SDL
@@ -129,7 +132,7 @@ namespace Penjin
             bool wrapText;
             ALIGNMENT alignment;
 
-            Colour bgColour;
+            Colour* bgColour;
     };
 
     typedef Singleton<Text> TextMan;

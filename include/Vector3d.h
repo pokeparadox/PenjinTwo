@@ -20,7 +20,7 @@
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
 /***************************************************************************************************
-*   \file CLASS_NAME is a bladiblabla that blah blah by blah.
+*   \file Vector3d is a 3D vector
 *   \author Kevin Winfield-Pantoja
 */
 #include "Vector2d.h"
@@ -51,11 +51,11 @@ namespace Penjin
                 return out;
             }
 
-            Vector3d<T> cross(const Vector3d<T> & v){return Vector3d<T>(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);}
+            Vector3d<T> cross(const Vector3d<T> & v){return Vector3d<T>(this->y*v.z - z*v.y, z*v.x - this->x*v.z, this->x*v.y - this->y*v.x);}
 
-            virtual float dot(const Vector3d<T>& v)const{return (this->x * v.x + this->y * v.y + z * v.z);}
-            virtual float lengthSquared()const          {return (this->x*this->x + this->y*this->y + z*z);}
-
+            virtual T dot(const Vector3d<T>& v)const{return (this->x * v.x + this->y * v.y + z * v.z);}
+            virtual T lengthSquared()const          {return (this->x*this->x + this->y*this->y + z*z);}
+            virtual T length()const                 {return sqrt(lengthSquared());}
             virtual Vector3d<T> unit()
             {
                 float len = length();
