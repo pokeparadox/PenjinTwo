@@ -39,14 +39,17 @@ namespace Penjin
 
             T stringToEnum(const string & value)
             {
-                /*enumMap::const_iterator p = enumMap.find(value);
-                if (p  == enumMap.end())
-                        throw runtime_error("EnumParser Error");
-                return p->second;*/
                 return enumMap.find(value)->second;
             }
 
+            string enumToString(const T value)
+            {
+                return valMap.find(value)->second;
+            }
+
+        protected:
             map <string, T> enumMap;
+            map <T, string> valMap;
     };
 }
 #endif // ENUMPARSER_H

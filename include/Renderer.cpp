@@ -147,7 +147,9 @@ void Renderer::frameLimiter()
 void Renderer::queueRenderObject(RenderObject* obj)
 {
     if(obj)
+    {
         rendObjs.push_back(obj);
+    }
 }
 
 void Renderer::renderQueue()

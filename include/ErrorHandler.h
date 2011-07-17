@@ -21,6 +21,7 @@
 
 #include "EnumParser.h"
 #include "Errors.h"
+#include "Singleton.h"
 
 namespace Penjin
 {
@@ -31,7 +32,20 @@ namespace Penjin
             virtual ~ErrorHandler();
 
             string getErrorText(const string& error);
+
             string getErrorText(const ERRORS& error);
+
+            void print(const ERRORS& error, const string& info="");
+            void print(const string& info);
+            void forceQuit(const ERRORS& error, const string& info="");
+
+
+        protected:
+            string getDefaultText(const ERRORS& error);
+            string getDefaultText(const string& error);
+            map <Penjin::ERRORS, string> defText;
+
     };
+    typedef Singleton <ErrorHandler> ErrorMan;
 }
 #endif	//	ERRORHANDLER_H

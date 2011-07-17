@@ -22,6 +22,8 @@
   * \author Kevin Winfield-Pantoja
 */
 #include "ImageSheet.h"
+#include "ErrorHandler.h"
+#include "StringUtility.h"
 using Penjin::ImageSheet;
 
 ImageSheet::ImageSheet() : sheetMode(true), activeImage(0)
@@ -29,6 +31,7 @@ ImageSheet::ImageSheet() : sheetMode(true), activeImage(0)
     //ctor
     setDrawWidth(1);
     setColour(MAGENTA);
+    fileName = "IMAGESHEET";
 }
 
 ImageSheet::~ImageSheet()
@@ -66,7 +69,12 @@ Penjin::ERRORS ImageSheet::load(SDL_Surface* s, CRuint xTiles, CRuint yTiles)
 
     // if there's problems we jump out.
     if(e != PENJIN_OK)
+    {
+        ErrorMan::getInstance()->print(e, "ImageSheet: " + fileName + "xTiles: " + StringUtility::intToString(xTiles) + "yTiles: " + StringUtility::intToString(yTiles));
         return e;
+    }
+
+
     // assign clipping areas for this sheet
     return assignClipAreas(xTiles,yTiles,0,0);
 }
@@ -79,6 +87,7 @@ Penjin::ERRORS ImageSheet::load(CRstring file, CRuint xTiles, CRuint yTiles)
     // Get out if there's a problem
     if(e != PENJIN_OK)
         return e;
+
     // finally assign the clipping areas
     return assignClipAreas(xTiles,yTiles,0,0);
 }

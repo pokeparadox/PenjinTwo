@@ -18,7 +18,7 @@
 */
 
 #include "ConfigFile.h"
-
+#include "ErrorHandler.h"
 #include <string>
 using Penjin::ConfigFile;
 using std::string;
@@ -37,11 +37,13 @@ ConfigFile::~ConfigFile()
 
 Penjin::ERRORS ConfigFile::load(const string& fileName)
 {
+    this->fileName = fileName;
     return getError(ini->LoadFile(fileName.c_str()));
 }
 
 Penjin::ERRORS ConfigFile::save(const string& fileName)
 {
+    this->fileName = fileName;
     changed = false;
     return getError(ini->SaveFile(fileName.c_str()));
 }
@@ -132,15 +134,29 @@ Penjin::ERRORS ConfigFile::getError(const int& error)
     /*    SI_FAIL     = -1,   //!< Generic failure
     SI_NOMEM    = -2,   //!< Out of memory error
     SI_FILE     = -3    //!< File error (see errno for detail error)*/
+    ErrorHandler* eMan = ErrorMan::getInstance();
     if(error<0)
     {
         if(error==-1)
+        {
+            eMan->print(PENJIN_ERROR,"ConfigFile: " + fileName);
             return PENJIN_ERROR;
+        }
         else if(error==-2)
+        {
+            eMan->print(PENJIN_ERROR,"ConfigFile - Out of Memory: " + fileName);
             return PENJIN_ERROR;
+        }
         else
+        {
+            eMan->print(PENJIN_FILE_NOT_FOUND,"ConfigFile: " + fileName);
             return PENJIN_FILE_NOT_FOUND;
+        }
+
     }
+    #ifdef _DEBUG
+        eMan->print(PENJIN_OK, "ConfigFile loaded: " + fileName);
+    #endif
     return PENJIN_OK;
 }
 

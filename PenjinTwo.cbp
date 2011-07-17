@@ -381,7 +381,6 @@
 		<Unit filename="include/Object.h" />
 		<Unit filename="include/Panel.cpp" />
 		<Unit filename="include/Panel.h" />
-		<Unit filename="include/PenjinErrors.h" />
 		<Unit filename="include/PenjinFixedFunc.cpp" />
 		<Unit filename="include/PenjinFixedFunc.h" />
 		<Unit filename="include/PenjinStates.h" />

@@ -25,11 +25,9 @@ Glyph::Glyph()
     fontSize = 0;       // no font.
     //position = NULL;
     character = '\0';
-    #ifdef PENJIN_SDL
-        renderMode = GlyphClass::QUICK;
-    #else
-        renderMode = GlyphClass::NICE;
-    #endif
+
+    renderMode = GlyphClass::QUICK;
+    fileName = "GLYPH";
 }
 
 Glyph::~Glyph()

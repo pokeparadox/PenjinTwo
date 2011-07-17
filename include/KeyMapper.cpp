@@ -18,6 +18,7 @@
 */
 #include "KeyMapper.h"
 #include "StringUtility.h"
+#include "ErrorHandler.h"
 using Penjin::KeyMapper;
 
 
@@ -62,6 +63,7 @@ void KeyMapper::clearKeys()
 Penjin::ERRORS KeyMapper::load(const vector<string>& lines)
 {
     //parse->loadCommandList(lines);
+    ErrorMan::getInstance()->print(PENJIN_FUNCTION_IS_STUB, "KeyMapper::load(const vector<string>& lines)");
     return Penjin::PENJIN_FUNCTION_IS_STUB;
 }
 
@@ -80,11 +82,15 @@ Penjin::ERRORS KeyMapper::load(CRstring file)
 
 Penjin::ERRORS KeyMapper::save(CRstring file)
 {
+    ErrorMan::getInstance()->print(PENJIN_FUNCTION_IS_STUB,"KeyMapper::save(CRstring file)");
     return Penjin::PENJIN_FUNCTION_IS_STUB;
 }
 
 void KeyMapper::defaultMap()
 {
+    #ifdef _DEUBG
+    ErrorMan::getInstance()->print("KeyMapper: Creating default mapping.");
+    #endif
     clearKeys();
     string device;
     string ID;
@@ -291,6 +297,7 @@ Penjin::ERRORS KeyMapper::mapKey(CRuchar id)
         }
         else
         {
+            ErrorMan::getInstance()->print(PENJIN_ERROR, "KeyMapper::mapKey():");
             delete t;
             result = PENJIN_ERROR;  // We have to show that something went wrong with the config
         }
@@ -322,6 +329,7 @@ Penjin::ERRORS KeyMapper::mapMouse(CRuchar id)
         }
         else
         {
+            ErrorMan::getInstance()->print(PENJIN_ERROR, "KeyMapper::mapMouse(): ");
             delete t;
             result = PENJIN_ERROR;  // We have to show that something went wrong with the config
         }
@@ -364,6 +372,7 @@ Penjin::ERRORS KeyMapper::mapJoy(CRuchar id)
         }
         else
         {
+            ErrorMan::getInstance()->print(PENJIN_ERROR, "KeyMapper::mapJoy()");
             delete t;
             result = PENJIN_ERROR;  // We have to show that something went wrong with the config
         }

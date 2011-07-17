@@ -22,6 +22,7 @@
 
 #include "Image.h"
 #include "GFX.h"
+#include "ErrorHandler.h"
 using Penjin::Image;
 
 
@@ -29,6 +30,7 @@ Image::Image() : surface(NULL)
 {
     setDrawWidth(1);
     setColour(MAGENTA);
+    fileName = "IMAGE";
    /* alpha = 255;
     #ifdef PENJIN_3D
         rotation.x = rotation.y = rotation.z = 0.0f;
@@ -58,6 +60,7 @@ void Image::clear()
     if(surface)
         SDL_FreeSurface(surface);
     surface = NULL;
+    fileName = "SURFACE";
 }
 
 void Image::render()
@@ -98,8 +101,13 @@ void Image::render()
 Penjin::ERRORS Image::load(SDL_Surface* s)
 {
     // If surface is invalid
+    ErrorHandler* eMan = ErrorMan::getInstance();
     if(s == NULL)
+    {
+        eMan->print(PENJIN_ERROR,"Image: Invalid Surface!");
         return PENJIN_ERROR;
+    }
+
 
     // Free already existing surface
     if(surface && (surface!=s))
@@ -113,6 +121,9 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
     Renderer* gfx = GFX::getInstance();
     if(gfx->getScaleMode() == smPRESCALE)
     {
+        #ifdef _DEBUG
+        eMan->print("Prescaling Image: " + fileName);
+        #endif
         SDL_Surface* orig = surface;
         surface = NULL;
         Vector2d<float> sc = gfx->getPixelScale();
@@ -159,6 +170,7 @@ Penjin::ERRORS Image::load(const string& file)
 
 Penjin::ERRORS Image::save(const string& file)
 {
+    ErrorMan::getInstance()->print(PENJIN_FUNCTION_IS_STUB);
     return Penjin::PENJIN_FUNCTION_IS_STUB;
 }
 

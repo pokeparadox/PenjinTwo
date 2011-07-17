@@ -19,6 +19,7 @@
 #include <string>
 #include <iostream>
 #include "Application.h"
+#include "ErrorHandler.h"
 using Penjin::Application;
 using std::string;
 using std::cout;
@@ -38,7 +39,7 @@ Application::Application() : state(NULL)
     if(error == PENJIN_FILE_NOT_FOUND)
     {
         // If locale not found we can only give English error.
-        cout << "Error loading Locale file!" << endl;
+        ErrorMan::getInstance()->print(error,"Locale not found, creating default.");
     }
     //  Set localised title
     this->setTitle( (string)Penjin::LocaleMan::getInstance()->getValue("Application","Title","PenjinTwo Application") );
@@ -67,6 +68,7 @@ void Application::createDefaultSettings()
 
 Penjin::ERRORS Application::argHandler(int argc, char** argv)
 {
+    ErrorMan::getInstance()->print(PENJIN_FUNCTION_IS_STUB);
     return PENJIN_FUNCTION_IS_STUB;
 }
 
