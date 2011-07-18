@@ -19,7 +19,6 @@
 #include "TextFile.h"
 #include "ErrorHandler.h"
 using Penjin::TextFile;
-using Penjin::ErrorHandler;
 
 void TextFile::append(CRstring data)
 {
@@ -58,6 +57,7 @@ Penjin::ERRORS TextFile::load(const vector<string>& lines)
 
 Penjin::ERRORS TextFile::load(CRstring file)
 {
+    ErrorHandler* eMan = ErrorMan::getInstance();
     #if defined (PLATFORM_WII)
         FILE *f = fopen ((Penjin::getWorkingDirectory() + file).c_str(), "rb");
         // can't find file
@@ -87,6 +87,7 @@ Penjin::ERRORS TextFile::load(CRstring file)
 
         if(!ifile.is_open())
         {
+            eMan->print(PENJIN_FILE_NOT_FOUND, "TextFile: " + file);
             return PENJIN_FILE_NOT_FOUND;
         }
 
@@ -105,14 +106,17 @@ Penjin::ERRORS TextFile::load(CRstring file)
         if(ifile.is_open())
         {
             ifile.close();
+            fileName = file;
             return PENJIN_OK;
         }
+        eMan->print(PENJIN_ERROR, "TextFile::load");
         return PENJIN_ERROR;
     #endif
 }
 
 Penjin::ERRORS TextFile::save(CRstring file)
 {
+    ErrorHandler* eMan = ErrorMan::getInstance();
     #if defined(PLATFORM_WII)
         FILE *f = fopen ((Penjin::getWorkingDirectory() + file).c_str(), "wb");
         if (f == NULL)
@@ -135,6 +139,7 @@ Penjin::ERRORS TextFile::save(CRstring file)
         ofstream ofile(file.c_str());//save ofile
         if(!ofile.is_open())
         {
+            eMan->print(PENJIN_UNABLE_TO_SAVE, "TextFile: " + file);
             return PENJIN_UNABLE_TO_SAVE;
         }
         size_t size = docData.size();
@@ -150,8 +155,10 @@ Penjin::ERRORS TextFile::save(CRstring file)
         if(ofile.is_open())
         {
             ofile.close();
+            fileName = file;
             return PENJIN_OK;
         }
+        eMan->print(PENJIN_ERROR, "TextFile::save");
         return PENJIN_ERROR;
 	#endif
 }

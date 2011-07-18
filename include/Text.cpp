@@ -27,13 +27,21 @@
 #endif
 #include "StringUtility.h"
 #include "NumberUtility.h"
+#include "ErrorHandler.h"
 using Penjin::Text;
 using Penjin::Colour;
 using namespace Penjin::StringUtility;
 Penjin::ERRORS Penjin::TextClass::init()
 {
+    ErrorHandler* eMan = ErrorMan::getInstance();
     if(isInitialised())
+    {
+        #ifdef _DEBUG
+        eMan->print(PENJIN_OK, "TextClass: SDL_TTF Initialised.");
+        #endif
         return PENJIN_OK;
+    }
+
     int result = TTF_Init();
     if(result != 0)
     {
@@ -43,6 +51,7 @@ Penjin::ERRORS Penjin::TextClass::init()
     {
         result = PENJIN_OK;
     }
+    eMan->print((Penjin::ERRORS)result,"TextClass::init()");
     return (Penjin::ERRORS)result;
 }
 
@@ -52,6 +61,9 @@ void Penjin::TextClass::deInit()
 {
     if(isInitialised())
         TTF_Quit();
+    #ifdef _DEBUG
+        ErrorMan::getInstance()->print("TextClass: SDL_TTF Deinitialised.");
+    #endif
 }
 
 Text::Text() : bgColour(NULL)
@@ -109,6 +121,7 @@ Text::~Text()
 
 Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
 {
+    ErrorHandler* eMan = ErrorMan::getInstance();
     //  check if fontSize is not the same as loaded font
     if(this->fontSize != fontSize || name != fontName)
     {
@@ -121,6 +134,7 @@ Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
     }
 	if(font)
 	{
+	    fileName = name;
 	    // check if we already have Glyphs for this fontSize
 	    if(glyphs.size() >= fontSize)
 	    {
@@ -130,6 +144,9 @@ Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
                 if(glyphs.at(fontSize-1)[0]->getFontSize() == fontSize)
                 {
                     this->fontSize = fontSize;
+                    #ifdef _DEBUG
+                    eMan->print(PENJIN_OK,"Text: font loaded, Size: " + StringUtility::intToString(fontSize) + "Font: " + name);
+                    #endif
                     return PENJIN_OK;
                 }
 	        }
@@ -149,8 +166,12 @@ Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
         glyphs[fontSize-1][0]->refresh();
         fontName = name;
         this->fontSize = fontSize;
+        #ifdef _DEBUG
+        eMan->print(PENJIN_OK,"Text: font loaded, Size: " + StringUtility::intToString(fontSize) + "Font: " + name);
+        #endif
 		return PENJIN_OK;
 	}
+	eMan->print(PENJIN_TTF_UNABLE_TO_OPEN,"Text: Size: " + StringUtility::intToString(fontSize) + "Font: " + name);
 	return PENJIN_TTF_UNABLE_TO_OPEN;
 }
 
@@ -161,6 +182,7 @@ Penjin::ERRORS Text::load(CRstring name)
 
 Penjin::ERRORS Text::save(CRstring fontName)
 {
+    ErrorMan::getInstance()->print(PENJIN_FUNCTION_IS_STUB, "Text::save(CRstring fontName)");
     return PENJIN_FUNCTION_IS_STUB;
 }
 
@@ -171,15 +193,19 @@ Penjin::ERRORS Text::setFontSize(CRuint s)
 
 void Text::setRenderMode(const GlyphClass::RENDER_MODES& mode)
 {
+    Penjin::ERRORS e = PENJIN_OK;
     if (glyphs.size())
     {
         if(glyphs.size(fontSize-1))
             glyphs.at(fontSize-1,0)->setRenderMode(mode);
         else
-            cout << "No Glyphs - Can't set RenderMode" << mode << endl;
+            e = PENJIN_ERROR;
     }
     else
-        cout << "No Glyphs - Can't set RenderMode" << mode << endl;
+        e = PENJIN_ERROR;
+
+    if(e != PENJIN_OK)
+        ErrorMan::getInstance()->print(e,"Text: Unable to set Render Mode.");
 }
 
 void Text::print(CRint num)

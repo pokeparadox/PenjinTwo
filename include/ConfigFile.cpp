@@ -37,15 +37,28 @@ ConfigFile::~ConfigFile()
 
 Penjin::ERRORS ConfigFile::load(const string& fileName)
 {
-    this->fileName = fileName;
-    return getError(ini->LoadFile(fileName.c_str()));
+    Penjin::ERRORS e = getError(ini->LoadFile(fileName.c_str()));
+    if(e == PENJIN_OK)
+    {
+        this->fileName = fileName;
+        #ifdef _DEBUG
+        ErrorMan::getInstance()->print(e,"ConfigFile::load " + fileName);
+        #endif
+    }
+    return e;
 }
 
 Penjin::ERRORS ConfigFile::save(const string& fileName)
 {
-    this->fileName = fileName;
-    changed = false;
-    return getError(ini->SaveFile(fileName.c_str()));
+    Penjin::ERRORS e = getError(ini->SaveFile(fileName.c_str()));
+    if(e == PENJIN_OK)
+    {
+        this->fileName = fileName;
+        #ifdef _DEBUG
+        ErrorMan::getInstance()->print(e,"ConfigFile::save " + fileName);
+        #endif
+    }
+    return e;
 }
 
 string ConfigFile::getValue(const string& section, const string& key)
@@ -154,9 +167,6 @@ Penjin::ERRORS ConfigFile::getError(const int& error)
         }
 
     }
-    #ifdef _DEBUG
-        eMan->print(PENJIN_OK, "ConfigFile loaded: " + fileName);
-    #endif
     return PENJIN_OK;
 }
 
