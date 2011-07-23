@@ -76,7 +76,7 @@ void Image::render()
         src.w = surface->w;
         src.h = surface->h;
         Renderer* gfx = GFX::getInstance();
-        if(gfx->getScaleMode() != smPRESCALE)
+        if(gfx->getScaleMode() == smNONE)
         {
             dst.x = position.x;
             dst.y = position.y;
@@ -119,16 +119,51 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
 
     // PRESCALE if needed.
     Renderer* gfx = GFX::getInstance();
-    if(gfx->getScaleMode() == smPRESCALE)
+    SCALE_MODES m = gfx->getScaleMode();
+    if(m != smNONE)
     {
-        #ifdef _DEBUG
-        eMan->print("Prescaling Image: " + fileName);
-        #endif
-        SDL_Surface* orig = surface;
-        surface = NULL;
-        Vector2d<float> sc = gfx->getPixelScale();
-        surface = zoomSurface(orig, sc.x, sc.y, SMOOTHING_OFF);
-        SDL_FreeSurface(orig);
+        if(m == smPOKESCALE)
+        {
+            Vector2d<float> sc = gfx->getPixelScale();
+            if (static_cast<int>(sc.x) == sc.x && sc.x == sc.y)
+            {
+                #ifdef _DEBUG
+                    eMan->print("Pokescaling Image: " + fileName);
+                #endif
+                Surface* orig = new Surface;
+                orig->setSurface(surface);
+                Surface*t = gfx->pokeScale(orig,sc.x);
+                surface = NULL;
+                if(t)
+                {
+                    if(t->getSDL_Surface())
+                    {
+                        surface = t->getSDL_Surface();
+                        delete t;
+                    }
+                }
+                orig->clear();
+                delete orig;
+            }
+            else
+            {
+                eMan->print(PENJIN_ERROR,"Scalefactor non-integer, Unable to PokeScale:" + fileName);
+                m = smPRESCALE;
+            }
+        }
+        if(m == smPRESCALE)
+        {
+            #ifdef _DEBUG
+            eMan->print("Prescaling Image: " + fileName);
+            #endif
+            SDL_Surface* orig = surface;
+            surface = NULL;
+            Vector2d<float> sc = gfx->getPixelScale();
+            surface = zoomSurface(orig, sc.x, sc.y, SMOOTHING_OFF);
+            SDL_FreeSurface(orig);
+        }
+
+
 
         ///////////////
         // This code fixes colour keying in 32 bpp mode (otherwise the colour key colour shows)

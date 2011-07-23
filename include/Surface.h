@@ -53,6 +53,8 @@ namespace Penjin
             void rotate(const float& degrees);
             void rotate(const Brad& brads);
 
+            void scale(const float& scale);
+
             SDL_Surface* getSDL_Surface();
 
             /** Free the Surface */

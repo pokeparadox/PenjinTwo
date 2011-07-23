@@ -20,7 +20,7 @@
 #define RENDERER_H
 
 #include "DimensionObject.h"
-#include "Singleton.h"
+//#include "Singleton.h"
 #include "Colour.h"
 #include "Surface.h"
 #include  <vector>
@@ -32,9 +32,10 @@ namespace Penjin
 
     enum SCALE_MODES
     {
-        smNONE=0,       //  No scaling applied
-        smSCALE2x,      //  Scale2X filter applied before final blit
-        smPRESCALE      //  Objects resized on load. Positions and dimensions scaled.
+        smNONE=0,           //  No scaling applied
+        smSCALE2x,          //  Scale2X filter applied before final blit
+        smPRESCALE,         //  Objects resized on load. Positions and dimensions scaled.
+        smPOKESCALE,        //  Object prescaled using PokeScale smoothing
     };
 
     class Renderer
@@ -89,6 +90,9 @@ namespace Penjin
             void setBaseWidth(const int& w);
             void setBaseHeight(const int& h);
             Vector2d<float> getPixelScale();                    //  Gets the scale Vector of a single pixel.
+            virtual Surface* scale(Surface* surface, const float& scale)=0;
+            // Smooth scale a Surface based on an integer scale factor
+            virtual Surface* pokeScale(Surface* surface, const int& scale)=0;
 
         protected:
             int bpp;

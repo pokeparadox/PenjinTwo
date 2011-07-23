@@ -66,6 +66,8 @@ void Penjin::TextClass::deInit()
     #endif
 }
 
+Text* Text::instance = NULL;
+
 Text::Text() : bgColour(NULL)
 {
     TextClass::init();// auto init font library if needed.
@@ -80,6 +82,15 @@ Text::Text() : bgColour(NULL)
     bgColour = new Colour(BLACK);
     relativePos = false;
     wrapText = true;
+}
+
+Text* Text::getInstance()
+{
+    if( instance == NULL )
+    {
+        instance = new Text;
+    }
+    return instance;
 }
 
 void Text::unload()

@@ -26,6 +26,8 @@ using Penjin::ERRORS;
 using Penjin::LocaleMan;
 
 
+ErrorHandler* ErrorHandler::instance = NULL;
+
 ErrorHandler::ErrorHandler()
 {
         //  General Errors
@@ -147,6 +149,16 @@ ErrorHandler::ErrorHandler()
 ErrorHandler::~ErrorHandler()
 {
 
+}
+
+
+ErrorHandler* ErrorHandler::getInstance()
+{
+    if( instance == NULL )
+    {
+        instance = new ErrorHandler;
+    }
+    return instance;
 }
 
 string ErrorHandler::getErrorText(const string& error)

@@ -20,7 +20,7 @@
 #define SIMPLEJOY_H
 
 #include "Object.h"
-#include "Singleton.h"
+//#include "Singleton.h"
 #include "PenjinTypes.h"
 #include "Vector2d.h"
 #include "KeyMapper.h"
@@ -39,6 +39,8 @@ namespace Penjin
     class SimpleJoy : public Object
     {
         public:
+            static SimpleJoy* getInstance();
+
             enum sjSTATUS
             {
                 sjRELEASED = 0,
@@ -80,8 +82,6 @@ namespace Penjin
                 sjSTATUS Click, VolumeUp, VolumeDown,UpLeft, UpRight, DownLeft, DownRight;
             #endif
             };
-            SimpleJoy();
-            ~SimpleJoy();
 
             /// Multiplayer options
             /*starting from 1... 1 == 1 player 2 == 2 players*/
@@ -328,7 +328,13 @@ namespace Penjin
             SDL_Joystick **Joy;		//	SDL joysticks
             SDL_Event Event;
         #endif
+            private:
+            SimpleJoy();
+            ~SimpleJoy();
+            static SimpleJoy* instance;
+
     };
-    typedef Singleton <SimpleJoy> Joy;
+    //typedef Singleton <SimpleJoy> Joy;
+    typedef SimpleJoy Joy;
 }
 #endif // SIMPLEJOY_H

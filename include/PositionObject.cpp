@@ -40,7 +40,7 @@ void PositionObject::setX(const float& x)
     position.x = x;
     Renderer* gfx = GFX::getInstance();
     // If we are not scaling, then the scaled size is the same
-    if(gfx->getScaleMode() != smPRESCALE)
+    if(gfx->getScaleMode() == smNONE)
         scaled.x = x;
     else
         scaled.x =  (float)(position.x * gfx->getPixelScale().x) + 0.5f;
@@ -51,7 +51,7 @@ void PositionObject::setY(const float& y)
     position.y = y;
     Renderer* gfx = GFX::getInstance();
      // If we are not scaling, then the scaled size is the same
-    if(gfx->getScaleMode() != smPRESCALE)
+    if(gfx->getScaleMode() == smNONE)
         scaled.y = y;
     else
         scaled.y =  (float)(position.y * gfx->getPixelScale().y) + 0.5f;
@@ -70,7 +70,7 @@ float PositionObject::getY()
 void PositionObject::rescale()
 {
     Renderer* gfx = GFX::getInstance();
-    if(gfx->getScaleMode() != smPRESCALE)
+    if(gfx->getScaleMode() == smNONE)
         scaled = position;
     else
         scaled = position * gfx->getPixelScale();

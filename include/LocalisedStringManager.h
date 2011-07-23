@@ -15,11 +15,12 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef LOCALISEDSTRINGMANAGER_H
+*/
+#ifndef LOCALISEDSTRINGMANAGER_H
 #define LOCALISEDSTRINGMANAGER_H
 
 #include "ConfigFile.h"
-#include "Singleton.h"
+//#include "Singleton.h"
 #include <string>
 using std::string;
 
@@ -30,12 +31,9 @@ namespace Penjin
         public:
             LocalisedStringManager();
             /** get a Singleton instance of this class! */
-            // Not needed since we are using Singleton template!
-            /*static LocalisedStringManager& getInstance()
-            {
-                static LocalisedStringManager instanceLSM;   // Instantiated when this function is called
-                return instanceLSM;
-            }*/
+
+            static LocalisedStringManager* getInstance();
+
             //virtual Penjin::Errors load(const string & file);
             /** \brief loads the locale strings
              * \return the Penjin:ERRORS, error code.
@@ -62,7 +60,10 @@ namespace Penjin
 
             string languageFolder;
             string language;
+
+            static LocalisedStringManager* instance;
     };
-    typedef Singleton<LocalisedStringManager> LocaleMan;
+    //typedef Singleton<LocalisedStringManager> LocaleMan;
+    typedef LocalisedStringManager LocaleMan;
 }
 #endif // LOCALISEDSTRINGMANAGER_H

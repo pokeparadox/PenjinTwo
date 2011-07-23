@@ -49,6 +49,26 @@ Surface& Surface::operator=(const Surface& rhs)
     return *this;
 }
 
+Penjin::ERRORS Surface::setSurface(SDL_Surface* s)
+{
+    surface = s;
+    if(surface)
+    {
+        dimensions.x = surface->w;
+        dimensions.y = surface->h;
+    }
+}
+
+Penjin::ERRORS Surface::setSurface(Surface* s)
+{
+    surface = s->getSDL_Surface();
+    if(surface)
+    {
+        dimensions.x = surface->w;
+        dimensions.y = surface->h;
+    }
+}
+
 SDL_Surface* Surface::getSDL_Surface()
 {
     return surface;
@@ -93,4 +113,11 @@ void Surface::render()
 
         SDL_BlitSurface(surface, &src, SDL_GetVideoSurface(), &dst);
     }
+}
+
+void Surface::clear()
+{
+    if(surface)
+        SDL_FreeSurface(surface);
+    surface = NULL;
 }

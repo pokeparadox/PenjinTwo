@@ -32,7 +32,7 @@ void Rectangle::render()
     Renderer* gfx = Penjin::GFX::getInstance();
     gfx->setDrawColour(*this);
 
-    if(gfx->getScaleMode()!=smPRESCALE)
+    if(gfx->getScaleMode()==smNONE)
     {
         gfx->setDrawWidth(drawWidth);
         gfx->drawRectangle(position, dimensions);

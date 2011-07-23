@@ -25,6 +25,9 @@
 #include "Window.h"
 using Penjin::WindowManager;
 using Penjin::Window;
+
+WindowManager* WindowManager::instance = NULL;
+
 WindowManager::WindowManager()
 {
     //ctor
@@ -34,6 +37,15 @@ WindowManager::~WindowManager()
 {
     //dtor
     clear();
+}
+
+WindowManager* WindowManager::getInstance()
+{
+    if( instance == NULL )
+    {
+        instance = new WindowManager;
+    }
+    return instance;
 }
 
 void WindowManager::render()

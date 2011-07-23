@@ -31,7 +31,7 @@ using namespace std;
 #include "PenjinTypes.h"
 //#include "Colour.h"
 #include "Errors.h"
-#include "Singleton.h"
+//#include "Singleton.h"
 ///Text will wrap after 58 characters, inc spaces and punctuation. (at size 12 pt) (on a GP2X screen, 320x240)
 ///The text below shows how many characters can be used before the text will wrap.
 ////////////////////////////////////////////////////////////////////////////////////
@@ -62,6 +62,7 @@ namespace Penjin
         public:
             Text();		//	Initialise font handling
             virtual ~Text();	//	Shutdown font handling
+            static Text* getInstance();
 
             Penjin::ERRORS load(CRstring fontName,CRuint fontSize);		//	Loads a TTF
             Penjin::ERRORS load(CRstring fontName);  // Load a TTF without changing size
@@ -133,9 +134,12 @@ namespace Penjin
             ALIGNMENT alignment;
 
             Colour* bgColour;
+
+            static Text* instance;
     };
 
-    typedef Singleton<Text> TextMan;
+    //typedef Singleton<Text> TextMan;
+    typedef Text TextMan;
 }
 
 #endif	//	TEXT_H

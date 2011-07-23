@@ -57,6 +57,7 @@
 					<Add directory="$(#mingw.include)" />
 				</Compiler>
 				<Linker>
+					<Add option="--enable-auto-import" />
 					<Add library="SDL" />
 					<Add library="SDL_gfx" />
 					<Add library="SDL_image" />

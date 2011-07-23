@@ -19,6 +19,8 @@
 #include "LocalisedStringManager.h"
 using Penjin::LocalisedStringManager;
 
+LocalisedStringManager* LocalisedStringManager::instance=NULL;
+
 LocalisedStringManager::LocalisedStringManager() : languageFolder("strings"), language("eng_GB")
 {
     //ctor
@@ -29,6 +31,15 @@ LocalisedStringManager::~LocalisedStringManager()
     //dtor
     if(hasChanged())
         save();
+}
+
+LocalisedStringManager* LocalisedStringManager::getInstance()
+{
+    if( instance == NULL )
+    {
+        instance = new LocalisedStringManager;
+    }
+    return instance;
 }
 
 void LocalisedStringManager::setLanguage(const string& l)

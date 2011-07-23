@@ -114,7 +114,17 @@ Penjin::ERRORS Game2d::loadConfig()
         gfx->setFullscreen(Penjin::StringUtility::stringToBool(value));
         value = "";
     }
-
+    value = cfg.getValue("Video","ScaleMode","PokeScale");
+    if(value != "")
+    {
+        if(value == "PokeScale")
+            gfx->setScaleMode(smPOKESCALE);
+        else if(value == "PreScale")
+            gfx->setScaleMode(smPRESCALE);
+        else
+            gfx->setScaleMode(smNONE);
+        value = "";
+    }
     Penjin::GFX::getInstance()->applyVideoSettings();
     //////////////////////////////////////////////////////////////
     value = cfg.getValue("System","Font","fonts/unispace.ttf");

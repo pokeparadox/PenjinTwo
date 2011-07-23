@@ -30,14 +30,12 @@
 namespace Penjin
 {
     class Surface;
+    class Rectangle;
 
     class RendererSDL_2d : public Renderer
     {
         public:
-            /** Default constructor */
-            RendererSDL_2d();
-            /** Default destructor */
-            virtual ~RendererSDL_2d();
+            static RendererSDL_2d* getInstance();
 
             /** \brief Choose whether to show the cursor or not.
              * \param show : whill show the cursor if set to true, false will hide the cursor.
@@ -82,7 +80,14 @@ namespace Penjin
             virtual Colour getPixel(Vector2d<int> pos);
             virtual Colour getPixel(Surface* s, Vector2d<int> pos);
 
+            virtual Surface* scale(Surface* surface,const float& scale);
 
+            /** \brief SmoothScales a Surface based on an integer scale factor (Not intended for realtime...)
+             * \param surface : The Surface image source to scale.
+             * \param scale : The integer scale factor.
+             * \return The scale Surface.
+             */
+            virtual Surface* pokeScale(Surface* surface, const int& scale);
 
             virtual void showVideoInfo();
 
@@ -95,9 +100,22 @@ namespace Penjin
             void unlockSurface(SDL_Surface* s);
 
         private:
+            /** Default constructor */
+            RendererSDL_2d();
+            /** Default destructor */
+            virtual ~RendererSDL_2d();
+
+            // Used in PokeScale
+            Rectangle findLeftSlope(const Vector2d<int>& px, Surface* in);
+            Rectangle findRightSlope(const Vector2d<int>& px, Surface* in);
+            void drawSlopes(const Rectangle& L, const Rectangle& R, const int& scale, Surface* out);
+
             SDL_Surface* screen;
+
+            static RendererSDL_2d* instance;
     };
 
-typedef Singleton <RendererSDL_2d> GFX;
+//typedef Singleton <RendererSDL_2d> GFX;
+    typedef RendererSDL_2d GFX;
 }
 #endif // RENDERERSDL_2D_H

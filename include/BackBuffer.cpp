@@ -41,7 +41,7 @@ BackBuffer::~BackBuffer()
         src.w = buffer->w;
         src.h = buffer->h;
         Renderer* gfx = GFX::getInstance();
-        if(gfx->getScaleMode() != smPRESCALE)
+        if(gfx->getScaleMode() == smNONE)
         {
             dst.x = position.x;
             dst.y = position.y;

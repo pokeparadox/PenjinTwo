@@ -52,7 +52,7 @@ void DimensionObject::setWidth(const int& w)
     Renderer* gfx = GFX::getInstance();
 
     // If we are not scaling, then the scaled size is the same
-    if(gfx->getScaleMode() != smPRESCALE)
+    if(gfx->getScaleMode() == smNONE)
         scaled.x = w;
     else
         scaled.x =  (float)(dimensions.x * gfx->getPixelScale().x) + 0.5f;
@@ -64,7 +64,7 @@ void DimensionObject::setHeight(const int& h)
     Renderer* gfx = GFX::getInstance();
 
     // If we are not scaling, then the scaled size is the same
-    if(gfx->getScaleMode() != smPRESCALE)
+    if(gfx->getScaleMode() == smNONE)
         scaled.y = h;
     else
         scaled.y =  (float)(dimensions.y * gfx->getPixelScale().y) + 0.5f;
@@ -73,7 +73,7 @@ void DimensionObject::setHeight(const int& h)
 void DimensionObject::rescale()
 {
     Renderer* gfx = GFX::getInstance();
-    if(gfx->getScaleMode() != smPRESCALE)
+    if(gfx->getScaleMode() == smNONE)
         scaled = dimensions;
     else
         scaled = (dimensions * gfx->getPixelScale()) + Vector2d<float>(0.5f,0.5f);

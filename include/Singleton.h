@@ -36,7 +36,7 @@ namespace Penjin
             }
         protected:
             Singleton();
-            virtual ~Singleton();
+            virtual ~Singleton(){;}
 
         private:
             Singleton(Singleton const&);

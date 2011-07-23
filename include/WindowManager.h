@@ -23,7 +23,7 @@
 */
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
-#include "Singleton.h"
+//#include "Singleton.h"
 #include "RenderObject.h"
 #include "UpdateObject.h"
 #include <vector>
@@ -39,6 +39,8 @@ namespace Penjin
             WindowManager();
             /** Default destructor */
             virtual ~WindowManager();
+
+            WindowManager* getInstance();
 
             /** \brief Render the relevent Window instances to the screen.*/
             virtual void render();
@@ -60,7 +62,10 @@ namespace Penjin
 
         protected:
             vector<Window*> windows;
+        private:
+            static WindowManager* instance;
     };
-    typedef Singleton<WindowManager> WinMan;
+    //typedef Singleton<WindowManager> WinMan;
+    typedef WindowManager WinMan;
 }
 #endif // WINDOWMANAGER_H

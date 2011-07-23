@@ -26,11 +26,10 @@
 
 #include "Window.h"
 #include "Errors.h"
-#include "Singleton.h"
 #include "LocalisedStringManager.h"
 #include "StateManager.h"
 using Penjin::LocalisedStringManager;
-using Penjin::Singleton;
+
 
 namespace Penjin
 {

@@ -23,6 +23,8 @@
 
 using Penjin::SimpleJoy;
 
+SimpleJoy* SimpleJoy::instance = NULL;
+
 SimpleJoy::~SimpleJoy()
 {
 #if defined(PLATFORM_PANDORA) && !defined(PENJIN_SDL_INPUT)
@@ -132,6 +134,14 @@ SimpleJoy::SimpleJoy()
 #endif
 }
 
+SimpleJoy* SimpleJoy::getInstance()
+{
+    if( instance == NULL )
+    {
+        instance = new SimpleJoy;
+    }
+    return instance;
+}
 void SimpleJoy::update()
 {
     if(!players[player].mapLoaded)
