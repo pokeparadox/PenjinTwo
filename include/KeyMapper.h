@@ -27,13 +27,13 @@
 #include "KeyMapDigitalJoyAxis.h"
 #include "KeyMapHat.h"
 
-#include "PenjinErrors.h"
-#include "ConfigFile.h"
-using namespace PenjinErrors;
+#include "Errors.h"
+#include "IniFile.h"
+//using Penjin::ERRORS;
 #include <vector>
 namespace Penjin
 {
-    class KeyMapper : public ConfigFile
+    class KeyMapper : public IniFile
     {
         public:
             KeyMapper();

@@ -34,12 +34,25 @@ namespace Penjin
             /** \brief copy the screen into the BackBuffer*/
             void update();
 
-            /** \brief copy the screen into the BackBuffer
+            /** \brief Set the alpha value of the surface
                 \param alpha : The value used for transparency (0-255) where 0 is completely transparent.*/
-            void setAlpha(CRuchar alpha){SDL_SetAlpha(buffer, SDL_SRCALPHA, alpha);}
+            void setAlpha(const unsigned char& alpha)
+            {
+                #ifdef PENJIN_SDL
+                SDL_SetAlpha(buffer, SDL_SRCALPHA, alpha);
+                #elif PENJIN_GL
+                this->alpha = alpha * 0.003921569f;
+                #endif
+            }
+
+            void scale(const float & s);
 
         private:
+            #ifdef PENJIN_SDL
             SDL_Surface* buffer;    //  The back buffer
+            #elif PENJIN_GL
+            float alpha;
+            #endif
     };
 }
 

@@ -35,8 +35,9 @@ namespace Penjin
     class RendererSDL_2d : public Renderer
     {
         public:
-            static RendererSDL_2d* getInstance();
-
+            //static RendererSDL_2d* getInstance();
+            /** Default constructor */
+            RendererSDL_2d();
             /** \brief Choose whether to show the cursor or not.
              * \param show : whill show the cursor if set to true, false will hide the cursor.
              */
@@ -99,12 +100,11 @@ namespace Penjin
             void lockSurface(SDL_Surface* s);
             void unlockSurface(SDL_Surface* s);
 
-        private:
-            /** Default constructor */
-            RendererSDL_2d();
+        protected:
+
             /** Default destructor */
             virtual ~RendererSDL_2d();
-
+        private:
             // Used in PokeScale
             Rectangle findLeftSlope(const Vector2d<int>& px, Surface* in);
             Rectangle findRightSlope(const Vector2d<int>& px, Surface* in);
@@ -112,10 +112,9 @@ namespace Penjin
 
             SDL_Surface* screen;
 
-            static RendererSDL_2d* instance;
+            //static RendererSDL_2d* instance;
     };
 
-//typedef Singleton <RendererSDL_2d> GFX;
-    typedef RendererSDL_2d GFX;
+    //typedef Singleton<RendererSDL_2d> GFX;
 }
 #endif // RENDERERSDL_2D_H

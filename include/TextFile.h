@@ -51,9 +51,9 @@ namespace Penjin
             void editLine(CRint line, CRstring newData);//	replace a line of data with new data
             string getLine(CRint line);				//	get the string data of the line
             void viewDoc();							//	View an outline of the doc
-            void clear();							//	Clear data out of doc.
+            virtual void clear();							//	Clear data out of doc.
             void append(CRstring data);				//	adds a string to the document
-        private:
+        protected:
             int findLine(CRstring target);
             vector <string> docData;
     };

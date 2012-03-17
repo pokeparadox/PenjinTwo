@@ -24,11 +24,46 @@
 *   \file GFX.h is a wrapper that ensures the correct renderer Singleton is included based on defines.
 *   \author Kevin Winfield-Pantoja
 */
+#include <string>
+using std::string;
+#include "Singleton.h"
 
-#if defined(PENJIN_SDL_VIDEO) || defined(PENJIN_SDL) && !defined(PENJIN_GL_VIDEO)
+#include "Renderer.h"
+#if PENJIN_SDL
     #include "RendererSDL_2d.h"
-#elif defined(PENJIN_SDL_GL_VIDEO) || defined(PENJIN_GL)
-    // #include "RendererSDL_GL_2d.h"
+#elif PENJIN_GL
+    #include "RendererGL_2d.h"
 #endif
+#ifdef PENJIN_3D
+#if PENJIN_SDL
+    #include "RendererSDL_3d.h"
+#elif PENJIN_GL
+    #include "RendererGL_3d.h"
+#endif
+#endif
+
+namespace Penjin
+{
+    typedef Singleton<RendererSDL_2d> GFX_SDL_2D;
+    #ifdef PENJIN_GL
+        typedef Singleton<RendererGL_2d> GFX_GL_2D;
+    #endif
+    #ifdef PENJIN_3D
+        typedef Singleton<RendererSDL_3d> GFX_SDL_3D;
+        #ifdef PENJIN_GL
+            typedef Singleton<RendererGL_3d> GFX_GL_3D;
+        #endif
+    #endif
+    class GPU
+    {
+        public:
+            GPU();
+            virtual ~GPU();
+            void setMode(const string & engine, const unsigned int& dims);
+            Renderer* renderer;
+    };
+    typedef Singleton<GPU> GPU_SINGLETON;
+    #define GFX  GPU_SINGLETON::getInstance()->renderer
+}
 
 #endif // GFX_H_INCLUDED

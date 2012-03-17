@@ -77,8 +77,8 @@ void ColourHSL::setColour(const Colour& c)
             if(hue < 0)
                 hue+=255;
         #else
-            float maxC = max(c.red, max(c.green, c.blue));
-            float minC = min(c.red, min(c.green, c.blue));
+            float maxC = max(c.r, max(c.g, c.b));
+            float minC = min(c.r, min(c.g, c.b));
             lightness = (minC + maxC) *0.5f;
 
             if(lightness < 0.5f)
@@ -86,12 +86,12 @@ void ColourHSL::setColour(const Colour& c)
             else
                 saturation = (maxC - minC) / (2.0f - maxC - minC);
 
-            if(c.red == maxC)
-                hue = (c.green - c.blue) / (maxC - minC);
-            else if(c.green == maxC)
-                hue = 2.0f + (c.blue - c.red) / (maxC - minC);
+            if(c.r == maxC)
+                hue = (c.g - c.b) / (maxC - minC);
+            else if(c.g == maxC)
+                hue = 2.0f + (c.b - c.r) / (maxC - minC);
             else
-                hue = 4.0f + (c.red - c.green) / (maxC - minC);
+                hue = 4.0f + (c.r - c.g) / (maxC - minC);
 
             hue *= 0.666f;   //  Bring the hue within colour range
             if(hue < 0)

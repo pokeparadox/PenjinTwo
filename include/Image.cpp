@@ -75,7 +75,7 @@ void Image::render()
         src.y = surface->clip_rect.y;
         src.w = surface->w;
         src.h = surface->h;
-        Renderer* gfx = GFX::getInstance();
+        Renderer* gfx = GFX;
         if(gfx->getScaleMode() == smNONE)
         {
             dst.x = position.x;
@@ -88,7 +88,7 @@ void Image::render()
         }
 
 
-        SDL_BlitSurface(surface, &src, GFX::getInstance()->getSDLVideoSurface(), &dst);
+        SDL_BlitSurface(surface, &src, GFX_SDL_2D::getInstance()->getSDLVideoSurface(), &dst);
         #ifdef _DEBUG
             Rectangle::render();
         #endif
@@ -101,10 +101,9 @@ void Image::render()
 Penjin::ERRORS Image::load(SDL_Surface* s)
 {
     // If surface is invalid
-    ErrorHandler* eMan = ErrorMan::getInstance();
     if(s == NULL)
     {
-        eMan->print(PENJIN_ERROR,"Image: Invalid Surface!");
+        ErrorMan::getInstance()->print(PENJIN_ERROR,"Image: Invalid Surface!");
         return PENJIN_ERROR;
     }
 
@@ -118,7 +117,7 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
     setDimensions(surface->w,surface->h);
 
     // PRESCALE if needed.
-    Renderer* gfx = GFX::getInstance();
+    Renderer* gfx = GFX;
     SCALE_MODES m = gfx->getScaleMode();
     if(m != smNONE)
     {
@@ -128,7 +127,7 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
             if (static_cast<int>(sc.x) == sc.x && sc.x == sc.y)
             {
                 #ifdef _DEBUG
-                    eMan->print("Pokescaling Image: " + fileName);
+                    ErrorMan::getInstance()->print("Pokescaling Image: " + fileName);
                 #endif
                 Surface* orig = new Surface;
                 orig->setSurface(surface);
@@ -147,14 +146,14 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
             }
             else
             {
-                eMan->print(PENJIN_ERROR,"Scalefactor non-integer, Unable to PokeScale:" + fileName);
+                ErrorMan::getInstance()->print(PENJIN_ERROR,"Scalefactor non-integer, Unable to PokeScale:" + fileName);
                 m = smPRESCALE;
             }
         }
         if(m == smPRESCALE)
         {
             #ifdef _DEBUG
-            eMan->print("Prescaling Image: " + fileName);
+            ErrorMan::getInstance()->print("Prescaling Image: " + fileName);
             #endif
             SDL_Surface* orig = surface;
             surface = NULL;
@@ -199,8 +198,7 @@ Penjin::ERRORS Image::load(const string& file)
 {
     fileName = file;
     SDL_Surface* t = IMG_Load(file.c_str());
-    Penjin::ERRORS e = Image::load(t);
-    return e;
+    return Image::load(t);
 }
 
 Penjin::ERRORS Image::save(const string& file)

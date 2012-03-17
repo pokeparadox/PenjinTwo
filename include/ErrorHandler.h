@@ -19,18 +19,17 @@
 #ifndef	ERRORHANDLER_H
 #define	ERRORHANDLER_H
 
+#include "Singleton.h"
 #include "EnumParser.h"
 #include "Errors.h"
 
 namespace Penjin
 {
-    class ErrorHandler : public EnumParser<Penjin::ERRORS>
+    class ErrorHandler : protected EnumParser<Penjin::ERRORS>
     {
         public:
             ErrorHandler();
-            virtual ~ErrorHandler();
-
-            static ErrorHandler* getInstance();
+            //static ErrorHandler* getInstance();
 
             string getErrorText(const string& error);
 
@@ -42,14 +41,15 @@ namespace Penjin
 
 
         protected:
+            virtual ~ErrorHandler();
             string getDefaultText(const ERRORS& error);
             string getDefaultText(const string& error);
             map <Penjin::ERRORS, string> defText;
 
         private:
-            static ErrorHandler* instance;
+            //static ErrorHandler* instance;
     };
-    //typedef Singleton <ErrorHandler> ErrorMan;
-    typedef ErrorHandler ErrorMan;
+    typedef Singleton <ErrorHandler> ErrorMan;
+    //typedef ErrorHandler ErrorMan;
 }
 #endif	//	ERRORHANDLER_H

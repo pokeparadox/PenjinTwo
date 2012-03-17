@@ -19,8 +19,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "DimensionObject.h"
-//#include "Singleton.h"
+//#include "DimensionObject.h"
+#include "Singleton.h"
 #include "Colour.h"
 #include "Surface.h"
 #include  <vector>

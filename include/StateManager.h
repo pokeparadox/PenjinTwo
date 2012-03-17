@@ -25,7 +25,7 @@
 #ifndef STATEMANAGER_H
 #define STATEMANAGER_H
 
-//#include "Singleton.h"
+#include "Singleton.h"
 #include "ApplicationState.h"
 #include <map>
 
@@ -39,7 +39,7 @@ namespace Penjin
 	    typedef int StateId;
 	    static const StateId STATE_NULL = -1;
 
-            static StateManager* getInstance();
+            //static StateManager* getInstance();
 
             void addState(StateId id, ApplicationState* state);
             void setNextState(const StateId& next);
@@ -50,9 +50,11 @@ namespace Penjin
 
             void stateManagement();
             void clear();
-        private:
+
             /** Default constructor */
             StateManager();
+
+        private:
             StateManager(const StateManager& bling){;}
             StateManager& operator=(StateManager const&){return *this;}
             /** Default destructor */
@@ -64,11 +66,10 @@ namespace Penjin
 
             std::map<StateId, ApplicationState*> states;
 
-            static StateManager* instance;
+            //static StateManager* instance;
     };
-    //template class Singleton<StateManager>;
-    //typedef Singleton<StateManager> StateMan;
-    typedef StateManager StateMan;
+    typedef Singleton<StateManager> StateMan;
+    //typedef StateManager StateMan;
 
 }
 #endif // STATEMANAGER_H

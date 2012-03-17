@@ -66,7 +66,7 @@ bool NumberUtility::isEven(CRint value){return (value%2 == 0);}
 
 bool NumberUtility::isMultiple(CRint x,CRint y){return (x%y == 0);}
 
-bool NumberUtility::isOdd(CRint value){return !(value%2 ==0);}
+bool NumberUtility::isOdd(CRint value){return !isEven(value);}
 
 bool NumberUtility::isPowerOfTwo(CRint x){return ((x != 0) && !(x & (x - 1)));}
 

@@ -20,13 +20,14 @@
 #include "Errors.h"
 #include "LocalisedStringManager.h"
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 using Penjin::ErrorHandler;
 using Penjin::ERRORS;
 using Penjin::LocaleMan;
 
 
-ErrorHandler* ErrorHandler::instance = NULL;
+//ErrorHandler* ErrorHandler::instance = NULL;
 
 ErrorHandler::ErrorHandler()
 {
@@ -152,14 +153,14 @@ ErrorHandler::~ErrorHandler()
 }
 
 
-ErrorHandler* ErrorHandler::getInstance()
+/*ErrorHandler* ErrorHandler::getInstance()
 {
     if( instance == NULL )
     {
         instance = new ErrorHandler;
     }
     return instance;
-}
+}*/
 
 string ErrorHandler::getErrorText(const string& error)
 {

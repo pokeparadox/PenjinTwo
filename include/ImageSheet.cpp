@@ -144,7 +144,7 @@ void ImageSheet::render()
 
             dst.x = position.x;
             dst.y = position.y;
-            SDL_BlitSurface(surface, &clipAreas.at(activeImage), GFX::getInstance()->getSDLVideoSurface(), &dst);
+            SDL_BlitSurface(surface, &clipAreas.at(activeImage), GFX_SDL_2D::getInstance()->getSDLVideoSurface(), &dst);
         }
     }
     else
@@ -159,7 +159,7 @@ void ImageSheet::render()
 
         dst.x = position.x;
         dst.y = position.y;
-        SDL_BlitSurface(surfaces.at(activeImage), &src, GFX::getInstance()->getSDLVideoSurface(), &dst);
+        SDL_BlitSurface(surfaces.at(activeImage), &src, GFX_SDL_2D::getInstance()->getSDLVideoSurface(), &dst);
     }
     #ifdef _DEBUG
         // We only want to render the Rectangle to the size of one subImage
@@ -234,8 +234,12 @@ size_t ImageSheet::size()
 
 Penjin::Colour ImageSheet::getPixelInFrame(Vector2d<int> pos, CRint frame) const
 {
+    #ifdef PENJIN_SDL
     if (sheetMode)
-        return Penjin::GFX::getInstance()->getPixel(surface, Vector2d<int> (pos.x + clipAreas[frame].x, pos.y + clipAreas[frame].y) );
+        return Penjin::GFX_SDL_2D::getInstance()->getPixel(surface, Vector2d<int> (pos.x + clipAreas[frame].x, pos.y + clipAreas[frame].y) );
 
-    return Penjin::GFX::getInstance()->getPixel(surfaces.at(frame), Vector2d<int> (pos.x, pos.y ) );
+    return Penjin::GFX_SDL_2D::getInstance()->getPixel(surfaces.at(frame), Vector2d<int> (pos.x, pos.y ) );
+    #else
+    /// TODO: Write GL alternative
+    #endif
 }

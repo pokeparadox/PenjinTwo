@@ -18,23 +18,23 @@
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
-  * \file Game2d is a base class for creating a 2d based game.
+  * \file Game2 is a base class for creating a game.
   * \author Kevin Winfield-Pantoja
   */
-#ifndef GAME2D_H
-#define GAME2D_H
+#ifndef GAME_H
+#define GAME_H
 
 #include "Application.h"
 
 namespace Penjin
 {
-    class Game2d : public Application
+    class Game : public Application
     {
         public:
             /** Default constructor */
-            Game2d();
+            Game();
             /** Default destructor */
-            virtual ~Game2d();
+            virtual ~Game();
 
             //virtual void update()=0;
             virtual void loop();    /**< The main game loop */
@@ -45,4 +45,4 @@ namespace Penjin
             Penjin::ERRORS loadConfig();
     };
 }
-#endif // GAME2D_H
+#endif // GAME_H

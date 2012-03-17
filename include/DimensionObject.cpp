@@ -20,6 +20,7 @@
 #include "GFX.h"
 using Penjin::DimensionObject;
 
+
 DimensionObject::DimensionObject()
 {
     //ctor
@@ -49,7 +50,7 @@ int DimensionObject::getHeight()const
 void DimensionObject::setWidth(const int& w)
 {
     dimensions.x = w;
-    Renderer* gfx = GFX::getInstance();
+    Renderer* gfx = GFX;
 
     // If we are not scaling, then the scaled size is the same
     if(gfx->getScaleMode() == smNONE)
@@ -61,7 +62,7 @@ void DimensionObject::setWidth(const int& w)
 void DimensionObject::setHeight(const int& h)
 {
     dimensions.y = h;
-    Renderer* gfx = GFX::getInstance();
+    Renderer* gfx = GFX;
 
     // If we are not scaling, then the scaled size is the same
     if(gfx->getScaleMode() == smNONE)
@@ -72,7 +73,7 @@ void DimensionObject::setHeight(const int& h)
 
 void DimensionObject::rescale()
 {
-    Renderer* gfx = GFX::getInstance();
+    Renderer* gfx = GFX;
     if(gfx->getScaleMode() == smNONE)
         scaled = dimensions;
     else

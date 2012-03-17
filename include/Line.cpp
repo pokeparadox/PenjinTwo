@@ -34,6 +34,6 @@ Line::~Line()
 
 void Line::render()
 {
-    GFX::getInstance()->setDrawColour(*this);
-    GFX::getInstance()->drawLine(position,end);
+    GFX->setDrawColour(*this);
+    GFX->drawLine(position,end);
 }

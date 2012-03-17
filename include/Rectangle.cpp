@@ -29,7 +29,7 @@ Rectangle::Rectangle()
 
 void Rectangle::render()
 {
-    Renderer* gfx = Penjin::GFX::getInstance();
+    Renderer* gfx = Penjin::GFX;
     gfx->setDrawColour(*this);
 
     if(gfx->getScaleMode()==smNONE)

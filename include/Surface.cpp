@@ -67,6 +67,8 @@ Penjin::ERRORS Surface::setSurface(Surface* s)
         dimensions.x = surface->w;
         dimensions.y = surface->h;
     }
+    else
+        return PENJIN_ERROR;
 }
 
 SDL_Surface* Surface::getSDL_Surface()

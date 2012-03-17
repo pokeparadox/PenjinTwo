@@ -24,9 +24,10 @@
 #include <SDL/SDL_gfxPrimitives.h>
 #include <SDL/SDL_rotozoom.h>
 #include "RendererSDL_2d.h"
-#include "Errors.h"
+#include "ErrorHandler.h"
 #include "Surface.h"
 #include "Rectangle.h"
+#include "ConfigManager.h"
 
 #ifdef PLATFORM_GP2X
     #include "MMUHack.h"
@@ -42,12 +43,16 @@ using Penjin::RendererSDL_2d;
 using Penjin::ERRORS;
 using Penjin::Surface;
 using Penjin::Rectangle;
+using Penjin::ConfigManager;
 
-RendererSDL_2d* RendererSDL_2d::instance = NULL;
+
+//RendererSDL_2d* RendererSDL_2d::instance = NULL;
 
 RendererSDL_2d::RendererSDL_2d()
 {
     //ctor
+    ConfigMan::getInstance()->report("GFXSDL");
+    ConfigMan::getInstance()->report("GFX2D");
 }
 
 RendererSDL_2d::~RendererSDL_2d()
@@ -55,14 +60,14 @@ RendererSDL_2d::~RendererSDL_2d()
     //dtor
 }
 
-RendererSDL_2d* RendererSDL_2d::getInstance()
+/*RendererSDL_2d* RendererSDL_2d::getInstance()
 {
     if( instance == NULL )
     {
         instance = new RendererSDL_2d;
     }
     return instance;
-}
+}*/
 
 void RendererSDL_2d::showCursor(const bool & show)
 {
@@ -93,7 +98,7 @@ void RendererSDL_2d::applyVideoSettings()
 
         screen = SDL_SetVideoMode(resolution.x, resolution.y, bpp, flags);
     if(screen  == NULL )
-        PENJIN_SDL_SETVIDEOMODE_FAILED;
+        ErrorMan::getInstance()->forceQuit(PENJIN_SDL_SETVIDEOMODE_FAILED);
 
     // We get the final resolution if  auto resolution has been set
     if(resolution.x == 0)
@@ -133,7 +138,30 @@ Surface* RendererSDL_2d::scale(Surface* in, const float& s)
 {
     Surface* out = NULL;
     out = new Surface;
-    out->setSurface(zoomSurface(in->getSDL_Surface(),s,s,SMOOTHING_OFF));
+    //  if the size is less than 1 we are shrinking
+    if(s<1.0f)
+    {
+        int sFactor = 0;
+        //  we convert some coom decimals to the integer fractions
+        //  tenth of size
+        if(s == 0.1f)
+            sFactor = 10;
+        else if(s == 0.16666666f)
+            sFactor = 6;
+        else if(s == 0.2f)
+            sFactor = 5;
+        //  quarter
+        else if(s == 0.25f)
+            sFactor = 4;
+        else if(s == 0.33333333f)
+            sFactor = 3;
+        else if (s == 0.5f)
+            sFactor = 2;
+        out->setSurface(shrinkSurface(in->getSDL_Surface(),sFactor, sFactor));
+    }
+    else
+        out->setSurface(zoomSurface(in->getSDL_Surface(),s,s,SMOOTHING_OFF));
+
     return out;
 }
 
@@ -151,7 +179,7 @@ Surface* RendererSDL_2d::pokeScale(Surface* in, const int& s)
     Vector2d<int> px;
 
     // we work line by line
-    while(px.y < in->getHeight())
+    for (px.y; px.y < in->getHeight(); ++px.y)
     {
         //we work along the current row
         while(px.x < in->getWidth())
@@ -170,7 +198,6 @@ Surface* RendererSDL_2d::pokeScale(Surface* in, const int& s)
                 break;
             }
         }
-        ++px.y;
     }
     return out;
 }

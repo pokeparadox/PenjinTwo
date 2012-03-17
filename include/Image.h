@@ -55,6 +55,9 @@ namespace Penjin
             virtual void clear();
 
         protected:
+            #if defined(PENJIN_GL) || defined(PENJIN_ES) || defined(PENJIN_ES2)
+            Texture* texture;
+            #endif
             SDL_Surface* surface;
 /*
             #ifdef PENJIN_SDL

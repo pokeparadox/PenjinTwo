@@ -36,8 +36,6 @@ namespace Penjin
 
     /********** Forward Decalrations **********/
     class ApplicationState;
-    /*************** Constants ****************/
-    const std::string CONFIG_FILE = "config/settings.ini";   /**< The configuration file location */
 
     /** \brief Application provides state management, cmmandline handling etc*/
     class Application : public Window

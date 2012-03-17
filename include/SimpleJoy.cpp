@@ -23,7 +23,7 @@
 
 using Penjin::SimpleJoy;
 
-SimpleJoy* SimpleJoy::instance = NULL;
+//SimpleJoy* SimpleJoy::instance = NULL;
 
 SimpleJoy::~SimpleJoy()
 {
@@ -134,14 +134,15 @@ SimpleJoy::SimpleJoy()
 #endif
 }
 
-SimpleJoy* SimpleJoy::getInstance()
+/*SimpleJoy* SimpleJoy::getInstance()
 {
     if( instance == NULL )
     {
         instance = new SimpleJoy;
     }
     return instance;
-}
+}*/
+
 void SimpleJoy::update()
 {
     if(!players[player].mapLoaded)

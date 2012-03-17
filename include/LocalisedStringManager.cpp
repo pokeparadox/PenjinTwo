@@ -19,7 +19,7 @@
 #include "LocalisedStringManager.h"
 using Penjin::LocalisedStringManager;
 
-LocalisedStringManager* LocalisedStringManager::instance=NULL;
+//LocalisedStringManager* LocalisedStringManager::instance=NULL;
 
 LocalisedStringManager::LocalisedStringManager() : languageFolder("strings"), language("eng_GB")
 {
@@ -33,14 +33,14 @@ LocalisedStringManager::~LocalisedStringManager()
         save();
 }
 
-LocalisedStringManager* LocalisedStringManager::getInstance()
+/*LocalisedStringManager* LocalisedStringManager::getInstance()
 {
     if( instance == NULL )
     {
         instance = new LocalisedStringManager;
     }
     return instance;
-}
+}*/
 
 void LocalisedStringManager::setLanguage(const string& l)
 {
@@ -55,12 +55,12 @@ void LocalisedStringManager::setLanguageFolder(const string& f)
 Penjin::ERRORS LocalisedStringManager::load()
 {
     fileName = "./"+languageFolder+"/"+language+".lng";
-    return this->ConfigFile::load(fileName);
+    return this->IniFile::load(fileName);
 }
 
 Penjin::ERRORS LocalisedStringManager::save()
 {
     fileName = "./"+languageFolder+"/"+language+".lng";
-    return this->ConfigFile::save(fileName);
+    return this->IniFile::save(fileName);
 }
 

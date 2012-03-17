@@ -87,7 +87,7 @@ Penjin::ERRORS Sprite::setTransparentColour(const Colour& c)
 
 Penjin::ERRORS Sprite::setTransparentColour(const Vector2d<int>& v)
 {
-    return setTransparentColour( GFX::getInstance()->getPixel(v) );
+    return setTransparentColour( GFX->getPixel(v) );
 }
 
 void Sprite::disableTransparentColour()

@@ -33,7 +33,7 @@ Panel::Panel() : shouldHide(false), hidden(false), selection(-1), padSelection(-
     //setColour(DARK_GREY);
     Vector2d<int> t;
     t.y = 32;
-    t.x = GFX::getInstance()->getWidth() -1;
+    t.x = GFX->getWidth() -1;
     setDimensions(t);
     lowLight->setColour(BLACK);
     highLight->setColour(LIGHT_GREY);
@@ -76,7 +76,7 @@ void Panel::render()
 void Panel::update()
 {
     // first we find out if the panel is near top or bottom of screen
-    int centre = Penjin::GFX::getInstance()->getHeight() * 0.5f;
+    int centre = Penjin::GFX->getHeight() * 0.5f;
     Vector2d<int> dim = getScaledDimensions();
     Vector2d<int> pos = getScaledPosition();
     Vector2d<int> startPos = startPosition.getScaledPosition();
@@ -115,10 +115,10 @@ void Panel::update()
         if(widgets.at(i)->getDimensions() > getDimensions())
         {
             setHeight(widgets.at(i)->getHeight());
-            setWidth(GFX::getInstance()->getWidth());
+            setWidth(GFX->getWidth());
         }
         int wCentre = widgets.at(i)->getScaledDimensions().y*0.5f;
-        Vector2d<float> pixScale = GFX::getInstance()->getPixelScale();
+        Vector2d<float> pixScale = GFX->getPixelScale();
         int offset = (boxCentre -wCentre) + pixScale.x;
         t.x += offset;
         t.y = offset + getScaledPosition().y;

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PenjinTwoLocalisedStringManager" />
+		<Option pch_mode="2" />
+		<Option compiler="linux" />
+		<Option extended_obj_names="1" />
+		<Build>
+			<Target title="Lin Debug">
+				<Option output="lib/Linux/libPenjinTwoLocalisedStringManagerD" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Linux/Debug/" />
+				<Option type="3" />
+				<Option compiler="linux" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-fPIC" />
+				</Compiler>
+				<Linker>
+					<Add library="PenjinTwoIniFileD" />
+					<Add directory="$(#PenjinTwo.lib)/Linux" />
+				</Linker>
+			</Target>
+			<Target title="Lin Release">
+				<Option output="lib/Linux/libPenjinTwoLocalisedStringManager" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Linux/Release/" />
+				<Option type="3" />
+				<Option compiler="linux" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-fPIC" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="PenjinTwoIniFile" />
+					<Add directory="$(#PenjinTwo.lib)/Linux" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="$(#PenjinTwo.include)" />
+		</Compiler>
+		<Unit filename="include/LocalisedStringManager.cpp" />
+		<Unit filename="include/LocalisedStringManager.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

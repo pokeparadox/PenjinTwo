@@ -28,8 +28,8 @@ using Penjin::StateExample;
 StateExample::StateExample()
 {
     //ctor
-    Penjin::GFX::getInstance()->setClearColour(BLUE);
-    Penjin::GFX::getInstance()->setDrawColour(RED);
+    Penjin::GFX->setClearColour(BLUE);
+    Penjin::GFX->setDrawColour(RED);
 
 }
 
@@ -40,10 +40,10 @@ StateExample::~StateExample()
 
 void StateExample::render()
 {
-    Penjin::GFX::getInstance()->clear();
-    Vector2d<int> t = Penjin::GFX::getInstance()->getResolution();
-    Penjin::GFX::getInstance()->drawLine(   Vector2d<float> (0,0), Vector2d<float> (t.x,t.y));
-    Penjin::GFX::getInstance()->drawLine(   Vector2d<float> (0,t.y), Vector2d<float> (t.x, 0));
+    Penjin::GFX->clear();
+    Vector2d<int> t = Penjin::GFX->getResolution();
+    Penjin::GFX->drawLine(   Vector2d<float> (0,0), Vector2d<float> (t.x,t.y));
+    Penjin::GFX->drawLine(   Vector2d<float> (0,t.y), Vector2d<float> (t.x, 0));
 }
 
 void StateExample::update()

@@ -19,20 +19,20 @@
 #ifndef LOCALISEDSTRINGMANAGER_H
 #define LOCALISEDSTRINGMANAGER_H
 
-#include "ConfigFile.h"
-//#include "Singleton.h"
+#include "IniFile.h"
+#include "Singleton.h"
 #include <string>
 using std::string;
 
 namespace Penjin
 {
-    class LocalisedStringManager : public ConfigFile
+    class LocalisedStringManager : public IniFile
     {
         public:
-            LocalisedStringManager();
+            //LocalisedStringManager();
             /** get a Singleton instance of this class! */
 
-            static LocalisedStringManager* getInstance();
+            //static LocalisedStringManager* getInstance();
 
             //virtual Penjin::Errors load(const string & file);
             /** \brief loads the locale strings
@@ -51,9 +51,10 @@ namespace Penjin
              * \param f : the path where the language files are stored.
              */
             void setLanguageFolder(const string& f);
+            LocalisedStringManager();
 
         private:
-            //LocalisedStringManager();                                           // constructor is private
+                                                       // constructor is private
             LocalisedStringManager(LocalisedStringManager const&){;}              // copy constructor is private
             LocalisedStringManager& operator=(LocalisedStringManager const&){return *this;}   // assignment operator is private
             ~LocalisedStringManager();
@@ -61,9 +62,9 @@ namespace Penjin
             string languageFolder;
             string language;
 
-            static LocalisedStringManager* instance;
+            //static LocalisedStringManager* instance;
     };
-    //typedef Singleton<LocalisedStringManager> LocaleMan;
-    typedef LocalisedStringManager LocaleMan;
+    typedef Singleton<LocalisedStringManager> LocaleMan;
+    //typedef LocalisedStringManager LocaleMan;
 }
 #endif // LOCALISEDSTRINGMANAGER_H

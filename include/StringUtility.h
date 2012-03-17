@@ -98,13 +98,21 @@ namespace Penjin
         char intToChar(CRint value);
 
         ///  Formatting
-        string leadingZero(CRint value);     //  prepends a 0 if necessary
+        string leadingZero(CRint value);        //  prepends a 0 if necessary
         void reverse(char* s);
+        string removeSpaces(string in);         //  Removes all spaces from a string.
+        string removeLeadingSpaces(string in);  //  Removes only loading spaces.
+        string removeTrailingSpaces(string in); //  Removes only trailing spaces.
 
         /// Additional
         string substrReplace(string text, CRstring oldSubstr, CRstring newSubstr); // replaces all occurrences of oldSubstr in text with newSubstr
-        void tokenize(CRstring str, vector<string>& tokens, CRstring delimiters = " "); // splits a string into parts at a certain char and adds the parts to the passed vector
+        void tokenise(CRstring str, vector<string>& tokens, CRstring delimiters = " "); // splits a string into parts at a certain char and adds the parts to the passed vector
+        void tokenise(CRstring str, vector<string>& tokens, CRstring delimiters, CRuint maxParts);
+
+        void tokenize(CRstring str, vector<string>& tokens, CRstring delimiters = " ");
+
         void tokenize(CRstring str, vector<string>& tokens, CRstring delimiters, CRuint maxParts);
+
         string combine(const vector<string>& tokens, CRstring delimiter = ","); // compines an array or string parts into one string seperating them with the delimiter char
     }
 }

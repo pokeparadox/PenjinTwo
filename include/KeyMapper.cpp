@@ -25,7 +25,7 @@ using Penjin::KeyMapper;
 KeyMapper::KeyMapper()
 {
     //ctor
-    #ifdef PLATFORM_PC
+    #if defined (PLATFORM_PC) || defined (PLATFORM_PI)
         setFileName("config/input/pc.ini");
     #elif PLATFORM_PANDORA
         setFileName("config/input/pandora.ini");
@@ -70,7 +70,7 @@ Penjin::ERRORS KeyMapper::load(const vector<string>& lines)
 Penjin::ERRORS KeyMapper::load(CRstring file)
 {
 
-    Penjin::ERRORS result = this->ConfigFile::load(file);
+    Penjin::ERRORS result = this->IniFile::load(file);
     if(result != PENJIN_OK)
     {
         defaultMap();
@@ -88,14 +88,14 @@ Penjin::ERRORS KeyMapper::save(CRstring file)
 
 void KeyMapper::defaultMap()
 {
-    #ifdef _DEUBG
+    #ifdef _DEBUG
     ErrorMan::getInstance()->print("KeyMapper: Creating default mapping.");
     #endif
     clearKeys();
     string device;
     string ID;
     string player= "1";
-#if defined(PLATFORM_PANDORA) || defined(PLATFORM_PC)
+#if defined(PLATFORM_PANDORA) || defined(PLATFORM_PC) || defined(PLATFORM_PI)
     device = "Keyboard";
     ID="0";
     setValue(device,"DeviceNumber",ID);
@@ -112,7 +112,7 @@ void KeyMapper::defaultMap()
         setValue(device,"MouseAxisY",        "1");
 #endif
 
-#ifdef PLATFORM_PC
+#if defined (PLATFORM_PC) || defined(PLATFORM_PI)
     device = "Keyboard";
         setValue(device,"A",        "x");
         setValue(device,"B",        "z");
@@ -256,7 +256,7 @@ EvilDragon: DPad works, that's Cursor Up, Down, Left, Right.
 #endif
     // parse through ini file and actually setup the keys
     applyMapping();
-    ConfigFile::save(fileName);
+    IniFile::save(fileName);
 }
 
 void KeyMapper::applyMapping()

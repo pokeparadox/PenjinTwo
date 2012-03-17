@@ -20,6 +20,7 @@
 #include <iostream>
 #include "Application.h"
 #include "ErrorHandler.h"
+#include "ConfigManager.h"
 using Penjin::Application;
 using std::string;
 using std::cout;
@@ -29,7 +30,7 @@ Application::Application() : state(NULL)
 {
     //ctor
     //  We load the settings file for the app
-    Penjin::ConfigFile conf;
+    Penjin::IniFile conf;
     ERRORS error = conf.load(Penjin::CONFIG_FILE);
 
     // Find out the current language
