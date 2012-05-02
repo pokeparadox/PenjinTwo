@@ -402,7 +402,7 @@ void Text::print(CRstring text)
         else if(c == ' ')
         {
             //  use dummy for spacing
-            Vector2d<float> pxScale = GFX::getInstance()->getPixelScale();
+            Vector2d<float> pxScale = GFX->getPixelScale();
             cursorPos.setX(cursorPos.getX() + glyphs[fontSize-1][0]->getWidth());
             // we get a substring that is from here to the end of the string.
             if(wrapText)

@@ -29,17 +29,16 @@ using std::string;
 #include "Singleton.h"
 
 #include "Renderer.h"
-#if PENJIN_SDL
-    #include "RendererSDL_2d.h"
-#elif PENJIN_GL
+ #include "RendererSDL_2d.h"
+#if PENJIN_GL
     #include "RendererGL_2d.h"
 #endif
+
 #ifdef PENJIN_3D
-#if PENJIN_SDL
     #include "RendererSDL_3d.h"
-#elif PENJIN_GL
-    #include "RendererGL_3d.h"
-#endif
+    #if PENJIN_GL
+        #include "RendererGL_3d.h"
+    #endif
 #endif
 
 namespace Penjin

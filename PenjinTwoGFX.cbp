@@ -18,6 +18,7 @@
 					<Add option="-fPIC" />
 					<Add option="-DPLATFORM_PC" />
 					<Add option="-DPENJIN_SDL" />
+					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
 					<Add library="PenjinTwoStringUtilityD" />
@@ -63,6 +64,8 @@
 		<Unit filename="include/ColourHSV.cpp" />
 		<Unit filename="include/DimensionObject.cpp" />
 		<Unit filename="include/DimensionObject.h" />
+		<Unit filename="include/Ellipse.cpp" />
+		<Unit filename="include/Ellipse.h" />
 		<Unit filename="include/GFX.cpp" />
 		<Unit filename="include/GFX.h" />
 		<Unit filename="include/Image.cpp" />
@@ -77,6 +80,8 @@
 		<Unit filename="include/PositionObject.h" />
 		<Unit filename="include/Primitive.cpp" />
 		<Unit filename="include/Primitive.h" />
+		<Unit filename="include/RadialObject.cpp" />
+		<Unit filename="include/RadialObject.h" />
 		<Unit filename="include/Rectangle.cpp" />
 		<Unit filename="include/Rectangle.h" />
 		<Unit filename="include/RenderObject.cpp" />

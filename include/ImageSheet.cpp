@@ -164,9 +164,9 @@ void ImageSheet::render()
     #ifdef _DEBUG
         // We only want to render the Rectangle to the size of one subImage
         Vector2d<int> t = getDimensions(activeImage);
-        GFX::getInstance()->setDrawColour(*this);
-        GFX::getInstance()->setDrawWidth(drawWidth);
-        GFX::getInstance()->drawRectangle(position, t);
+        GFX->setDrawColour(*this);
+        GFX->setDrawWidth(drawWidth);
+        GFX->drawRectangle(position, t);
     #endif
 }
 

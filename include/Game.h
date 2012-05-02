@@ -18,7 +18,7 @@
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
-  * \file Game2 is a base class for creating a game.
+  * \file Game is a base class for creating a game.
   * \author Kevin Winfield-Pantoja
   */
 #ifndef GAME_H

@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="PenjinTwoPhysics" />
+		<Option title="PenjinTwoRendererSDL_3D" />
 		<Option pch_mode="2" />
 		<Option compiler="linux" />
 		<Build>
 			<Target title="Lin Debug">
-				<Option output="lib/Linux/libPenjinTwoPhysicsD" prefix_auto="1" extension_auto="1" />
+				<Option output="lib/Linux/libPenjinTwoRendererSDL_3DD" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Linux/Debug" />
 				<Option type="3" />
 				<Option compiler="linux" />
@@ -18,11 +18,12 @@
 					<Add option="-fPIC" />
 				</Compiler>
 				<Linker>
+					<Add library="PenjinTwoD" />
 					<Add directory="$(#PenjinTwo.lib)/Linux" />
 				</Linker>
 			</Target>
 			<Target title="Lin Release">
-				<Option output="lib/Linux/libPenjinTwoPhysics" prefix_auto="1" extension_auto="1" />
+				<Option output="lib/Linux/libPenjinTwoRendererSDL_3D" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Linux/Release/" />
 				<Option type="3" />
 				<Option compiler="linux" />
@@ -34,6 +35,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="PenjinTwo" />
 					<Add directory="$(#PenjinTwo.lib)/Linux" />
 				</Linker>
 			</Target>
@@ -46,14 +48,6 @@
 		<Linker>
 			<Add directory="$(#PenjinTwo.lib)" />
 		</Linker>
-		<Unit filename="include/CollisionObject.cpp" />
-		<Unit filename="include/CollisionObject.h" />
-		<Unit filename="include/CollisionRegion.cpp" />
-		<Unit filename="include/CollisionRegion.h" />
-		<Unit filename="include/PhysicsProcessor.cpp" />
-		<Unit filename="include/PhysicsProcessor.h" />
-		<Unit filename="include/SimpleDirection.cpp" />
-		<Unit filename="include/SimpleDirection.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />

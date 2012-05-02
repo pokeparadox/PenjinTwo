@@ -29,6 +29,17 @@ namespace Penjin
             RadialObject();
             /** Default destructor */
             virtual ~RadialObject();
+
+            void setRadius(unsigned int r);
+            unsigned int getRadius();
+            void setRadius2(unsigned int r2);
+            unsigned int getRadius2();
+
+            void setDiameter(unsigned int d);
+            unsigned int getDiameter();
+            void setDiameter2(unsigned int d2);
+            unsigned int getDiameter2();
+
         protected:
         private:
     };

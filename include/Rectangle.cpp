@@ -18,6 +18,7 @@
 */
 #include "Rectangle.h"
 #include "Colour.h"
+#include "GFX.h"
 using Penjin::Rectangle;
 using Penjin::Colour;
 
@@ -29,18 +30,17 @@ Rectangle::Rectangle()
 
 void Rectangle::render()
 {
-    Renderer* gfx = Penjin::GFX;
-    gfx->setDrawColour(*this);
+    GFX->setDrawColour(*this);
 
-    if(gfx->getScaleMode()==smNONE)
+    if(GFX->getScaleMode()==smNONE)
     {
-        gfx->setDrawWidth(drawWidth);
-        gfx->drawRectangle(position, dimensions);
+        GFX->setDrawWidth(drawWidth);
+        GFX->drawRectangle(position, dimensions);
     }
     else
     {
-        gfx->setDrawWidth(drawWidth * gfx->getPixelScale().y);
-        gfx->drawRectangle(getScaledPosition(), getScaledDimensions());
+        GFX->setDrawWidth(drawWidth * GFX->getPixelScale().y);
+        GFX->drawRectangle(getScaledPosition(), getScaledDimensions());
     }
 
 }

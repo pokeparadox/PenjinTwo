@@ -33,6 +33,8 @@ IniFile::IniFile() : currentSec(0), changed(false)
 
 IniFile::~IniFile()
 {
+    //if(changed)
+    save(this->fileName);
     //dtor
     clear();
 }
@@ -388,6 +390,12 @@ void IniFile::setValue(const string& section, const int& ID, const string& key, 
 
     createSection(section,ID);
     setValue(key,keyID,value,comment);
+}
+
+void IniFile::setValue(const string& section, const string& key, const string& value, const string& comment)
+{
+    createSection(section);
+    setValue(key,-1,value,comment);
 }
 
 void IniFile::setValue(string k, int ID, string v, string c)

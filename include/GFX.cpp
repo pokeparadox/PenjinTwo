@@ -41,14 +41,20 @@ void GPU::setMode(const string& engine, const unsigned int& dims)
     {
         if(engine == "SDL")
             renderer = GFX_SDL_2D::getInstance();
+        #ifdef PENJIN_GL
         else if (engine == "GL")
             renderer = GFX_GL_2D::getInstance();
+        #endif
     }
+    #ifdef PENJIN_3D
     else if(dims == 3)
     {
         if(engine == "SDL")
             renderer = GFX_SDL_3D::getInstance();
+        #ifdef PENJIN_GL
         else if (engine == "GL")
             renderer = GFX_GL_3D::getInstance();
+        #endif
     }
+    #endif
 }

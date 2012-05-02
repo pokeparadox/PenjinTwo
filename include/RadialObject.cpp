@@ -17,6 +17,7 @@
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */#include "RadialObject.h"
 using Penjin::RadialObject;
+
 RadialObject::RadialObject()
 {
     //ctor
@@ -26,3 +27,44 @@ RadialObject::~RadialObject()
 {
     //dtor
 }
+
+void RadialObject::setRadius(unsigned int r)
+{
+    setWidth(r*2);
+}
+
+unsigned int RadialObject::getRadius()
+{
+    return getWidth() * 0.5f;
+}
+
+void RadialObject::setRadius2(unsigned int r)
+{
+    setHeight(r*2);
+}
+
+unsigned int RadialObject::getRadius2()
+{
+    return getHeight() * 0.5f;
+}
+
+void RadialObject::setDiameter(unsigned int d)
+{
+    setWidth(d);
+}
+
+unsigned int RadialObject::getDiameter()
+{
+    return getWidth();
+}
+
+void RadialObject::setDiameter2(unsigned int d)
+{
+    setHeight(d);
+}
+
+unsigned int RadialObject::getDiameter2()
+{
+    return getHeight();
+}
+

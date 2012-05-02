@@ -25,14 +25,16 @@
 #include "RendererGL_2d.h"
 #include "ErrorHandler.h"
 #include "Colour.h"
+#include "ConfigManager.h"
 #ifdef PENJIN_GL
     #include <SDL/SDL_opengl.h>
 #endif
 using Penjin::RendererGL_2d;
 using Penjin::ErrorHandler;
 using Penjin::Colour;
+using Penjin::ConfigManager;
 
-RendererGL_2d* RendererGL_2d::instance = NULL;
+//RendererGL_2d* RendererGL_2d::instance = NULL;
 
 RendererGL_2d::RendererGL_2d()
 {
@@ -47,14 +49,14 @@ RendererGL_2d::~RendererGL_2d()
     //dtor
 }
 
-RendererGL_2d* RendererGL_2d::getInstance()
+/*RendererGL_2d* RendererGL_2d::getInstance()
 {
     if( instance == NULL )
     {
         instance = new RendererGL_2d;
     }
     return instance;
-}
+}*/
 
 void RendererGL_2d::applyVideoSettings()
 {
@@ -65,7 +67,7 @@ void RendererGL_2d::applyVideoSettings()
     info = SDL_GetVideoInfo();
     if(!info)
 	{
-	    Penjin::ErrorHandler::getInstance()->forceQuit(PENJIN_SDL_VIDEO_QUERY_FAILED, "RendererGL_2d::applyVideoSettings()");
+	    ErrorMan::getInstance()->forceQuit(PENJIN_SDL_VIDEO_QUERY_FAILED, "RendererGL_2d::applyVideoSettings()");
     }
         //Setup OpenGL window attributes
         SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
@@ -88,7 +90,7 @@ void RendererGL_2d::applyVideoSettings()
 
         screen = SDL_SetVideoMode(resolution.x, resolution.y, bpp, flags);
         if(screen  == NULL )
-            Penjin::ErrorHandler::getInstance()->forceQuit(PENJIN_SDL_SETVIDEOMODE_FAILED, "RendererGL_2d::applyVideoSettings()");
+            Penjin::ErrorMan::getInstance()->forceQuit(PENJIN_SDL_SETVIDEOMODE_FAILED, "RendererGL_2d::applyVideoSettings()");
         else
         {
             resolution.x = screen->w;

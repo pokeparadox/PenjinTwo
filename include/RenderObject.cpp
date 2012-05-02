@@ -31,7 +31,7 @@ RenderObject::~RenderObject()
 
 void RenderObject::queueRender()
 {
-    Renderer* gfx = Penjin::GFX;
+    Renderer* gfx = GFX;
     Vector2d<float> p = getScaledPosition();
     //  Check if screen position is within the resolution
     //(Allowing for scrolling something in from the left)

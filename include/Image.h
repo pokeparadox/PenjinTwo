@@ -21,6 +21,9 @@
 
 #include "FileObject.h"
 #include "Rectangle.h"
+#if defined(PENJIN_GL)
+    #include "Texture.h"
+#endif
 
 namespace Penjin
 {
@@ -55,7 +58,7 @@ namespace Penjin
             virtual void clear();
 
         protected:
-            #if defined(PENJIN_GL) || defined(PENJIN_ES) || defined(PENJIN_ES2)
+            #if defined(PENJIN_GL)
             Texture* texture;
             #endif
             SDL_Surface* surface;

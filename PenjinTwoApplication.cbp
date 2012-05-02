@@ -17,6 +17,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-fPIC" />
+					<Add option="-DPENJIN_SDL" />
 				</Compiler>
 				<Linker>
 					<Add library="PenjinTwoTextFileD" />

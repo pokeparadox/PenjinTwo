@@ -101,22 +101,22 @@ Penjin::ERRORS Game::loadConfig()
     GPU_SINGLETON::getInstance()->setMode(cMan->getGFXEngine(),cMan->getGFXDimensions());
 
     //  If the config was accepted by config manager we can apply the settings!
-    Penjin::GFX->setFrameRate(cMan->getFrameRate());
-    Penjin::GFX->setWidth(cMan->getWidth());
-    Penjin::GFX->setHeight(cMan->getHeight());
-    Penjin::GFX->setBaseWidth(cMan->getBaseWidth());
-    Penjin::GFX->setBaseHeight(cMan->getBaseHeight());
-    Penjin::GFX->setBitsPerPixel(cMan->getBPP());
-    Penjin::GFX->setFullscreen(cMan->getFullscreen());
+    GFX->setFrameRate(cMan->getFrameRate());
+    GFX->setWidth(cMan->getWidth());
+    GFX->setHeight(cMan->getHeight());
+    GFX->setBaseWidth(cMan->getBaseWidth());
+    GFX->setBaseHeight(cMan->getBaseHeight());
+    GFX->setBitsPerPixel(cMan->getBPP());
+    GFX->setFullscreen(cMan->getFullscreen());
     string value = cMan->getScaleMode();
     if(value == "PokeScale")
-        Penjin::GFX->setScaleMode(smPOKESCALE);
+        GFX->setScaleMode(smPOKESCALE);
     else if(value == "PreScale")
-        Penjin::GFX->setScaleMode(smPRESCALE);
+        GFX->setScaleMode(smPRESCALE);
     else
-        Penjin::GFX->setScaleMode(smNONE);
+        GFX->setScaleMode(smNONE);
 
-    Penjin::GFX->applyVideoSettings();
+    GFX->applyVideoSettings();
     Penjin::TextMan::getInstance()->load(cMan->getSystemFont(), cMan->getSystemFontSize());
     return e;
 }
@@ -132,7 +132,6 @@ void Game::loop()
 {
     //  We have to get the state pointer to begin with
     Penjin::StateManager* sm = Penjin::StateMan::getInstance();
-    Penjin::Renderer* gfx = Penjin::GFX;
     state = sm->getState();
     while(!state->getShouldQuit())
     {
@@ -151,8 +150,8 @@ void Game::loop()
         }
         state->update();        //  Update physics/objects/logic
         state->render();        //  render manually rendered objects
-        gfx->renderQueue();     //  render objects entrusted into our (to be) optimised render queue
-        gfx->blit();            //  Force the blit to the screen
-        gfx->frameLimiter();    //  restrict frame rate
+        GFX->renderQueue();     //  render objects entrusted into our (to be) optimised render queue
+        GFX->blit();            //  Force the blit to the screen
+        GFX->frameLimiter();    //  restrict frame rate
     }
 }

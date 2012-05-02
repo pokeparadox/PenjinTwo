@@ -34,8 +34,10 @@ namespace Penjin
     class RendererGL_2d : public RendererSDL_2d
     {
         public:
+            /** Default constructor */
+            RendererGL_2d();
             /**Get a static instance of the renderer*/
-            static RendererGL_2d* getInstance();
+            //static RendererGL_2d* getInstance();
 
             /** Sets the currently set width, height and bit-depth to the screen */
             virtual void applyVideoSettings();
@@ -75,8 +77,6 @@ namespace Penjin
 
             virtual Colour getPixel(Vector2d<int> pos);
         protected:
-            /** Default constructor */
-            RendererGL_2d();
             /** Default destructor */
             virtual ~RendererGL_2d();
 
@@ -102,9 +102,9 @@ namespace Penjin
 
             #endif
         private:
-            static RendererGL_2d* instance;
+            //static RendererGL_2d* instance;
     };
-    typedef RendererGL_2d GFX;
+    //typedef RendererGL_2d GFX;
 }
 #endif  // GL or ES or ES2 only
 #endif  // RENDERERGL_2D_H

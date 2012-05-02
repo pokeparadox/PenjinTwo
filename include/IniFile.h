@@ -94,6 +94,14 @@ namespace Penjin
              */
             void setValue(const string& section, const int& ID=-1, const string& key="", const int& keyID=-1, const string& value="", const string& comment="");
 
+            /** \brief set a value into the ConfigFile
+             * \param section : The section of the file to add the value.
+             * \param key : The key within the section to add the value.
+             * \param value : The actual value to be stored.
+             * \param comment: Any additional comment you wish to add to the file. (Default no comment.)
+             */
+            void setValue(const string& section, const string& key="", const string& value="", const string& comment="");
+
             /** \brief get a value from the ConfigFile
              * \param section : The section of the file to take the value.
              * \param key : The key within the section to take the value.
