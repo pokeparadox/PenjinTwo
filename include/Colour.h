@@ -87,6 +87,18 @@ namespace Penjin
             void setColour(const COLOURS& colour);						//	Set the colour using predefines
             void setColour(CRint rgb);                                          // Set the colour using a Delphi int (red + green * 256 + blue * 256 * 256)
 
+            //  Individual components
+            void setRed(const uchar& red);
+            void setGreen(const uchar& green);
+            void setBlue(const uchar& blue);
+            void setAlpha(const uchar& alpha);
+
+            //  Individual components
+            uchar getRed()const{return r;}
+            uchar getGreen()const{return g;}
+            uchar getBlue()const{return b;}
+            uchar getAlpha()const{return a;}
+
             Colour getColour()const{return *this;}
             SDL_Color getSDL_Colour();		            //	Converts the stored colour to an SDL_Color object
             Uint32 getSDL_Uint32Colour(const SDL_Surface* dst)const;

@@ -19,6 +19,34 @@
 #include "Colour.h"
 using Penjin::Colour;
 
+void Colour::setRed(const uchar& red)
+{
+    r = red;
+    #if defined (PENJIN_GL) || defined (PENJIN_ES) || defined (PENJIN_ES2)
+        toGL();
+    #endif
+}
+void Colour::setGreen(const uchar& green)
+{
+    g = green;
+    #if defined (PENJIN_GL) || defined (PENJIN_ES) || defined (PENJIN_ES2)
+        toGL();
+    #endif
+}
+void Colour::setBlue(const uchar& blue)
+{
+    b = blue;
+    #if defined (PENJIN_GL) || defined (PENJIN_ES) || defined (PENJIN_ES2)
+        toGL();
+    #endif
+}
+void Colour::setAlpha(const uchar& alpha)
+{
+    a = alpha;
+    #if defined (PENJIN_GL) || defined (PENJIN_ES) || defined (PENJIN_ES2)
+        toGL();
+    #endif
+}
 void Colour::setColour(const uchar& r,const uchar& g,const uchar& b,const uchar& a)
 {
     this->r = r;
