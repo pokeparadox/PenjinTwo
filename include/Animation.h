@@ -59,6 +59,12 @@ namespace Penjin
             void setPulsePlay(CRbool play);
             bool hasFinished();
 
+
+            void setFrameRate(Penjin::TimerScalers fps){setMode(fps);}
+            void setFrameRate(const unsigned int& fps){setFramesPerSecond(fps);}
+
+            void setCurrentFrame(const int& f){setActiveImage(f);}
+            int getCurrentFrame()const{return getActiveImage();}
             void rewind();
 
             virtual void update();
