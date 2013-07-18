@@ -24,7 +24,7 @@
 
 #include "Surface.h"
 using Penjin::Surface;
-
+#if ! PENJIN_CONSOLE
 Surface::Surface() : surface(NULL)
 {
     //ctor
@@ -123,3 +123,4 @@ void Surface::clear()
         SDL_FreeSurface(surface);
     surface = NULL;
 }
+#endif

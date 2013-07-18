@@ -22,8 +22,10 @@
 *   \author Kevin Winfield-Pantoja
 */
 #include "GFX.h"
+#include "ErrorHandler.h"
 using Penjin::Renderer;
 using Penjin::GPU;
+using Penjin::ERRORS;
 
 GPU::GPU()
 {
@@ -39,22 +41,62 @@ void GPU::setMode(const string& engine, const unsigned int& dims)
 {
     if(dims == 2)
     {
-        if(engine == "SDL")
-            renderer = GFX_SDL_2D::getInstance();
-        #ifdef PENJIN_GL
-        else if (engine == "GL")
-            renderer = GFX_GL_2D::getInstance();
-        #endif
+        #if PENJIN_CONSOLE
+            if (engine == "Console")
+            {
+                renderer = GFX_CONSOLE_2D::getInstance();
+                #ifdef _DEBUG
+                ErrorMan::getInstance()->print(PENJIN_OK,"GPU::setMode(Console,2)");
+                #endif
+            }
+        #else
+            if(engine == "SDL")
+            {
+                renderer = GFX_SDL_2D::getInstance();
+                #ifdef _DEBUG
+                ErrorMan::getInstance()->print(PENJIN_OK,"GPU::setMode(SDL,2)");
+                #endif
+            }
+            #ifdef PENJIN_GL
+            else if (engine == "GL")
+            {
+                renderer = GFX_GL_2D::getInstance();
+                #ifdef _DEBUG
+                ErrorMan::getInstance()->print(PENJIN_OK,"GPU::setMode(GL,2)");
+                #endif
+            }
+            #endif
+            else
+            {
+                renderer = GFX_SDL_2D::getInstance();
+                string out = "GPU::setMode(" + engine + ",2) - Invalid GFX Engine: " + engine;
+                ErrorMan::getInstance()->print(PENJIN_ERROR,out);
+                out = "GPU::setMode(" + engine + ",2) - Defaulting to SDL 2D.";
+                ErrorMan::getInstance()->print(PENJIN_ERROR,out);
+            }
+            #ifdef PENJIN_3D
+            else if(dims == 3)
+            {
+                if(engine == "SDL")
+                {
+                    renderer = GFX_SDL_3D::getInstance();
+                }
+                #ifdef PENJIN_GL
+                else if (engine == "GL")
+                {
+                    renderer = GFX_GL_3D::getInstance();
+                }
+                #endif
+                else
+                {
+                    renderer = GFX_SDL_3D::getInstance();
+                }
+            }
+            #endif
+  /*          else
+            {
+                renderer = GFX_SDL_2D::getInstance();
+            }*/
+        #endif // PENJIN_CONSOLE
     }
-    #ifdef PENJIN_3D
-    else if(dims == 3)
-    {
-        if(engine == "SDL")
-            renderer = GFX_SDL_3D::getInstance();
-        #ifdef PENJIN_GL
-        else if (engine == "GL")
-            renderer = GFX_GL_3D::getInstance();
-        #endif
-    }
-    #endif
 }

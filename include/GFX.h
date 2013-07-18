@@ -29,29 +29,36 @@ using std::string;
 #include "Singleton.h"
 
 #include "Renderer.h"
- #include "RendererSDL_2d.h"
-#if PENJIN_GL
-    #include "RendererGL_2d.h"
-#endif
-
-#ifdef PENJIN_3D
-    #include "RendererSDL_3d.h"
+#if !PENJIN_CONSOLE
+    #include "RendererSDL_2d.h"
     #if PENJIN_GL
-        #include "RendererGL_3d.h"
+        #include "RendererGL_2d.h"
     #endif
-#endif
 
+    #ifdef PENJIN_3D
+        #include "RendererSDL_3d.h"
+        #if PENJIN_GL
+            #include "RendererGL_3d.h"
+        #endif
+    #endif
+#else
+    #include "RendererConsole_2d.h"
+#endif
 namespace Penjin
 {
-    typedef Singleton<RendererSDL_2d> GFX_SDL_2D;
-    #ifdef PENJIN_GL
-        typedef Singleton<RendererGL_2d> GFX_GL_2D;
-    #endif
-    #ifdef PENJIN_3D
-        typedef Singleton<RendererSDL_3d> GFX_SDL_3D;
+    #if !PENJIN_CONSOLE
+        typedef Singleton<RendererSDL_2d> GFX_SDL_2D;
         #ifdef PENJIN_GL
-            typedef Singleton<RendererGL_3d> GFX_GL_3D;
+            typedef Singleton<RendererGL_2d> GFX_GL_2D;
         #endif
+        #ifdef PENJIN_3D
+            typedef Singleton<RendererSDL_3d> GFX_SDL_3D;
+            #ifdef PENJIN_GL
+                typedef Singleton<RendererGL_3d> GFX_GL_3D;
+            #endif
+        #endif
+    #else
+        typedef Singleton<RendererConsole_2d> GFX_CONSOLE_2D;
     #endif
     class GPU
     {

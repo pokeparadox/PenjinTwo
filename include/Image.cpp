@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+#if ! PENJIN_CONSOLE
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_rotozoom.h>
 
@@ -121,9 +121,13 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
     SCALE_MODES m = gfx->getScaleMode();
     if(m != smNONE)
     {
+        //  We check if we have a scale factor worth scaling anything.
+        Vector2d<float> sc = gfx->getPixelScale();
+        if(sc.x == 1 && sc.y == 1)
+            m = smNONE; // disable scaling
+
         if(m == smPOKESCALE)
         {
-            Vector2d<float> sc = gfx->getPixelScale();
             if (static_cast<int>(sc.x) == sc.x && sc.x == sc.y)
             {
                 #ifdef _DEBUG
@@ -161,9 +165,6 @@ Penjin::ERRORS Image::load(SDL_Surface* s)
             surface = zoomSurface(orig, sc.x, sc.y, SMOOTHING_OFF);
             SDL_FreeSurface(orig);
         }
-
-
-
         ///////////////
         // This code fixes colour keying in 32 bpp mode (otherwise the colour key colour shows)
         // It also caused the rotated images to disappear in 16 bpp mode, so only run for 32 bpp
@@ -206,7 +207,7 @@ Penjin::ERRORS Image::save(const string& file)
     ErrorMan::getInstance()->print(PENJIN_FUNCTION_IS_STUB);
     return Penjin::PENJIN_FUNCTION_IS_STUB;
 }
-
+#endif
 /*
 Penjin::ERRORS Image::setTransparentColour(CRuint i, const Colour& c)
 {

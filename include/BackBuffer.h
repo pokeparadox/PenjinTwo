@@ -18,6 +18,7 @@
 */
 #ifndef BACKBUFFER_H
 #define BACKBUFFER_H
+#if !PENJIN_CONSOLE
 #include "GFX.h"
 #include "RenderObject.h"
 #include "UpdateObject.h"
@@ -56,5 +57,5 @@ namespace Penjin
     };
 }
 
-
+#endif
 #endif // BACKBUFFER_H

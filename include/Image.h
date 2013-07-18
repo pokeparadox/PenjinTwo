@@ -18,7 +18,7 @@
 */
 #ifndef IMAGE_H_INCLUDED
 #define IMAGE_H_INCLUDED
-
+#if ! PENJIN_CONSOLE
 #include "FileObject.h"
 #include "Rectangle.h"
 #if defined(PENJIN_GL)
@@ -324,4 +324,5 @@ namespace Penjin
 */
     };
 }
+#endif
 #endif // IMAGE_H_INCLUDED

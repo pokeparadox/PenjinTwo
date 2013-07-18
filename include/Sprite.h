@@ -16,9 +16,9 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ANIMATEDSPRITE_H
-#define ANIMATEDSPRITE_H
-
+#ifndef SPRITE_H
+#define SPRITE_H
+#if !(PENJIN_CONSOLE)
 #include "Animation.h"
 #include "CollisionRegion.h"
 
@@ -220,4 +220,5 @@ namespace Penjin
             CollisionRegion* region;    // Collision info for Sprite
     };
 }
-#endif	//	ANIMATEDSPRITE_H
+#endif
+#endif	//	SPRITE_H

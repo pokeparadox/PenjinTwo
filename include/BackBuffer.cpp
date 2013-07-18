@@ -17,6 +17,7 @@
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "BackBuffer.h"
+#if !PENJIN_CONSOLE
 #include "Surface.h"
 using Penjin::BackBuffer;
 using Penjin::Surface;
@@ -138,4 +139,5 @@ BackBuffer::~BackBuffer()
         }
         delete newSurf;*/
     }
+#endif
 #endif
