@@ -28,7 +28,7 @@
 //STATE_NULL     // 0 Exit the program, this is declared in the basestate
 //STATE_BASE     // 1
 
-#include "BaseState.h"
-#include "userStates.h"
+#include "ApplicationState.h"
+//#include "userStates.h"
 
 #endif // PENJINSTATES_H_INCLUDED
