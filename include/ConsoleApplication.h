@@ -30,6 +30,8 @@ namespace Penjin
             /** Default destructor */
             virtual ~ConsoleApplication();
 
+            virtual ERRORS run()=0;
+
         protected:
         private:
     };
