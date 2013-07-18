@@ -31,15 +31,11 @@
 
 namespace Penjin
 {
-    //class ApplicationState;
-
-    class StateManager
+    class StateManager : public Object
     {
         public:
-	    typedef int StateId;
-	    static const StateId STATE_NULL = -1;
-
-            //static StateManager* getInstance();
+            typedef int StateId;
+            static const StateId STATE_NULL = -1;
 
             void addState(StateId id, ApplicationState* state);
             void setNextState(const StateId& next);
@@ -65,11 +61,7 @@ namespace Penjin
             StateId current;             /**< The ID of the currently loaded state. */
 
             std::map<StateId, ApplicationState*> states;
-
-            //static StateManager* instance;
     };
     typedef Singleton<StateManager> StateMan;
-    //typedef StateManager StateMan;
-
 }
 #endif // STATEMANAGER_H

@@ -27,8 +27,6 @@
 using Penjin::StateManager;
 using Penjin::ApplicationState;
 
-//StateManager* StateManager::instance = NULL;
-
 StateManager::StateManager() : state(NULL), next(STATE_NULL), current(STATE_NULL), states()
 {
     //ctor
@@ -40,15 +38,6 @@ StateManager::~StateManager()
     clearState();
     clear();
 }
-
-/*StateManager* StateManager::getInstance()
-{
-    if( instance == NULL )
-    {
-        instance = new StateManager;
-    }
-    return instance;
-}*/
 
 void StateManager::addState(StateId id, ApplicationState* state)
 {
