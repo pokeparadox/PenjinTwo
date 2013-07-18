@@ -23,13 +23,15 @@
 #include "GFX.h"
 #include "Colour.h"
 #include "RenderObject.h"
+#include "RotationObject.h"
+#include "ScalingObject.h"
 /**
-  * \file Primitive class is a base for gneral geometric shapes.
+  * \file Primitive class is a base for general geometric shapes.
   * \author Kevin Winfield-Pantoja
   */
 namespace Penjin
 {
-    class Primitive : public Colour, public RenderObject
+    class Primitive : public Colour, public RenderObject, public RotationObject, public ScalingObject
     {
         public:
             /** Default constructor */
