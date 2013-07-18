@@ -28,14 +28,30 @@ Rectangle::Rectangle()
     drawWidth = -1;
 }
 
+Rectangle::~Rectangle()
+{
+
+}
+
 void Rectangle::render()
 {
     GFX->setDrawColour(*this);
 
+    //  Should we do global scaling or not
     if(GFX->getScaleMode()==smNONE)
     {
-        GFX->setDrawWidth(drawWidth);
-        GFX->drawRectangle(position, dimensions);
+        //  We have to check if we do local scaling
+        if(scale.x !=1 || scale.y != 1)
+        {
+            GFX->setDrawWidth(drawWidth * scale.y);
+            GFX->drawRectangle(position, (dimensions * scale));
+        }
+        else
+        {
+            GFX->setDrawWidth(drawWidth);
+            GFX->drawRectangle(position, dimensions);
+        }
+
     }
     else
     {

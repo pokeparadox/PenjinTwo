@@ -34,6 +34,7 @@ namespace Penjin
     {
         public:
             Rectangle();
+            virtual ~Rectangle();
             /**< Render the Rectangle to screen */
             virtual void render();
     };
