@@ -93,6 +93,11 @@ namespace Penjin
              */
             void setActiveImage(CRint a);
 
+             /** \brief Get the image to displayed in the render function.
+             * \return The active image.
+             */
+            int getActiveImage()const{return activeImage;}
+
              /** \brief Return the number of sub-images contained within this ImageSheet.
              * \return the number of images
              */
