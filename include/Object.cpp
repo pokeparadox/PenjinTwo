@@ -15,25 +15,26 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
-*/#include "Object.h"
+*/
+#include "Object.h"
 using Penjin::Object;
 
 Object::Object()
 {
-    //ctor
+   //ctor
 }
 
 Object::~Object()
 {
-    //dtor
+   //dtor
 }
 
 bool Object::equals(const Object& o)
 {
-    return(sizeof(this) == sizeof(o));
+   return(sizeof(this) == sizeof(o));
 }
 
 bool Object::operator==(const Object& o)
 {
-    return equals(o);
+   return equals(o);
 }

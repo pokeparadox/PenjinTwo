@@ -15,7 +15,8 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef OBJECT_H
+*/
+#ifndef OBJECT_H
 #define OBJECT_H
 /**
  \file PenjinObject is everything and nothing. it is a generic base class from which all other will be or are created.
@@ -23,16 +24,16 @@
 
 namespace Penjin
 {
-    class Object
-    {
-        public:
-            /** Default constructor */
-            Object();
-            /** Default destructor */
-            virtual ~Object();
+   class Object
+   {
+      public:
+         /** Default constructor */
+         Object();
+         /** Default destructor */
+         virtual ~Object();
 
-            virtual bool equals(const Object& o);   /**< Compares one Object to another and return true if they are equivalent. */
-            bool operator==(const Object& o);
+         virtual bool equals(const Object& o);   /**< Compares one Object to another and return true if they are equivalent. */
+         bool operator==(const Object& o);
     };
 }
 #endif // OBJECT_H
