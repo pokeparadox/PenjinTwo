@@ -32,17 +32,17 @@
 #include "Rectangle.h"
 #include "Vector2d.h"
 #include "SimpleDirection.h"
-
+#include "CollisionInfo.h"
 
 namespace Penjin
 {
-    struct CollisionInfo
+   /* struct CollisionInfo
     {
         Vector2d<int> contactPoint;
         bool hasCollided;
         SimpleDirection direction;
         Colour type;
-    };
+    };*/
 
     class CollisionRegion
     {
@@ -59,6 +59,7 @@ namespace Penjin
             map = share;
             // Set the shared variable to show deleting is not our respinsiblity
             shared = true;
+            return PENJIN_OK;
         }
 
         Penjin::ERRORS loadImage(CRstring image)

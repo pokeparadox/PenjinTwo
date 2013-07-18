@@ -28,6 +28,16 @@ RadialObject::~RadialObject()
     //dtor
 }
 
+void RadialObject::setRadii(Vector2d<unsigned int> radii)
+{
+    setRadius(radii.x); setRadius2(radii.y);
+}
+
+void RadialObject::setDiameters(Vector2d<unsigned int> diameters)
+{
+    setDimensions(diameters);
+}
+
 void RadialObject::setRadius(unsigned int r)
 {
     setWidth(r*2);

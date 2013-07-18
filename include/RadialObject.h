@@ -30,15 +30,25 @@ namespace Penjin
             /** Default destructor */
             virtual ~RadialObject();
 
-            void setRadius(unsigned int r);
+            virtual void setRadius(unsigned int r);
             unsigned int getRadius();
-            void setRadius2(unsigned int r2);
+            virtual void setRadius2(unsigned int r2);
             unsigned int getRadius2();
+            virtual void setRadii(Vector2d<unsigned int> radii);
+            Vector2d<unsigned int> getRadii()
+            {
+                return getDimensions()*0.5f;
+            }
 
-            void setDiameter(unsigned int d);
+            virtual void setDiameter(unsigned int d);
             unsigned int getDiameter();
-            void setDiameter2(unsigned int d2);
+            virtual void setDiameter2(unsigned int d2);
             unsigned int getDiameter2();
+            virtual void setDiameters(Vector2d<unsigned int> diameters);
+            Vector2d<unsigned int> getDiameters()
+            {
+                return getDimensions();
+            }
 
         protected:
         private:

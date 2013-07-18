@@ -3,8 +3,12 @@
 
 #include "Singleton.h"
 #include "PenjinTypes.h"
+#include "CollisionInfo.h"
+
 namespace Penjin
 {
+    class Timer;
+
     class PhysicsProcessor
     {
         public:
@@ -30,7 +34,7 @@ namespace Penjin
             // Check if a point is passed a horizontal limit
             //  direction is pos or neg 1. If neg we are checking if point is passed over to below of horizontal line
             // positive value is above of this line
-            bool collidedPointHorizontalLimit(Vector2d<float> point, float xPos, int direction);
+            bool collidedPointHorizontalLimit(Vector2d<float> point, float yPos, int direction);
 
             /// Line Collisions
             // Check if a Line is on a Line
@@ -42,24 +46,30 @@ namespace Penjin
             // Check a Line crosses an Ellipse
             bool collidedLineEllipse(Vector2d<float> p1, Vector2d<float> p2, Vector2d<float> position, float r1, float r2);
 
-            /// Rectanle Collisions
+            /// Rectangle Collisions
             bool collidedRectangleRectangle(Vector2d<float> pos1, Vector2d<float> dim1,Vector2d<float> pos2, Vector2d<float> dim2);
             bool collidedRectangleCircle(Vector2d<float> pos1, Vector2d<float> dims,Vector2d<float> pos2, float radius);
             bool collidedRectangleEllipse(Vector2d<float> pos1, Vector2d<float> dims,Vector2d<float> pos2, float r1, float r2);
 
             /// Circle Collisions
             bool collidedCircleCircle(Vector2d<float> pos1, float r1,Vector2d<float> pos2, float r2);
+            bool collidedCircleCircleDirection(Vector2d<float> pos1, float r1,Vector2d<float> pos2, float r2);
             bool collidedCircleEllipse(Vector2d<float> pos1, float r1,Vector2d<float> pos2, float r2a, float r2b);
 
             /// Ellipse Collisions
             bool collidedEllipseEllipse(Vector2d<float> pos1, float r1a, float r1b,Vector2d<float> pos2, float r2a, float r2b);
 
-            //
-            // Give the coords on object A where the collision occurred -1 -1 returnon no collision.
-            //Vector2d <float> collided(a , b);
 
+            CollisionInfo getLastCollisionA()const{return lastCollisionA;}
+            CollisionInfo getLastCollisionB()const{return lastCollisionB;}
+            void resetLastCollisionA();
+            void resetLastCollisionB();
         protected:
+
         private:
+            CollisionInfo lastCollisionA;    // Stores infoof the last collision check that was performed
+            CollisionInfo lastCollisionB;
+            Timer* timer;
     };
     typedef Singleton<PhysicsProcessor> PPU;
 }
