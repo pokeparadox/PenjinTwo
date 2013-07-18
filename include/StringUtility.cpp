@@ -426,3 +426,107 @@ string StringUtility::combine(const vector<string>& tokens, CRstring delimiter)
 
 	return newString;
 }
+
+string StringUtility::getParentDirectory(string fileName)
+{
+	uint x = (uint)fileName.size();
+	while( x > 0)
+	{
+		if(fileName[x] == '/' || fileName[x] == '\\')	//Check for furthest forwardslash
+		{
+			break;
+		}
+		--x;
+	}
+
+	char output[1000];
+	unsigned int i = 0;
+
+	while ( i < x+1)
+	{
+		output[i] = fileName[i];
+		++i;
+	}
+	output[i] = 0;
+	fileName = output;
+	return fileName;	//	Return just the path
+}
+
+string StringUtility::stripParentDirectory(string line)
+{
+	char outString[1000];
+	int x = 0;
+
+	//	get to point where variable stops
+	while(line[x] != '/')
+	{
+		++x;
+	}
+	++x;
+
+	//	Copy string accross
+	uint i = 0 ;
+	while( i < line.size())
+	{
+		if(line[x] == ';')
+		{
+			line[x+1] = 0;
+		}
+		else if(line[x] == 0)
+		{
+			break;
+		}
+
+		outString[i] = line[x];
+		++x;++i;
+	}
+	outString[i] = 0;
+	return outString;
+}
+
+string StringUtility::getExtensionlessFilename(string line)
+{
+	char outString[1000];
+	uint x =0 ;
+	while( x < line.size())
+	{
+		if(line[x] != '.')
+		{
+			outString[x] = line[x];
+		}
+		else
+		{
+			break;
+		}
+		++x;
+	}
+	outString[x] = 0;
+	line = outString;
+	return line;
+}
+
+string StringUtility::getExtension(string line)
+{
+
+	char outString[5];
+	int x = line.size()-1;
+	int y = 0;
+	while( x > 0)
+	{
+		if(line[x] != '.')
+		{
+			outString[y] = line[x];
+		}
+		else
+		{
+			break;
+		}
+		--x;++y;
+	}
+	outString[y] = 0;
+
+	reverse(outString);
+	line = outString;
+	return line;
+}
+

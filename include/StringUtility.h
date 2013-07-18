@@ -114,6 +114,13 @@ namespace Penjin
         void tokenize(CRstring str, vector<string>& tokens, CRstring delimiters, CRuint maxParts);
 
         string combine(const vector<string>& tokens, CRstring delimiter = ","); // compines an array or string parts into one string seperating them with the delimiter char
+
+
+        /// Directories
+        string getExtensionlessFilename(string name);	//	gets a filename minus the extension
+        string getExtension(string name);               //  Get the extension only
+        string stripParentDirectory(string name);		//	removes the parent directory and just leaves the filename
+        string getParentDirectory(string fileName);		//	Strips the filename and only leaves the path to the parent folder
     }
 }
 #endif	//	STRINGUTILITY_H
