@@ -19,7 +19,6 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-//#include "DimensionObject.h"
 #include "Singleton.h"
 #include "Colour.h"
 #include "Surface.h"
@@ -61,6 +60,10 @@ namespace Penjin
             virtual void clear()=0;
             virtual void blit()=0;
 
+            //  Lock and unlock the screen
+            virtual void lock();
+            virtual void unlock();
+
             virtual void queueRenderObject(RenderObject* obj);
             virtual void renderQueue();
 
@@ -68,6 +71,7 @@ namespace Penjin
             virtual void drawPixel(const Vector2d<float> & v)=0;
             virtual void drawLine(const Vector2d<float> & p1, const Vector2d<float> & p2)=0;
             virtual void drawRectangle(const Vector2d<float> & pos, const Vector2d<int> & dims)=0;
+            virtual void drawCircle(const Vector2d<float> & centre, const float& r)=0;
             virtual void drawEllipse(const Vector2d<float> & centre, const float& rx, const float& ry)=0;
 
             virtual Colour getPixel(Vector2d<int> pos)=0;

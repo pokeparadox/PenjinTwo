@@ -42,6 +42,7 @@ RendererGL_2d::RendererGL_2d()
     ConfigMan::getInstance()->report("GFXSDL");
     ConfigMan::getInstance()->report("GFX2D");
     ConfigMan::getInstance()->report("GFXGL");
+    //screen = SDL_GetVideoSurface();
 }
 
 RendererGL_2d::~RendererGL_2d()
@@ -81,13 +82,14 @@ void RendererGL_2d::applyVideoSettings()
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 16);
     #endif
         flags = SDL_OPENGL;
-        SDL_Surface* screen = NULL;
+        //SDL_Surface* screen = NULL;
 
     if(fullScreen)
         flags = flags | SDL_FULLSCREEN;
     if(bpp == 0 || !(bpp == 8 || bpp == 16 || bpp == 32))
         bpp = info->vfmt->BitsPerPixel;
 
+        // We have inherited screen from the SDL renderer
         screen = SDL_SetVideoMode(resolution.x, resolution.y, bpp, flags);
         if(screen  == NULL )
             Penjin::ErrorMan::getInstance()->forceQuit(PENJIN_SDL_SETVIDEOMODE_FAILED, "RendererGL_2d::applyVideoSettings()");

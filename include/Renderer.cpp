@@ -131,6 +131,16 @@ Vector2d<float> Renderer::getPixelScale()
     return pixelScale;
 }
 
+void Renderer::lock()
+{
+
+}
+
+void Renderer::unlock()
+{
+
+}
+
 void Renderer::frameLimiter()
 {
     float sleepTime = timer->getScaler() - timer->getTicks();

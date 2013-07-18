@@ -35,6 +35,7 @@
     #include <linux/fb.h>
     #include <sys/ioctl.h>
     #include <fcntl.h>
+    #include <unistd.h>
     #ifndef FBIO_WAITFORVSYNC
         #define FBIO_WAITFORVSYNC _IOW('F', 0x20, __u32)
     #endif
@@ -53,6 +54,7 @@ RendererSDL_2d::RendererSDL_2d()
     //ctor
     ConfigMan::getInstance()->report("GFXSDL");
     ConfigMan::getInstance()->report("GFX2D");
+    //screen = SDL_GetVideoSurface();
 }
 
 RendererSDL_2d::~RendererSDL_2d()
@@ -139,24 +141,24 @@ Surface* RendererSDL_2d::scale(Surface* in, const float& s)
     Surface* out = NULL;
     out = new Surface;
     //  if the size is less than 1 we are shrinking
-    if(s<1.0f)
+    if(s<1.0f && s !=0)
     {
-        int sFactor = 0;
+        int sFactor = (int)(1.0f/s) + 0.5f;
         //  we convert some coom decimals to the integer fractions
         //  tenth of size
-        if(s == 0.1f)
+        /*if(s <= 0.1f)
             sFactor = 10;
-        else if(s == 0.16666666f)
+        else if(s <= 0.16666666f)
             sFactor = 6;
-        else if(s == 0.2f)
+        else if(s <= 0.2f)
             sFactor = 5;
         //  quarter
-        else if(s == 0.25f)
+        else if(s <= 0.25f)
             sFactor = 4;
-        else if(s == 0.33333333f)
+        else if(s <= 0.33333333f)
             sFactor = 3;
-        else if (s == 0.5f)
-            sFactor = 2;
+        else //if (s <= 0.5f)
+            sFactor = 2;*/
         out->setSurface(shrinkSurface(in->getSDL_Surface(),sFactor, sFactor));
     }
     else
@@ -411,6 +413,17 @@ void RendererSDL_2d::drawRectangle(const Vector2d<float> & pos, const Vector2d<i
     }
 }
 
+void RendererSDL_2d::drawCircle(const Vector2d<float> & centre, const float& r)
+{
+    if(drawWidth<=0)
+        filledCircleRGBA(screen, centre.x, centre.y, r, drawColour.r, drawColour.g, drawColour.b, drawColour.a);
+    else
+    {
+        //  TODO: variable width support.
+        circleRGBA(screen, centre.x, centre.y, r, drawColour.r, drawColour.g, drawColour.b, drawColour.a);
+    }
+}
+
 void RendererSDL_2d::drawEllipse(const Vector2d<float> & centre, const float& rx, const float& ry)
 {
     if(drawWidth<=0)
@@ -470,7 +483,7 @@ void RendererSDL_2d::showVideoInfo()
 // Deprecated
 SDL_Surface* RendererSDL_2d::getSDLVideoSurface()
 {
-    return screen;
+    return SDL_GetVideoSurface();
 }
 
 SDL_Surface* RendererSDL_2d::cropSurface(SDL_Surface* in, SDL_Rect* c)
@@ -482,6 +495,17 @@ SDL_Surface* RendererSDL_2d::cropSurface(SDL_Surface* in, SDL_Rect* c)
     SDL_SetColorKey(cropped, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(cropped->format,col.r,col.g,col.b));
     SDL_BlitSurface(in,c,cropped,NULL);
     return cropped;
+}
+
+
+void RendererSDL_2d::lock()
+{
+    SDL_LockSurface(screen);
+}
+
+void RendererSDL_2d::unlock()
+{
+    SDL_UnlockSurface(screen);
 }
 
 void RendererSDL_2d::lockSurface(SDL_Surface* s)

@@ -49,6 +49,10 @@ namespace Penjin
             virtual void clear();
             /**< renders the graphics to screen */
             virtual void blit();
+            /**< lock the screen */
+            virtual void lock();
+            /**< unlock the screen */
+            virtual void unlock();
 
             /** \brief Draws a pixel to the screen, depending on the renderer's Colour and line width.
              * \param v : The 2d vector of the position to render on screen in pixels
@@ -70,10 +74,16 @@ namespace Penjin
              */
             virtual void drawRectangle(const Vector2d<float> & pos, const Vector2d<int> & dims);
 
+            /** \brief Draws an Circle on the screen, depending on the renderer's Colour and line width.
+             * \param centre : The 2d vector of the centre position of the Circle in pixels.
+             * \param r : The float of the radius in pixels.
+             */
+            virtual void drawCircle(const Vector2d<float> & centre, const float& r);
+
             /** \brief Draws an Ellipse on the screen, depending on the renderer's Colour and line width.
              * \param centre : The 2d vector of the centre position of the Ellipse in pixels.
-             * \param rx : The 2d vector of the horizontal radius in pixels.
-             * \param ry : The 2d vector of the vertical radius in pixels.
+             * \param rx : The float of the horizontal radius in pixels.
+             * \param ry : The float of the vertical radius in pixels.
              */
             virtual void drawEllipse(const Vector2d<float> & centre, const float& rx, const float& ry);
 
@@ -104,13 +114,14 @@ namespace Penjin
 
             /** Default destructor */
             virtual ~RendererSDL_2d();
+            SDL_Surface* screen;
         private:
             // Used in PokeScale
             Rectangle findLeftSlope(const Vector2d<int>& px, Surface* in);
             Rectangle findRightSlope(const Vector2d<int>& px, Surface* in);
             void drawSlopes(const Rectangle& L, const Rectangle& R, const int& scale, Surface* out);
 
-            SDL_Surface* screen;
+
 
             //static RendererSDL_2d* instance;
     };
