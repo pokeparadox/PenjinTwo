@@ -8,7 +8,7 @@
 		<Option extended_obj_names="1" />
 		<Build>
 			<Target title="Lin Debug">
-				<Option output="lib/Linux/libPenjinTwoD" prefix_auto="1" extension_auto="1" />
+				<Option output="lib/Linux/PenjinTwoD" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Linux/Debug/" />
 				<Option type="3" />
 				<Option compiler="linux" />
@@ -26,7 +26,7 @@
 				</Linker>
 			</Target>
 			<Target title="Lin Release">
-				<Option output="lib/Linux/libPenjinTwo" prefix_auto="1" extension_auto="1" />
+				<Option output="lib/Linux/PenjinTwo" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Linux/Release/" />
 				<Option type="3" />
 				<Option compiler="linux" />
@@ -40,7 +40,6 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="PenjinTwoTextFile" />
 					<Add directory="$(#PenjinTwo.lib)/Linux" />
 				</Linker>
 			</Target>
@@ -57,9 +56,10 @@
 					<Add option="-DPLATFORM_PANDORA" />
 					<Add option="-DPENJIN_SDL" />
 					<Add option="-D_DEBUG" />
+					<Add directory="$(#PenjinTwo.include)/Pandora" />
 				</Compiler>
 				<Linker>
-					<Add directory="$(#PenjinTwo.lib)/Linux" />
+					<Add directory="$(#PenjinTwo.lib)/Pandora" />
 				</Linker>
 			</Target>
 			<Target title="Pandora Release">
@@ -70,19 +70,19 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-mcpu=cortex-a8" />
-					<Add option="-mfpu=neon" />
 					<Add option="-msoft-float" />
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add option="-mcpu=cortex-a8" />
+					<Add option="-mfpu=neon" />
 					<Add option="-fPIC" />
 					<Add option="-DPLATFORM_PANDORA" />
 					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#PenjinTwo.include)/Pandora" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="PenjinTwoTextFile" />
-					<Add directory="$(#PenjinTwo.lib)/Linux" />
+					<Add directory="$(#PenjinTwo.lib)/Pandora" />
 				</Linker>
 			</Target>
 		</Build>

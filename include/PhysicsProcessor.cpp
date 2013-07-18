@@ -93,7 +93,10 @@ bool PhysicsProcessor::collidedPointLine(Vector2d<float> point,Vector2d<float> l
     lastCollisionA.ticks = timer->getTicks();*/
     return false;
 }
-
+bool PhysicsProcessor::collidedLineLine(Vector2d<float> p1, Vector2d<float> p2,Vector2d<float> lineStart, Vector2d<float> lineEnd)
+{
+    return false;
+}
 
 bool PhysicsProcessor::collidedPointVerticalLimit(Vector2d<float> point, float xPos, int direction)
 {
@@ -181,6 +184,11 @@ bool PhysicsProcessor::collidedPointHorizontalLimit(Vector2d<float> point, float
         lastCollisionA.direction = diMIDDLE;
     }
     return lastCollisionA.hasCollided;*/
+}
+
+bool PhysicsProcessor::collidedPointRectangle(Vector2d<float> point,Vector2d<float> position, Vector2d<float> dimensions)
+{
+    return false;
 }
 
 bool PhysicsProcessor::collidedLineRectangle(Vector2d<float> p1, Vector2d<float> p2,Vector2d<float> position, Vector2d<float> dimensions)
