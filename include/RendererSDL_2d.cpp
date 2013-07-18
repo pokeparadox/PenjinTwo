@@ -134,6 +134,8 @@ void RendererSDL_2d::blit()
 		close(fd);
     #endif
     SDL_Flip(screen);
+    //  Should fix double buffering issue...
+    screen = getSDLVideoSurface();
 }
 
 Surface* RendererSDL_2d::scale(Surface* in, const float& s)
