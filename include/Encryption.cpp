@@ -17,24 +17,29 @@
 	along with PenjinTwo.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Encryption.h"
+#include "Random.h"
+using Penjin::Encryption;
 //	Shouldn't have to change these values.
 #define LIMIT 256
 #define RANDLIM 128
 
 Encryption::Encryption()
 {
+    rand = NULL;
+    rand = new Random;
 	//	Get and assign the encryption key.
-	key = wrapValue(Penjin::Random::randSeed(),LIMIT);
+	key = wrapValue(rand->randSeed(),LIMIT);
 
-	//	Set the seed to this key to make sure.
-	rand.setSeed(key);
+	//	Set the seed to this key to make sure it is properly wrapped within the limit.
+	rand->setSeed(key);
 
 	//	Now setup the range of the rand gen. (ASCII range)
-	rand.setLimits(0,RANDLIM);
+	rand->setLimits(0,RANDLIM);
 }
 
 Encryption::~Encryption()
 {
+    delete rand;
 }
 
 string Encryption::decryptBuffer(string buff)
@@ -62,7 +67,7 @@ string Encryption::decryptBuffer(string buff)
 	currChar = 0;
 
 	//	seed random number gen with this key
-	rand.setSeed(key);
+	rand->setSeed(key);
 
 	//	Reverse the encryption
 	while(buff[currChar] != 0)
@@ -72,7 +77,7 @@ string Encryption::decryptBuffer(string buff)
 		//	Decode each character one at a time.
 		while(temp == 0)
 		{
-			temp = wrapValue((int)buff[currChar] - (int)rand.nextInt(),LIMIT);
+			temp = wrapValue((int)buff[currChar] - (int)rand->nextInt(),LIMIT);
 		}
 
 		//	add decoded characters to output string.
@@ -86,7 +91,7 @@ string Encryption::encryptBuffer(CRstring buff)
 {
 	//	Create an encryption key.
 	//key = (char)wrapValue((int)randGen.randSeed(),(CRint)LIMIT);
-	rand.setSeed(key);
+	rand->setSeed(key);
 
 	//	create output string
 	string output;
@@ -100,7 +105,7 @@ string Encryption::encryptBuffer(CRstring buff)
 		//	Encrypt each character one at a time.
 		while(temp == 0)
 		{
-			temp = (char)wrapValue((int)buff[currChar] + rand.nextInt(),LIMIT);
+			temp = (char)wrapValue((int)buff[currChar] + rand->nextInt(),LIMIT);
 		}
 
 		//	Add the encrypted chars to the output string.

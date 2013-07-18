@@ -30,10 +30,11 @@ by Kevin Winfield-Pantoja
 #include <cstdlib>
 #include "PenjinTypes.h"
 #include "Object.h"
+#include "Singleton.h"
 
 namespace Penjin
 {
-    namespace Random
+    /*namespace Random
     {
         void setMax(CRint max);
         void setMin(CRint min);
@@ -54,31 +55,42 @@ namespace Penjin
         void setSeed(CRint seed);
         int getSeed();
         int randSeed();			//	Also returns the seed value
-    }
+    }*/
 
-    class RandomClass : public Object
+    class Random : public Object
     {
         public:
-            RandomClass(){;}
-            RandomClass(CRint min, CRint max);
+            Random();
 
-            void setSeed(CRint s){seed = s;Random::setSeed(s);}
+            Random(CRint min, CRint max);
+
+            int randSeed();			//	Also returns the seed value
+            void setSeed(CRint s){seed = s;srand(s);}
             int getSeed() const {return seed;}
 
             void setMax(CRint max);
             void setMin(CRint min);
             void setLimits(CRint min,CRint max);
 
+            bool nextBool();	//	random deterministic choice
             int nextInt();		//	get the next random int
             float nextFloat();	//	get the next float
             double nextDouble();//	get the next double
-            Fixed nextFixed();
+            Fixed nextFixed();  //  geet next 16.16 fixed point number
+
+            /// quick random numbers without setting limits
+            float nextFloat(CRint min, CRint max);
+            Fixed nextFixed(CRint min, CRint max);
+            int nextInt(CRint min, CRint max);
+            double nextDouble(CRint min, CRint max);
 
         private:
             int seed;
             int min;
             int max;
     };
+
+    typedef Singleton<Random> RandMan;
 }
 #endif	// RANDOM_H
 

@@ -28,25 +28,32 @@ ABOUT:		The encryption algorithm is mainly intended for encrypting game data, su
 
 #include <string>
 using namespace std;
-#include "Random.h"
+//#include "Random.h"
 #include "NumberUtility.h"
 
-class Encryption
+namespace Penjin
 {
-    public:
-        Encryption();
-        ~Encryption();
+    class Random;
 
-        //	NOTE: The encryption key(seed value) is stored as the last char of the encrypted string.
-        //		  It is stripped from the string on decryption.
+    class Encryption
+    {
+        public:
+            Encryption();
+            ~Encryption();
 
-        string encryptBuffer(CRstring buff);	//	Takes a string of data and returns an encrypted string.
-        string decryptBuffer(string buff);	//	Takes an encrypted string of data and returns a decrypted string.
+            //	NOTE: The encryption key(seed value) is stored as the last char of the encrypted string.
+            //		  It is stripped from the string on decryption.
 
-    private:
-        int wrapValue(int val,CRint limit){return (NumberUtility::wrapValue(val,limit));}	//	Brings value with a certain range.
-        char key;		//This is the random number seed value
-        Penjin::RandomClass rand;
-};
+            string encryptBuffer(CRstring buff);	//	Takes a string of data and returns an encrypted string.
+            string decryptBuffer(string buff);	//	Takes an encrypted string of data and returns a decrypted string.
+
+        private:
+            int wrapValue(int val,CRint limit){return (NumberUtility::wrapValue(val,limit));}	//	Brings value with a certain range.
+            char key;		//This is the random number seed value
+            Random* rand;
+    };
+}
+
+
 
 #endif	//	ENCRYPTION_H
