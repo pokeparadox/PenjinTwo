@@ -23,6 +23,7 @@
     #include <SDL/SDL.h>
 #else
     #include <ctime>
+    #include <unistd.h>
 #endif
 
 
