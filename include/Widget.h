@@ -51,7 +51,9 @@ namespace Penjin
             void setShowSelection(const bool& b);
             void setShowWidget(const bool& b);
 
+            //  True when mouse is hovering over Widget
             bool isMouseSelected();
+            //  True if mouse is hovering over Widget and LeftClick occurs.
             bool isMouseActive();
 
         protected:
@@ -65,7 +67,7 @@ namespace Penjin
             bool showHighLight; // Show the lighted areas of a Widget
             bool showLowLight;  // Show the shadowed ares of a Widget
             bool showWidget;    // Show the Widget itself.
-            bool showSelection; // Show the Selection of the Wdiget
+            bool showSelection; // Show the Selection of the Widget
     };
 }
 #endif // WIDGET_H

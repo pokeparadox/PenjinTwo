@@ -24,13 +24,13 @@
 #define WINDOW_H
 
 #include <string>
-#include "LayerObject.h"
+#include "Widget.h"
 #include "UpdateObject.h"
 using std::string;
 
 namespace Penjin
 {
-    class Window : public LayerObject, public UpdateObject
+    class Window : public Widget, public UpdateObject
     {
         public:
             /** Default constructor */
@@ -40,7 +40,6 @@ namespace Penjin
 
             /** \brief Renders this Window element */
             virtual void render();
-
             virtual void update();
 
             /** \brief When window is clicked, this function is called */

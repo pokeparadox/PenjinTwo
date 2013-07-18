@@ -61,5 +61,5 @@ void Window::minimise()
 
 void Window::update()
 {
-
+;
 }
