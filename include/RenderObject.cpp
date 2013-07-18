@@ -31,11 +31,10 @@ RenderObject::~RenderObject()
 
 void RenderObject::queueRender()
 {
-    Renderer* gfx = GFX;
     Vector2d<float> p = getScaledPosition();
     //  Check if screen position is within the resolution
     //(Allowing for scrolling something in from the left)
-    if(p.x < gfx->getWidth() && p.y < gfx->getHeight() && p.x > -gfx->getWidth() && p.y > -gfx->getHeight())
-        gfx->queueRenderObject(this);
+    if(p.x < GFX->getWidth() && p.y < GFX->getHeight() && p.x > -GFX->getWidth() && p.y > -GFX->getHeight())
+        GFX->queueRenderObject(this);
 }
 
