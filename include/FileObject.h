@@ -65,6 +65,7 @@ namespace Penjin
              *  \param f : the file name.
              */
             void setFileName(const string& f);
+            string getFileName()const;
 
         protected:
             string fileName;    //we keep a copy of the the filename if needed.

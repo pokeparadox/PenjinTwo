@@ -35,6 +35,11 @@ void FileObject::setFileName(const string& f)
     fileName = f;
 }
 
+string FileObject::getFileName()const
+{
+    return fileName;
+}
+
 Penjin::ERRORS FileObject::load()
 {
     return load(fileName);
