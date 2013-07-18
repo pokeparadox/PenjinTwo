@@ -38,7 +38,7 @@ SpriteButton::~SpriteButton()
     delete sprite;
 }
 
-Penjin::ERRORS SpriteButton::loadImage(const string& f)
+Penjin::ERRORS SpriteButton::load(const string& f)
 {
     return sprite->load(f);
 }
@@ -46,18 +46,23 @@ Penjin::ERRORS SpriteButton::loadImage(const string& f)
 void SpriteButton::render()
 {
     Button::render();
-    Vector2d<float> a = getScaledDimensions();
-    Vector2d<float> b = sprite->getDimensions();
-    // The difference of the dimensions of both objects
-    a = a - b;
-    a = a * 0.5f;
-    b = a + getScaledPosition();
-    sprite->setPosition(b);
-    sprite->render();
+    if(sprite)
+    {
+        Vector2d<float> a = getScaledDimensions();
+        Vector2d<float> b = sprite->getDimensions();
+        // The difference of the dimensions of both objects
+        a = a - b;
+        a = a * 0.5f;
+        b = a + getScaledPosition();
+
+        sprite->setPosition(b);
+        sprite->render();
+    }
 }
 
 
 void SpriteButton::update()
 {
-
+    if(sprite)
+        sprite->update();
 }

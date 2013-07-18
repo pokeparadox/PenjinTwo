@@ -42,7 +42,7 @@ namespace Penjin
             virtual void render();
             virtual void update();
 
-            Penjin::ERRORS loadImage(const string& file);
+            Penjin::ERRORS load(const string& file);
             void clearImage();
 
         protected:
