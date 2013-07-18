@@ -72,26 +72,16 @@ Text::Text() : bgColour(NULL)
 {
     TextClass::init();// auto init font library if needed.
 	font = NULL;
-	fontName = "NULL";
 	fontSize = 12;  // default to 12 point font
 
     // Dimensions are the physicsal dimensions of the screen.
-    textBox.setDimensions(GFX->getResolution() / GFX->getPixelScale());
+    setDimensions(GFX->getResolution() / GFX->getPixelScale());
 
     alignment = LEFT_JUSTIFIED;
     bgColour = new Colour(BLACK);
     relativePos = false;
     wrapText = true;
 }
-
-/*Text* Text::getInstance()
-{
-    if( instance == NULL )
-    {
-        instance = new Text;
-    }
-    return instance;
-}*/
 
 void Text::unload()
 {
@@ -134,10 +124,10 @@ Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
 {
     ErrorHandler* eMan = ErrorMan::getInstance();
     //  check if fontSize is not the same as loaded font
-    if(this->fontSize != fontSize || name != fontName)
+    if(this->fontSize != fontSize || name != getFileName())
     {
         clear();
-        #ifdef PLATFORM_WII
+        #if PLATFORM_WII
             font = TTF_OpenFont((Penjin::getWorkingDirectory() + name).c_str(), fontSize);
         #else
             font = TTF_OpenFont(name.c_str(), fontSize);
@@ -145,7 +135,7 @@ Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
     }
 	if(font)
 	{
-	    fileName = name;
+	    setFileName(name);
 	    // check if we already have Glyphs for this fontSize
 	    if(glyphs.size() >= fontSize)
 	    {
@@ -175,7 +165,7 @@ Penjin::ERRORS Text::load(CRstring name,CRuint fontSize)
         glyphs[fontSize-1][0]->setCharacter('-');    // picked because a nice square char to give us a "standard surface width"
         glyphs[fontSize-1][0]->setPosition(cursorPos.getPosition());
         glyphs[fontSize-1][0]->refresh();
-        fontName = name;
+        setFileName(name);
         this->fontSize = fontSize;
         #ifdef _DEBUG
         eMan->print(PENJIN_OK,"Text: font loaded, Size: " + StringUtility::intToString(fontSize) + "Font: " + name);
@@ -199,7 +189,7 @@ Penjin::ERRORS Text::save(CRstring fontName)
 
 Penjin::ERRORS Text::setFontSize(CRuint s)
 {
-    return load(fontName, s);
+    return load(getFileName(), s);
 }
 
 void Text::setRenderMode(const GlyphClass::RENDER_MODES& mode)
@@ -280,7 +270,7 @@ void Text::print(SDL_Surface* screen, CRstring text)
                     TTF_SizeText(font, subString.c_str(), &guess.x, &guess.y );
                 }
 
-                if(cursorPos.getX() + guess.x >= textBox.getWidth())
+                if(cursorPos.getX() + guess.x >= getWidth())
                     newLine();
                 continue;
             }
@@ -355,18 +345,11 @@ void Text::print(SDL_Surface* screen, CRstring text)
 /// TODO: Fix newlines with \n symbol.
 void Text::print(const char* text)
 {
-    #ifdef PENJIN_SDL
-    print(screen,text);
-    #elif PENJIN_GL
     string t = text;
     print(t);
-    #endif
 }
 void Text::print(CRstring text)
 {
-    #ifdef PENJIN_SDL
-    print(screen,text);
-    #elif PENJIN_GL
     //  no text, no render
     if(!text.size())
         return;
@@ -421,7 +404,7 @@ void Text::print(CRstring text)
                     TTF_SizeText(font, subString.c_str(), &guess.x, &guess.y );
                 }
 
-                if(cursorPos.getX() + guess.x >= textBox.getWidth())
+                if(cursorPos.getX() + guess.x >= getWidth())
                     newLine();
                 continue;
             }
@@ -491,18 +474,12 @@ void Text::print(CRstring text)
     }
     if(isRefreshed)
         calcDimensions();
-
-    #endif
 }
 
 void Text::print(char* text)
 {
-    #ifdef PENJIN_SDL
-    print(screen,text);
-    #elif PENJIN_GL
     string t = text;
     print(t);
-    #endif
 }
 
 /*void Text::print(SDL_Surface* screen,const char* text)
@@ -545,6 +522,11 @@ void Text::align(const Vector2d<int>& guess)
 void Text::calcDimensions()
 {
     setDimensions((int)(cursorPos.getX() - position.x + glyphs[fontSize-1][0]->getWidth()), TTF_FontLineSkip(font));
+}
+
+Vector2d<int> Text::getDimensions()
+{
+    return dimensions;
 }
 
 Vector2d<int> Text::getDimensions(CRstring str)

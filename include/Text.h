@@ -65,14 +65,14 @@ namespace Penjin
             //static Text* getInstance();
 
             Penjin::ERRORS load(CRstring fontName,CRuint fontSize);		//	Loads a TTF
-            Penjin::ERRORS load(CRstring fontName);  // Load a TTF without changing size
+            virtual Penjin::ERRORS load(CRstring fontName);  // Load a TTF without changing size
 
             virtual Penjin::ERRORS save(CRstring fontName);
 
             void unload();      // Unload the font
 
             Penjin::ERRORS setFontSize(CRuint s);
-            uint getFontSize()const{return fontSize;}
+            unsigned int getFontSize()const{return fontSize;}
             //  Sets the starting position of the text
 
 
@@ -91,6 +91,8 @@ namespace Penjin
 
             /** \brief Get the dimensions of the str*/
             Vector2d<int> getDimensions(CRstring str);
+
+            virtual Vector2d<int> getDimensions();
 
             Vector2d<int> getCursorPosition()const{return cursorPos.getPosition();}
             void setCursorPosition(const Vector2d<int> p){cursorPos.setPosition(p);}
@@ -117,16 +119,11 @@ namespace Penjin
             void calcDimensions();
             void newLine();
             TTF_Font* font;
-            string fontName;
-            uint fontSize;
+            //string fontName;
+            unsigned int fontSize;
             PositionObject cursorPos;
             // Printable area for text.
-            DimensionObject textBox;
-
-
-            #ifdef PENJIN_SDL
-                SDL_Surface* screen;
-            #endif
+            //DimensionObject textBox;
             DoubleVector<Glyph*> glyphs;  //  stores each individual charactor for printing. [FONT_SIZE][CHARACTER]
 
             bool relativePos;
