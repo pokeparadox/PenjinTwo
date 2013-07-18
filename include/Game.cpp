@@ -25,6 +25,7 @@
 #include "SimpleJoy.h"
 #include "Text.h"
 #include "ConfigManager.h"
+#include "Sound.h"
 
 /// If no alternative timer is selected we fallback to using SDL
 #ifndef PENJIN_SYS_TIMER
@@ -52,6 +53,7 @@
 using Penjin::Game;
 using Penjin::ApplicationState;
 using Penjin::ConfigManager;
+using Penjin::Sound;
 
 Game::Game()
 {
@@ -118,6 +120,11 @@ Penjin::ERRORS Game::loadConfig()
 
     GFX->applyVideoSettings();
     Penjin::TextMan::getInstance()->load(cMan->getSystemFont(), cMan->getSystemFontSize());
+    if(e != PENJIN_OK)
+        return e;
+    //  Load sound system.
+    //cMan->getAudioEngine();
+    SoundSystem::init();
     return e;
 }
 
@@ -125,6 +132,7 @@ Game::~Game()
 {
     //dtor
     ConfigMan::getInstance()->save();
+    SoundSystem::deInit();
 }
 
 
@@ -149,9 +157,12 @@ void Game::loop()
             break;
         }
         state->update();        //  Update physics/objects/logic
+        //GFX->unlock();            //  Lock the rendering surface (if needed)
         state->render();        //  render manually rendered objects
         GFX->renderQueue();     //  render objects entrusted into our (to be) optimised render queue
+        //GFX->lock();          // Unlock the rendering surface, if needed.
         GFX->blit();            //  Force the blit to the screen
+        //GFX->unlock();
         GFX->frameLimiter();    //  restrict frame rate
     }
 }
