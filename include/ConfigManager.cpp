@@ -69,6 +69,11 @@ Penjin::ERRORS ConfigManager::load(const string& fn)
             setGFXEngine("SDL");
         else if(value == "GL" && checkReport("GFXGL"))
             setGFXEngine("GL");
+        else
+        {
+            setGFXEngine("SDL");
+            ErrorMan::getInstance()->print(PENJIN_ERROR,"ConfigManager::load() - unsupported renderer, defaulting to SDL GFX.");
+        }
         value = "";
     }
     //  Check if we require the Z dimension or not.
@@ -79,6 +84,11 @@ Penjin::ERRORS ConfigManager::load(const string& fn)
             setGFXDimensions(2);
         else if(value == "3" && checkReport("GFX3D"))
             setGFXDimensions(3);
+        else
+        {
+            setGFXDimensions(2);
+            ErrorMan::getInstance()->print(PENJIN_ERROR,"ConfigManager::load() - unsupported number of dimensions, defaulting to 2D.");
+        }
         value = "";
     }
     //  Check the Audio Engine used
@@ -89,6 +99,11 @@ Penjin::ERRORS ConfigManager::load(const string& fn)
             setAudioEngine("SDL");
         else if(value == "AL" && checkReport("AudioAL"))
             setAudioEngine("AL");
+        else
+        {
+            setAudioEngine("SDL");
+            ErrorMan::getInstance()->print(PENJIN_ERROR,"ConfigManager::load() - unsupported sound system, defaulting to SDL Sound.");
+        }
         value = "";
     }
     value = config->getValue("Video","FrameRate","60");
