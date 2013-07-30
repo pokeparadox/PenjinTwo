@@ -18,12 +18,12 @@
 */#ifndef PANEL_H
 #define PANEL_H
 
-#include "Widget.h"
+#include "WidgetCollection.h"
 #include "UpdateObject.h"
 
 namespace Penjin
 {
-    class Panel : public Widget, public UpdateObject
+    class Panel : public WidgetCollection, public UpdateObject
     {
         public:
             /** Default constructor */
@@ -41,11 +41,7 @@ namespace Penjin
             // confirm the selection as active
             int selectionConfirm();
 
-            // add a configured widget to the Panel
-            void addWidget(Widget* w);
-            void editWidget(const unsigned int& i, Widget* w);
-            void removeWidget(const unsigned int& i);
-            Widget* getWidget(const unsigned int& i);
+
 
             template <class T>
             void setPosition(const T& pos)
@@ -61,11 +57,9 @@ namespace Penjin
             bool isHidden();
             void toggleHidden();
             void setShouldHide(const bool& hide);
-            void clear();
 
-            /// Size operations
-            size_t size()const{return widgets.size();}
-            bool empty()const{return !size();}
+
+
 
         protected:
             bool shouldHide;    //  retract the panel or not
@@ -76,8 +70,7 @@ namespace Penjin
             //int hideOffset;
             PositionObject startPosition;
 
-            /** We store all our widget pointers here**/
-            vector<Widget*> widgets;
+
     };
 }
 #endif // PANEL_H

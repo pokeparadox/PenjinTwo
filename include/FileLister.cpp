@@ -134,7 +134,7 @@ void FileLister::createDisplay()
         DirMenuItem* dir = new DirMenuItem;
         dir->setText(listing.at(i));
         dir->setDirType(listingTypes.at(i));
-        addWidget(dir);
+        add(dir);
         #ifdef _DEBUG
         cout << "at(" << i << ") - " <<listing.at(i) << endl;
         #endif

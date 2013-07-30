@@ -26,12 +26,14 @@ namespace Penjin
     class Menu : public Panel
     {
         public:
-
             Menu();
             virtual ~Menu();
 
             /// process menu operations and draw to screen respectively.
             virtual void update();
+
+        private:
+            void calcHeight();   // figures out the height beased on the sum of widgets
     };
 }
 #endif // MENU_H_INCLUDED

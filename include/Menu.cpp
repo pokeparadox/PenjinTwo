@@ -28,18 +28,31 @@ Menu::~Menu()
     clear();
 }
 
-void Menu::update()
+void Menu::calcHeight()
 {
-    // Now position the widgets
-    Vector2d<float> t = Rectangle::getScaledPosition();
+    int accumHeight = 0;
+    Vector2d<float> pixScale = GFX->getPixelScale();
     for(unsigned int i = 0; i < widgets.size(); ++i)
     {
-        // resize panel if a widget is too big
-        if(widgets.at(i)->getDimensions() > getDimensions())
-        {
-            setHeight(widgets.at(i)->getHeight());
-            setWidth(GFX->getWidth());
-        }
+        accumHeight += widgets.at(i)->getHeight() + (pixScale.y * 2);
+    }
+    setHeight(accumHeight);
+}
+
+void Menu::update()
+{
+    Vector2d<int> dim = getScaledDimensions();
+    //Vector2d<int> pos = getScaledPosition();      May use in future to hide Menu to left or right
+    Vector2d<int> startPos = startPosition.getScaledPosition();
+    Vector2d<float> pixScale = GFX->getPixelScale();
+    int yOffset;
+    // Now position the widgets
+    Vector2d<float> t = Rectangle::getScaledPosition();
+    int widestwidth = getWidest()->getWidth();
+    setWidth(widestwidth + (pixScale.x * 2));
+    calcHeight();
+    for(unsigned int i = 0; i < widgets.size(); ++i)
+    {
         int wCentre = widgets.at(i)->getScaledDimensions().y*0.5f;
         Vector2d<float> pixScale = GFX->getPixelScale();
         int offset = 1;//(boxCentre -wCentre) + pixScale.x;

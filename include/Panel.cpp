@@ -44,24 +44,12 @@ Panel::Panel() : shouldHide(false), hidden(false), selection(-1), padSelection(-
 Panel::~Panel()
 {
     //dtor
-    clear();
+
 }
 
-void Panel::clear()
-{
-    for(int i = widgets.size()-1; i>=0; --i)
-    {
-        delete widgets.at(i);
-        widgets.at(i) = NULL;
-    }
-    widgets.clear();
-}
 
-void Panel::addWidget(Widget* w)
-{
-    if(w != NULL)
-        widgets.push_back(w);
-}
+
+
 
 void Panel::render()
 {
