@@ -284,6 +284,8 @@
 		<Unit filename="include/VelocityObject.h" />
 		<Unit filename="include/Widget.cpp" />
 		<Unit filename="include/Widget.h" />
+		<Unit filename="include/WidgetCollection.cpp" />
+		<Unit filename="include/WidgetCollection.h" />
 		<Unit filename="include/Window.cpp" />
 		<Unit filename="include/Window.h" />
 		<Unit filename="include/WindowManager.cpp" />
