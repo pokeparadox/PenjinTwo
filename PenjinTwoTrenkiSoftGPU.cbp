@@ -7,7 +7,7 @@
 		<Option compiler="linux" />
 		<Build>
 			<Target title="Lin Debug">
-				<Option output="lib/Linux/libPenjinTwoTrenkiSoftGPUD" prefix_auto="1" extension_auto="1" />
+				<Option output="lib/Linux/PenjinTwoTrenkiSoftGPUD" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Linux/Debug" />
 				<Option type="3" />
 				<Option compiler="linux" />
@@ -22,7 +22,7 @@
 				</Linker>
 			</Target>
 			<Target title="Lin Release">
-				<Option output="lib/Linux/libPenjinTwoTrenkiSoftGPU" prefix_auto="1" extension_auto="1" />
+				<Option output="lib/Linux/PenjinTwoTrenkiSoftGPU" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Linux/Release/" />
 				<Option type="3" />
 				<Option compiler="linux" />
@@ -81,12 +81,15 @@
 		<Linker>
 			<Add directory="$(#PenjinTwo.lib)" />
 		</Linker>
+		<Unit filename="include/trenki/fixedpoint/fixed_class.h" />
+		<Unit filename="include/trenki/fixedpoint/fixed_func.cpp" />
+		<Unit filename="include/trenki/fixedpoint/fixed_func.h" />
+		<Unit filename="include/trenki/fixedpoint/fixsintab.h" />
+		<Unit filename="include/trenki/fixedpoint/stdint.h" />
 		<Unit filename="include/trenki/renderer/duffsdevice.h" />
-		<Unit filename="include/trenki/renderer/fixed_func.h" />
 		<Unit filename="include/trenki/renderer/geometry_processor.cpp" />
 		<Unit filename="include/trenki/renderer/geometry_processor.h" />
 		<Unit filename="include/trenki/renderer/irasterizer.h" />
-		<Unit filename="include/trenki/renderer/mystdint.h" />
 		<Unit filename="include/trenki/renderer/rasterizer_subdivaffine.h" />
 		<Unit filename="include/trenki/renderer/rasterizer_tsbase.h" />
 		<Unit filename="include/trenki/renderer/span.h" />
@@ -94,6 +97,7 @@
 		<Unit filename="include/trenki/renderer/stepmacros_undef.h" />
 		<Unit filename="include/trenki/renderer/util.h" />
 		<Unit filename="include/trenki/renderer/vertex_processor.h" />
+		<Unit filename="include/trenki/vector_math/vector_math.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />
