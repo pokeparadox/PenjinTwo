@@ -33,7 +33,7 @@ RendererGL_3d::RendererGL_3d()
     //  Report all features of the renderer
     ConfigMan::getInstance()->report("GFXSDL");
     ConfigMan::getInstance()->report("GFX2D");
-    ConfigMan::getInstance()->report("GFX2D");
+    ConfigMan::getInstance()->report("GFX3D");
     ConfigMan::getInstance()->report("GFXGL");
 }
 
