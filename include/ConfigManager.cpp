@@ -271,7 +271,11 @@ void ConfigManager::setBaseHeight(const int& h)
 //  Set the BitsPerPixel of the display (0 == Auto)
 void ConfigManager::setBPP(const int& bpp)
 {
-    this->bpp = bpp;
+    //  We force 16bit for software3D
+    if(checkReport("GFXSDL") && checkReport("GFX3D"))
+        this->bpp = 16;
+    else
+        this->bpp = bpp;
 }
 
 //  Set if the application is fullscreen or not (true == fullscreen)
