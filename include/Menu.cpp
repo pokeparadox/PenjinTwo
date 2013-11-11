@@ -48,8 +48,12 @@ void Menu::update()
     int yOffset;
     // Now position the widgets
     Vector2d<float> t = Rectangle::getScaledPosition();
-    int widestwidth = getWidest()->getWidth();
-    setWidth(widestwidth + (pixScale.x * 2));
+    Widget* widest = getWidest();
+    if(widest != NULL)
+    {
+        int widestwidth = widest->getWidth();
+        setWidth(widestwidth + (pixScale.x * 2));
+    }
     calcHeight();
     for(unsigned int i = 0; i < widgets.size(); ++i)
     {

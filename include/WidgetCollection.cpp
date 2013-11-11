@@ -34,6 +34,8 @@ Widget* WidgetCollection::getWidest()
 {
     int width = 0;
     int index = 0;
+    if(size() == 0)
+        return NULL;
     for(int i = size()-1; i >= 0;--i)
     {
         if(widgets.at(i)->getWidth() > width)
