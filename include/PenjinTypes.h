@@ -30,8 +30,8 @@ typedef unsigned short ushort;
 typedef unsigned char uchar;
 
 //  VECTORS - Have length() operations and such
-#include "trenki/vector_math.h"
-#include "trenki/fixed_class.h"
+#include "trenki/vector_math/vector_math.h"
+#include "trenki/fixedpoint/fixed_class.h"
 typedef fixedpoint::fixed_point<16> Fixed;                      //  Default fixed point
 #include "Vector2d.h"
 using Penjin::Vector2d;
@@ -112,6 +112,16 @@ typedef const std::string& CRstring;
     {
         Point3df vertex;
         Point4df colour;
+    };
+    struct SoftwareColourVertex2d
+    {
+        Point2df vertex;
+        Point4di colour;
+    };
+    struct SoftwareColourVertex3d
+    {
+        Point3df vertex;
+        Point4di colour;
     };
 #else
     #ifdef PENJIN_SDL
