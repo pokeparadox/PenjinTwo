@@ -25,7 +25,7 @@ void TextFile::append(CRstring data)
 	docData.push_back(data);
 }
 
-void TextFile::editLine(CRint line,CRstring newData)
+void TextFile::editLine(CRuint line,CRstring newData)
 {
 	docData[line] = newData;
 }
@@ -159,9 +159,9 @@ Penjin::ERRORS TextFile::save(CRstring file)
 	#endif
 }
 
-string TextFile::getLine(CRint line)
+string TextFile::getLine(CRuint line)
 {
-	if(line<(int)docData.size())
+	if(line<docData.size())
 		return docData[line];
 	return "PENJIN_INVALID_INDEX";
 }

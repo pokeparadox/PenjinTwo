@@ -48,8 +48,8 @@ namespace Penjin
             Penjin::ERRORS load(const vector<string>& lines);           //  Load a doc from raw lines
             virtual Penjin::ERRORS save(CRstring file);					//	Save a plain text file
             void search(CRstring target);				//	Search for a string in the doc
-            void editLine(CRint line, CRstring newData);//	replace a line of data with new data
-            string getLine(CRint line);				//	get the string data of the line
+            void editLine(CRuint line, CRstring newData);//	replace a line of data with new data
+            string getLine(CRuint line);				//	get the string data of the line
             void viewDoc();							//	View an outline of the doc
             virtual void clear();							//	Clear data out of doc.
             void append(CRstring data);				//	adds a string to the document
