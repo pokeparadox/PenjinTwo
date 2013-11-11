@@ -23,9 +23,9 @@ AUTHOR: Kevin Winfield-Pantoja
 DESCRIPTION: helper functions to Trenki's Fixed point library.
 */
 
-#include "trenki/fixed_class.h"
-#include "trenki/fixed_func.h"
-#include "trenki/vector_math.h"
+#include "trenki/fixedpoint/fixed_class.h"
+#include "trenki/fixedpoint/fixed_func.h"
+#include "trenki/vector_math/vector_math.h"
 namespace fixedpoint
 {
     template <int p>

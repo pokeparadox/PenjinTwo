@@ -27,7 +27,8 @@ void MenuItem::render()
     SpriteButton::render();
 }
 void MenuItem::update()
-{}
+{
+}
 
 
 
