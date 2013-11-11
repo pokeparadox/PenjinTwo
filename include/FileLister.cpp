@@ -195,7 +195,7 @@ void FileLister::update()
 {
     if(listing.empty())
         createListing();
-    ((Menu*)this)->update();
+    Menu::update();
 }
 
 void FileLister::render()
@@ -203,5 +203,5 @@ void FileLister::render()
     if(empty())
         createDisplay();
 
-    ((Menu*)this)->render();
+    Menu::render();
 }
