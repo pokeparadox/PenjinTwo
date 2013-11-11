@@ -45,6 +45,10 @@ Penjin::ERRORS SpriteButton::load(const string& f)
 
 void SpriteButton::render()
 {
+    //  We need to adjust the button if the sprite is larger
+    if(sprite)
+         Button::setDimensions(sprite->getDimensions());
+
     Button::render();
     if(sprite)
     {
@@ -57,6 +61,7 @@ void SpriteButton::render()
 
         sprite->setPosition(b);
         sprite->render();
+
     }
 }
 
@@ -64,5 +69,7 @@ void SpriteButton::render()
 void SpriteButton::update()
 {
     if(sprite)
+    {
         sprite->update();
+    }
 }
