@@ -68,8 +68,10 @@ namespace Penjin
             void setMode(const string & engine, const unsigned int& dims);
             Renderer* renderer;
     };
+
     typedef Singleton<GPU> GPU_SINGLETON;
     #define GFX  GPU_SINGLETON::getInstance()->renderer
+    #define GFX3D (static_cast<RendererSDL_3d*>(GFX))
 }
 
 #endif // GFX_H_INCLUDED

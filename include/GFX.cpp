@@ -74,29 +74,35 @@ void GPU::setMode(const string& engine, const unsigned int& dims)
                 out = "GPU::setMode(" + engine + ",2) - Defaulting to SDL 2D.";
                 ErrorMan::getInstance()->print(PENJIN_ERROR,out);
             }
-            #ifdef PENJIN_3D
-            else if(dims == 3)
-            {
-                if(engine == "SDL")
-                {
-                    renderer = GFX_SDL_3D::getInstance();
-                }
-                #ifdef PENJIN_GL
-                else if (engine == "GL")
-                {
-                    renderer = GFX_GL_3D::getInstance();
-                }
-                #endif
-                else
-                {
-                    renderer = GFX_SDL_3D::getInstance();
-                }
-            }
-            #endif
-  /*          else
-            {
-                renderer = GFX_SDL_2D::getInstance();
-            }*/
         #endif // PENJIN_CONSOLE
     }
+#ifdef PENJIN_3D
+    else if(dims == 3)
+    {
+        if(engine == "SDL")
+        {
+            renderer = GFX_SDL_3D::getInstance();
+            #ifdef _DEBUG
+                ErrorMan::getInstance()->print(PENJIN_OK,"GPU::setMode(SDL,3)");
+            #endif
+        }
+        #ifdef PENJIN_GL
+        else if (engine == "GL")
+        {
+            renderer = GFX_GL_3D::getInstance();
+            #ifdef _DEBUG
+                ErrorMan::getInstance()->print(PENJIN_OK,"GPU::setMode(GL,3)");
+                #endif
+        }
+        #endif
+        else
+        {
+            renderer = GFX_SDL_3D::getInstance();
+            string out = "GPU::setMode(" + engine + ",3) - Invalid GFX Engine: " + engine;
+            ErrorMan::getInstance()->print(PENJIN_ERROR,out);
+            out = "GPU::setMode(" + engine + ",3) - Defaulting to SDL 3D.";
+            ErrorMan::getInstance()->print(PENJIN_ERROR,out);
+        }
+    }
+#endif
 }
